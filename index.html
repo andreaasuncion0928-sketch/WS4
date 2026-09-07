@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THE WEDDING FILM — Elena & Adrian</title>
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;800&family=Montserrat:ital,wght@0,300;0,400;0,600;1,300&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       THEME & VARIABLES
+       ========================================================================== */
+    :root {
+      --bg-black: #0a0a0a;
+      --film-black: #121212;
+      --ivory: #f4efe6;
+      --ivory-muted: #c2bcb0;
+      --film-gray: #2a2a2a;
+      --burgundy: #6b1d2f;
+      --burgundy-bright: #9e2a44;
+      --purple-spotlight: #3a154c;
+      --purple-accent: #7b2cbf;
+      --serif-title: 'Playfair Display', Georgia, serif;
+      --serif-cinematic: 'Cinzel', serif;
+      --condensed-font: 'Bebas Neue', sans-serif;
+      --sans-body: 'Montserrat', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background-color: var(--bg-black);
+      color: var(--ivory);
+      font-family: var(--sans-body);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      selection-background-color: var(--burgundy);
+      selection-color: var(--ivory);
+    }
+
+    /* ==========================================================================
+       FILM FX, GRAIN & TEXTURES
+       ========================================================================== */
+    /* SVG Film Grain Overlay */
+    .film-grain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.12;
+      background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      animation: grainFlicker 0.2s steps(2) infinite;
+    }
+
+    @keyframes grainFlicker {
+      0% { transform: translate(0, 0); }
+      50% { transform: translate(-1%, 1%); }
+      100% { transform: translate(1%, -1%); }
+    }
+
+    /* Film Vignette & Scratches FX */
+    .film-vignette {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9998;
+      background: radial-gradient(circle, transparent 50%, rgba(0,0,0,0.85) 100%);
+    }
+
+    /* Projector Flicker Light Effect */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255, 255, 255, 0.015);
+      pointer-events: none;
+      z-index: 9997;
+      animation: projectorFlicker 0.15s infinite alternate;
+    }
+
+    @keyframes projectorFlicker {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.9; }
+    }
+
+    /* ==========================================================================
+       TYPOGRAPHY & GLOBAL STYLES
+       ========================================================================== */
+    h1, h2, h3 {
+      font-family: var(--serif-title);
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .cinematic-label {
+      font-family: var(--serif-cinematic);
+      font-size: 0.85rem;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--ivory-muted);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .subtitle-condensed {
+      font-family: var(--condensed-font);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .btn-cinema {
+      display: inline-block;
+      background: transparent;
+      border: 1px solid var(--ivory);
+      color: var(--ivory);
+      padding: 1rem 2.5rem;
+      font-family: var(--serif-cinematic);
+      font-size: 0.9rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      margin-top: 2rem;
+    }
+
+    .btn-cinema:hover {
+      background: var(--ivory);
+      color: var(--bg-black);
+      box-shadow: 0 0 25px rgba(244, 239, 230, 0.4);
+    }
+
+    .screen-section {
+      min-height: 100vh;
+      width: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 4rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(244, 239, 230, 0.05);
+    }
+
+    /* Photo Frame Stills */
+    .photo-still {
+      position: relative;
+      background-color: var(--film-gray);
+      background-size: cover;
+      background-position: center;
+      border: 1px solid rgba(244, 239, 230, 0.2);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      filter: sepia(0.2) contrast(1.1);
+    }
+
+    .photo-still::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.7) 100%);
+    }
+
+    /* ==========================================================================
+       SCREEN 1 — THE OPENING CREDITS
+       ========================================================================== */
+    #opening-credits {
+      background: #000;
+      z-index: 100;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    #opening-credits.fade-out {
+      transform: translateY(-100%);
+    }
+
+    .credit-line {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: creditFade 1s forwards;
+    }
+
+    .credit-1 { animation-delay: 0.5s; }
+    .credit-2 { animation-delay: 2.0s; }
+    .credit-3 { animation-delay: 4.0s; }
+    .credit-4 { animation-delay: 5.5s; }
+
+    @keyframes creditFade {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ==========================================================================
+       SCREEN 2 — THE TITLE CARD
+       ========================================================================== */
+    #title-card {
+      background: radial-gradient(ellipse at center, #1a080c 0%, var(--bg-black) 70%);
+    }
+
+    .title-main {
+      font-size: clamp(2.5rem, 8vw, 6rem);
+      line-height: 1.1;
+      margin: 1.5rem 0;
+      text-shadow: 0 0 20px rgba(110, 29, 47, 0.5);
+    }
+
+    /* ==========================================================================
+       SCREEN 3 — OUR STORY (HORIZONTAL SCENE STRIP)
+       ========================================================================== */
+    #our-story {
+      padding: 0;
+      align-items: flex-start;
+      overflow-x: hidden;
+    }
+
+    .story-horizontal-container {
+      display: flex;
+      overflow-x: auto;
+      width: 100vw;
+      height: 100vh;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .story-horizontal-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .scene-slide {
+      flex: 0 0 100vw;
+      height: 100vh;
+      scroll-snap-align: start;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+      background: var(--film-black);
+    }
+
+    .scene-content {
+      max-width: 900px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .scene-photo {
+      width: 100%;
+      height: 400px;
+      border-radius: 4px;
+    }
+
+    .scene-text {
+      text-align: left;
+    }
+
+    .scene-text h3 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: var(--ivory);
+    }
+
+    .scene-text p {
+      color: var(--ivory-muted);
+      font-size: 1.1rem;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    /* 35mm Frame Strip Montage for Scene 03 */
+    .montage-strip {
+      display: flex;
+      gap: 15px;
+      overflow: hidden;
+      padding: 20px 0;
+      background: #000;
+      border-top: 10px repeating-linear-gradient(90deg, #fff 0 15px, transparent 0 30px);
+      border-bottom: 10px repeating-linear-gradient(90deg, #fff 0 15px, transparent 0 30px);
+    }
+
+    .montage-frame {
+      width: 160px;
+      height: 220px;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       SCREEN 4 — THE TRAILER (DYNAMIC COUNTDOWN)
+       ========================================================================== */
+    #trailer {
+      background: #050505;
+    }
+
+    .trailer-text {
+      font-family: var(--condensed-font);
+      font-size: clamp(3rem, 10vw, 7rem);
+      letter-spacing: 8px;
+      color: var(--ivory);
+      text-transform: uppercase;
+      margin: 1rem 0;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: all 0.8s ease;
+    }
+
+    .trailer-text.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .countdown-display {
+      display: flex;
+      gap: 2rem;
+      margin-top: 3rem;
+      font-family: var(--condensed-font);
+    }
+
+    .countdown-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .countdown-number {
+      font-size: 3.5rem;
+      color: var(--burgundy-bright);
+      text-shadow: 0 0 10px rgba(158, 42, 68, 0.5);
+    }
+
+    .countdown-label {
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      color: var(--ivory-muted);
+    }
+
+    /* ==========================================================================
+       SCREEN 5 — THE WEDDING DETAILS (PRODUCTION INFO)
+       ========================================================================== */
+    #details {
+      background: var(--film-black);
+    }
+
+    .credits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+      max-width: 1000px;
+      width: 100%;
+      margin-top: 3rem;
+      text-align: left;
+    }
+
+    .credit-box {
+      border-left: 2px solid var(--burgundy);
+      padding-left: 1.5rem;
+    }
+
+    .credit-box h3 {
+      font-family: var(--serif-cinematic);
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--ivory);
+    }
+
+    .credit-box p {
+      color: var(--ivory-muted);
+      margin-bottom: 0.3rem;
+      font-size: 0.95rem;
+    }
+
+    /* ==========================================================================
+       SCREEN 6 — THE CAST (ENTOURAGE)
+       ========================================================================== */
+    #cast {
+      background: var(--bg-black);
+    }
+
+    .cast-category {
+      margin: 2.5rem 0 1rem 0;
+      font-family: var(--serif-cinematic);
+      color: var(--burgundy-bright);
+      letter-spacing: 4px;
+      font-size: 1.1rem;
+    }
+
+    .cast-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      max-width: 800px;
+    }
+
+    .cast-member {
+      font-size: 1rem;
+      letter-spacing: 1px;
+    }
+
+    .cast-member span {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--ivory-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ==========================================================================
+       SCREEN 7 — DRESS CODE (ANIMATED PURPLE SPOTLIGHT)
+       ========================================================================== */
+    #dress-code {
+      position: relative;
+      background: #08040a;
+      overflow: hidden;
+    }
+
+    .purple-spotlight {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--purple-accent) 0%, rgba(58, 21, 76, 0.4) 40%, transparent 70%);
+      border-radius: 50%;
+      filter: blur(50px);
+      opacity: 0.6;
+      animation: spotlightPulse 6s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes spotlightPulse {
+      0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.4; }
+      100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+    }
+
+    .dress-poster {
+      position: relative;
+      z-index: 2;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 4rem 3rem;
+      background: rgba(10, 10, 10, 0.6);
+      backdrop-filter: blur(10px);
+      max-width: 500px;
+    }
+
+    .color-swatch-purple {
+      width: 50px;
+      height: 50px;
+      background-color: #6a1b9a;
+      border-radius: 50%;
+      margin: 1.5rem auto;
+      border: 2px solid var(--ivory);
+      box-shadow: 0 0 15px rgba(106, 27, 154, 0.8);
+    }
+
+    /* ==========================================================================
+       SCREEN 8 — GALLERY (BEHIND THE SCENES FILM FRAMES)
+       ========================================================================== */
+    #gallery {
+      background: var(--film-black);
+    }
+
+    .gallery-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      max-width: 1100px;
+      margin-top: 3rem;
+    }
+
+    .film-frame {
+      background: #000;
+      padding: 15px 15px 40px 15px;
+      border-radius: 2px;
+      box-shadow: 0 15px 25px rgba(0,0,0,0.7);
+      transform: rotate(var(--rotation));
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .film-frame:hover {
+      transform: scale(1.05) rotate(0deg);
+      z-index: 10;
+    }
+
+    .film-frame img {
+      width: 220px;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+      filter: sepia(0.15);
+    }
+
+    .film-frame-number {
+      position: absolute;
+      bottom: 12px;
+      right: 15px;
+      font-family: monospace;
+      font-size: 0.75rem;
+      color: rgba(244, 239, 230, 0.5);
+    }
+
+    /* ==========================================================================
+       SCREEN 9 & 10 — THE NEXT CHAPTER & RSVP
+       ========================================================================== */
+    #rsvp {
+      background: #050505;
+    }
+
+    .rsvp-form {
+      margin-top: 2.5rem;
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .rsvp-btn-option {
+      background: transparent;
+      border: 1px solid rgba(244, 239, 230, 0.3);
+      color: var(--ivory);
+      padding: 1.2rem;
+      font-family: var(--serif-cinematic);
+      letter-spacing: 2px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .rsvp-btn-option:hover {
+      border-color: var(--burgundy-bright);
+      background: rgba(158, 42, 68, 0.2);
+    }
+
+    /* ==========================================================================
+       SCREEN 11 — GIFT / WEDDING FUND
+       ========================================================================== */
+    #gift {
+      background: var(--bg-black);
+    }
+
+    .fund-cards {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .fund-card {
+      border: 1px dashed rgba(244, 239, 230, 0.2);
+      padding: 2rem;
+      min-width: 250px;
+    }
+
+    /* ==========================================================================
+       SCREEN 12 — END CREDITS (ROLLING CREDITS)
+       ========================================================================== */
+    #end-credits {
+      background: #000;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .credits-roll {
+      position: absolute;
+      width: 100%;
+      bottom: -100%;
+      animation: rollCredits 25s linear infinite;
+    }
+
+    @keyframes rollCredits {
+      0% { bottom: -100%; }
+      100% { bottom: 120%; }
+    }
+
+    .credits-roll h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .credits-roll p {
+      margin: 1rem 0;
+      color: var(--ivory-muted);
+      font-size: 0.95rem;
+      letter-spacing: 2px;
+    }
+
+    /* Media Queries for Mobile Responsiveness */
+    @media (max-width: 768px) {
+      .scene-content {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .scene-photo {
+        height: 250px;
+      }
+      .credits-grid {
+        grid-template-columns: 1fr;
+      }
+      .countdown-display {
+        gap: 1rem;
+      }
+      .countdown-number {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FILM GRAIN & VIGNETTE OVERLAYS -->
+  <div class="film-grain"></div>
+  <div class="film-vignette"></div>
+
+  <!-- SCREEN 1 — THE OPENING CREDITS -->
+  <section id="opening-credits" class="screen-section">
+    <div style="max-width: 600px;">
+      <span class="cinematic-label credit-line credit-1">A FILM BY</span>
+      <h2 class="credit-line credit-2" style="font-size: 1.3rem; font-weight: 300; letter-spacing: 3px; margin-bottom: 2rem;">
+        TWO PEOPLE WHO HAPPENED TO MEET…
+      </h2>
+      <h1 class="credit-line credit-3" style="font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 1rem; color: var(--ivory);">
+        ELENA & ADRIAN
+      </h1>
+      <p class="credit-line credit-4 subtitle-condensed" style="font-size: 1.2rem; color: var(--burgundy-bright); margin-bottom: 2rem;">
+        COMING SOON • JANUARY 31, 2028
+      </p>
+      <div class="credit-line credit-4">
+        <button class="btn-cinema" onclick="startFilmExperience()">▶ ENTER THE FILM</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 2 — THE TITLE CARD -->
+  <section id="title-card" class="screen-section">
+    <span class="cinematic-label">THE STORY OF</span>
+    <h1 class="title-main">TWO PEOPLE<br>WHO FOUND EACH OTHER</h1>
+    <p class="cinematic-label" style="text-transform: none; font-style: italic; margin-top: 1rem;">
+      Based on a true story.
+    </p>
+    <a href="#our-story" class="btn-cinema" style="margin-top: 3rem;">PLAY</a>
+  </section>
+
+  <!-- SCREEN 3 — OUR STORY (HORIZONTAL SCENE STRIP) -->
+  <section id="our-story" class="screen-section">
+    <div class="story-horizontal-container">
+
+      <!-- SCENE 01 -->
+      <div class="scene-slide">
+        <div class="scene-content">
+          <div class="photo-still scene-photo" style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80');"></div>
+          <div class="scene-text">
+            <span class="cinematic-label">SCENE 01</span>
+            <h3>THE FIRST MEETING</h3>
+            <p>It started with coffee.<br>An ordinary afternoon in Manila that turned out to be anything but ordinary.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 02 -->
+      <div class="scene-slide">
+        <div class="scene-content">
+          <div class="photo-still scene-photo" style="background-image: url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80');"></div>
+          <div class="scene-text">
+            <span class="cinematic-label">SCENE 02</span>
+            <h3>THE FIRST DATE</h3>
+            <p>A three-hour conversation over dinner that felt like twenty minutes. Neither of us wanted the night to end.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 03 -->
+      <div class="scene-slide">
+        <div class="scene-content" style="grid-template-columns: 1fr;">
+          <div style="text-align: center;">
+            <span class="cinematic-label">SCENE 03</span>
+            <h3>THE YEARS IN BETWEEN</h3>
+            <p style="margin-bottom: 2rem;">A montage of shared trips, quiet mornings, loud laughter, and growing together.</p>
+          </div>
+          <!-- 35mm Frame Strip Montage -->
+          <div class="montage-strip">
+            <div class="photo-still montage-frame" style="background-image: url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=400&q=80');"></div>
+            <div class="photo-still montage-frame" style="background-image: url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=400&q=80');"></div>
+            <div class="photo-still montage-frame" style="background-image: url('https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?auto=format&fit=crop&w=400&q=80');"></div>
+            <div class="photo-still montage-frame" style="background-image: url('https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=400&q=80');"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 04 -->
+      <div class="scene-slide" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=1600&q=80') center/cover;">
+        <div style="text-align: center; max-width: 700px;">
+          <span class="cinematic-label">SCENE 04 — THE QUESTION</span>
+          <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); letter-spacing: 4px; margin-top: 1rem;">
+            AND THEN, EVERYTHING CHANGED.
+          </h2>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SCREEN 4 — THE TRAILER -->
+  <section id="trailer" class="screen-section">
+    <span class="cinematic-label">TEASER TRAILER</span>
+    <div id="trailer-sequence">
+      <div class="trailer-text" id="t-text-1">THIS YEAR…</div>
+      <div class="trailer-text" id="t-text-2">TWO PEOPLE</div>
+      <div class="trailer-text" id="t-text-3">ONE BIG QUESTION</div>
+      <div class="trailer-text" id="t-text-4" style="color: var(--burgundy-bright);">ARE GETTING MARRIED.</div>
+    </div>
+
+    <!-- Countdown Timer -->
+    <div class="countdown-display">
+      <div class="countdown-item">
+        <span class="countdown-number" id="days">00</span>
+        <span class="countdown-label">DAYS</span>
+      </div>
+      <div class="countdown-item">
+        <span class="countdown-number" id="hours">00</span>
+        <span class="countdown-label">HOURS</span>
+      </div>
+      <div class="countdown-item">
+        <span class="countdown-number" id="mins">00</span>
+        <span class="countdown-label">MINS</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 5 — THE WEDDING DETAILS -->
+  <section id="details" class="screen-section">
+    <span class="cinematic-label">PRODUCTION INFORMATION</span>
+    <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">THE MAIN EVENT</h2>
+
+    <div class="credits-grid">
+      <div class="credit-box">
+        <h3>🎬 CEREMONY</h3>
+        <p><strong>Location:</strong> San Sebastian Church</p>
+        <p><strong>Address:</strong> Plaza del Carmen, Quiapo, Manila</p>
+        <p><strong>Date:</strong> January 31, 2028</p>
+        <p><strong>Time:</strong> 3:00 PM</p>
+      </div>
+
+      <div class="credit-box">
+        <h3>🎬 RECEPTION</h3>
+        <p><strong>Location:</strong> The Manila Hotel (Fiesta Pavilion)</p>
+        <p><strong>Address:</strong> One Rizal Park, Manila</p>
+        <p><strong>Time:</strong> 6:00 PM onwards</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 6 — THE CAST -->
+  <section id="cast" class="screen-section">
+    <span class="cinematic-label">CREDITS & ENTOURAGE</span>
+    <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">THE CAST</h2>
+
+    <div class="cast-category">LEAD ROLES</div>
+    <p style="font-size: 1.2rem; letter-spacing: 2px;">ELENA SANTOS & ADRIAN CRUZ</p>
+
+    <div class="cast-category">THE ONES WHO MADE IT POSSIBLE</div>
+    <ul class="cast-list">
+      <li class="cast-member">Mr. & Mrs. Santos <span>Parents of the Bride</span></li>
+      <li class="cast-member">Mr. & Mrs. Cruz <span>Parents of the Groom</span></li>
+    </ul>
+
+    <div class="cast-category">THE SUPPORTING CAST</div>
+    <ul class="cast-list">
+      <li class="cast-member">Maid of Honor <span>Sophia Reyes</span></li>
+      <li class="cast-member">Best Man <span>Marcus Vance</span></li>
+      <li class="cast-member">Bridesmaids <span>Clara, Beatrice, Elena Jr.</span></li>
+      <li class="cast-member">Groomsmen <span>Julian, David, Mateo</span></li>
+    </ul>
+  </section>
+
+  <!-- SCREEN 7 — DRESS CODE -->
+  <section id="dress-code" class="screen-section">
+    <div class="purple-spotlight"></div>
+
+    <div class="dress-poster">
+      <span class="cinematic-label">WARDROBE / DRESS CODE</span>
+      <h2 style="font-size: 2.5rem; letter-spacing: 4px; margin-bottom: 0.5rem;">THE LOOK</h2>
+      <h3 style="font-family: var(--condensed-font); font-size: 2rem; color: #a855f7;">PURPLE FORMAL</h3>
+      
+      <div class="color-swatch-purple"></div>
+
+      <p style="color: var(--ivory-muted); font-size: 0.95rem; line-height: 1.6; font-weight: 300;">
+        Dress like you're part of the story.<br>
+        Black tie or formal evening attire in shades of deep purple, plum, violet, or classic black.
+      </p>
+    </div>
+  </section>
+
+  <!-- SCREEN 8 — GALLERY -->
+  <section id="gallery" class="screen-section">
+    <span class="cinematic-label">EXCLUSIVE STILLS</span>
+    <h2 style="font-size: 2.5rem;">BEHIND THE SCENES</h2>
+
+    <div class="gallery-container">
+      <div class="film-frame" style="--rotation: -4deg;">
+        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=500&q=80" alt="BTS 1">
+        <span class="film-frame-number">35MM — 01A</span>
+      </div>
+      <div class="film-frame" style="--rotation: 3deg;">
+        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=500&q=80" alt="BTS 2">
+        <span class="film-frame-number">35MM — 02A</span>
+      </div>
+      <div class="film-frame" style="--rotation: -2deg;">
+        <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=500&q=80" alt="BTS 3">
+        <span class="film-frame-number">35MM — 03A</span>
+      </div>
+      <div class="film-frame" style="--rotation: 5deg;">
+        <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=500&q=80" alt="BTS 4">
+        <span class="film-frame-number">35MM — 04A</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 9 & 10 — NEXT CHAPTER & RSVP -->
+  <section id="rsvp" class="screen-section">
+    <span class="cinematic-label">THE NEXT CHAPTER</span>
+    <p style="font-size: 0.9rem; letter-spacing: 3px; color: var(--ivory-muted); margin-bottom: 0.5rem;">
+      THE BEST PART OF THE STORY…
+    </p>
+    <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 1.5rem; color: var(--ivory);">
+      IS JUST BEGINNING.
+    </h2>
+    <p style="font-size: 1rem; letter-spacing: 2px; color: var(--ivory-muted); margin-bottom: 3rem;">
+      AND WE'D LOVE FOR YOU TO BE THERE.
+    </p>
+
+    <h3 style="font-family: var(--serif-cinematic); font-size: 1.5rem; letter-spacing: 3px; margin-bottom: 0.5rem;">
+      WILL YOU JOIN THE CAST?
+    </h3>
+    <p style="color: var(--ivory-muted); font-size: 0.9rem;">Your seat is waiting.</p>
+
+    <div class="rsvp-form">
+      <button class="rsvp-btn-option" onclick="openRsvpForm('YES')">
+        🎬 YES, I'LL BE THERE
+      </button>
+      <button class="rsvp-btn-option" onclick="openRsvpForm('NO')">
+        📽️ I'LL BE WATCHING FROM AFAR
+      </button>
+    </div>
+  </section>
+
+  <!-- SCREEN 11 — GIFT / WEDDING FUND -->
+  <section id="gift" class="screen-section">
+    <span class="cinematic-label">REGISTRY</span>
+    <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">THE GIFT</h2>
+    <p style="color: var(--ivory-muted); max-width: 500px;">
+      Your presence is already the greatest gift. However, if you wish to honor us with a gift, a contribution toward our new chapter would be warmly appreciated.
+    </p>
+
+    <div class="fund-cards">
+      <div class="fund-card">
+        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">WEDDING FUND</h3>
+        <p style="color: var(--ivory-muted); font-size: 0.85rem;">Bank: BPI / GCash</p>
+        <p style="color: var(--ivory-muted); font-size: 0.85rem;">Account: 1234-5678-90</p>
+      </div>
+      <div class="fund-card">
+        <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">HONEYMOON REGISTRY</h3>
+        <p style="color: var(--ivory-muted); font-size: 0.85rem;">Help us fund our next trip.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 12 — END CREDITS -->
+  <section id="end-credits" class="screen-section">
+    <div class="credits-roll">
+      <h2>THE END</h2>
+      <p style="font-style: italic; font-family: var(--serif-title); color: var(--ivory);">
+        …or perhaps, just the beginning.
+      </p>
+      <div style="margin: 4rem 0;">
+        <h1 style="font-size: 2.5rem; color: var(--ivory);">ELENA & ADRIAN</h1>
+        <p>JANUARY 31, 2028</p>
+      </div>
+      <p style="font-size: 0.8rem; opacity: 0.5;">DIRECTED BY LOVE • MANILA, PHILIPPINES</p>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+  <script>
+    /* ==========================================================================
+       AUDIO SYNTHESIZER (Simulating Film Projector Sound)
+       ========================================================================== */
+    function playProjectorSound() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+
+        // White noise node for mechanical clicking sound
+        const bufferSize = ctx.sampleRate * 2;
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const output = buffer.getChannelData(0);
+        
+        for (let i = 0; i < bufferSize; i++) {
+          output[i] = Math.random() * 2 - 1;
+        }
+
+        const whiteNoise = ctx.createBufferSource();
+        whiteNoise.buffer = buffer;
+        whiteNoise.loop = true;
+
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.value = 800;
+
+        const gainNode = ctx.createGain();
+        gainNode.gain.value = 0.03;
+
+        whiteNoise.connect(filter);
+        filter.connect(gainNode);
+        gainNode.connect(ctx.destination);
+
+        whiteNoise.start();
+      } catch (e) {
+        console.log("Audio synthesis not supported or muted.");
+      }
+    }
+
+    /* Transition from Screen 1 to Film Experience */
+    function startFilmExperience() {
+      playProjectorSound();
+      const creditsScreen = document.getElementById('opening-credits');
+      creditsScreen.classList.add('fade-out');
+      setTimeout(() => {
+        creditsScreen.style.display = 'none';
+      }, 1200);
+    }
+
+    /* ==========================================================================
+       COUNTDOWN TIMER (TARGET: JAN 31, 2028)
+       ========================================================================== */
+    const weddingDate = new Date('January 31, 2028 15:00:00').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = weddingDate - now;
+
+      if (distance > 0) {
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+        document.getElementById('days').innerText = days < 10 ? '0' + days : days;
+        document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+        document.getElementById('mins').innerText = minutes < 10 ? '0' + minutes : minutes;
+      }
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    /* ==========================================================================
+       TRAILER TEXT ANIMATION TRIGGER ON SCROLL
+       ========================================================================== */
+    const trailerTexts = [
+      document.getElementById('t-text-1'),
+      document.getElementById('t-text-2'),
+      document.getElementById('t-text-3'),
+      document.getElementById('t-text-4')
+    ];
+
+    let trailerAnimated = false;
+    window.addEventListener('scroll', () => {
+      const trailerSection = document.getElementById('trailer');
+      const rect = trailerSection.getBoundingClientRect();
+
+      if (rect.top < window.innerHeight / 2 && !trailerAnimated) {
+        trailerAnimated = true;
+        trailerTexts.forEach((el, index) => {
+          setTimeout(() => {
+            el.classList.add('visible');
+          }, index * 800);
+        });
+      }
+    });
+
+    /* RSVP Form Handler */
+    function openRsvpForm(response) {
+      alert(`Thank you for your response: ${response}. Redirecting to Google Form...`);
+      // Replace URL with your actual Google Form link:
+      // window.location.href = "https://forms.google.com/";
+    }
+  </script>
+</body>
+</html>
