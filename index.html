@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elena & Adrian — 31 · 01 · 2028</title>
+    <title>Elena & Adrian — January 31, 2028</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -81,28 +81,28 @@
         }
 
         /* Visual Rhythm Theme Styles */
-        .theme-dark-memory {
+        .theme-dark {
             background-color: var(--bg-dark);
             color: var(--text-light-primary);
         }
-        .theme-dark-memory .section-label { color: var(--accent-gold); }
-        .theme-dark-memory .section-title { color: var(--text-light-primary); }
-        .theme-dark-memory .body-text { color: var(--text-light-secondary); }
+        .theme-dark .section-label { color: var(--accent-gold); }
+        .theme-dark .section-title { color: var(--text-light-primary); }
+        .theme-dark .body-text { color: var(--text-light-secondary); }
 
-        .theme-warm-present {
+        .theme-warm {
             background-color: var(--bg-warm-ivory);
             color: var(--text-dark-primary);
         }
-        .theme-warm-present .section-label { color: var(--accent-gold); }
-        .theme-warm-present .section-title { color: var(--text-dark-primary); }
-        .theme-warm-present .body-text { color: var(--text-dark-secondary); }
+        .theme-warm .section-label { color: var(--accent-gold); }
+        .theme-warm .section-title { color: var(--text-dark-primary); }
+        .theme-warm .body-text { color: var(--text-dark-secondary); }
 
-        .theme-dark-gallery {
+        .theme-charcoal {
             background-color: var(--bg-charcoal);
             color: var(--text-light-primary);
         }
-        .theme-dark-gallery .section-label { color: var(--accent-gold); }
-        .theme-dark-gallery .section-title { color: var(--text-light-primary); }
+        .theme-charcoal .section-label { color: var(--accent-gold); }
+        .theme-charcoal .section-title { color: var(--text-light-primary); }
 
         .section-label {
             font-size: 0.7rem;
@@ -142,20 +142,20 @@
             margin-top: 25px;
         }
 
-        .theme-dark-memory .btn, .theme-dark-gallery .btn {
+        .theme-dark .btn, .theme-charcoal .btn {
             border: 1px solid var(--accent-gold);
             color: var(--text-light-primary);
         }
-        .theme-dark-memory .btn:hover, .theme-dark-gallery .btn:hover {
+        .theme-dark .btn:hover, .theme-charcoal .btn:hover {
             background: var(--accent-gold);
             color: var(--bg-dark);
         }
 
-        .theme-warm-present .btn {
+        .theme-warm .btn {
             border: 1px solid var(--text-dark-primary);
             color: var(--text-dark-primary);
         }
-        .theme-warm-present .btn:hover {
+        .theme-warm .btn:hover {
             background: var(--text-dark-primary);
             color: var(--bg-warm-ivory);
         }
@@ -177,10 +177,10 @@
             transition: opacity 0.3s ease;
             text-decoration: none;
         }
-        .theme-dark-memory .scroll-down-arrow, .theme-dark-gallery .scroll-down-arrow {
+        .theme-dark .scroll-down-arrow, .theme-charcoal .scroll-down-arrow {
             color: var(--accent-gold);
         }
-        .theme-warm-present .scroll-down-arrow {
+        .theme-warm .scroll-down-arrow {
             color: var(--text-dark-primary);
         }
 
@@ -191,7 +191,7 @@
         }
 
         /* -------------------------------------------------------------
-           ACT I — SCREEN 01, 02, 03 (CINEMATIC OVERLAY & REVEAL)
+           01 — OPENING (CINEMATIC OVERLAY & REVEAL)
         ------------------------------------------------------------- */
         #cinematic-overlay {
             position: fixed;
@@ -244,12 +244,35 @@
         }
 
         /* -------------------------------------------------------------
-           ACT II — SCREEN 05 (EMOTIONAL MEMORY TIMELINE)
+           03 & 04 — CHAPTER ONE & THE LITTLE THINGS
         ------------------------------------------------------------- */
+        .photo-frame {
+            width: 100%;
+            max-width: 480px;
+            height: 320px;
+            margin: 15px auto;
+            overflow: hidden;
+            border: 1px solid var(--border-dark-card);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(10%);
+            transition: var(--transition-smooth);
+        }
+
+        .photo-frame:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.03);
+        }
+
         .timeline-container {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
             max-width: 650px;
             width: 100%;
             max-height: 58vh;
@@ -263,13 +286,13 @@
             gap: 20px;
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid var(--border-dark-card);
-            padding: 15px 20px;
+            padding: 12px 18px;
             text-align: left;
         }
 
         .timeline-photo {
-            width: 100px;
-            height: 75px;
+            width: 90px;
+            height: 70px;
             object-fit: cover;
             border: 1px solid var(--border-dark-card);
             flex-shrink: 0;
@@ -277,18 +300,42 @@
 
         .timeline-content h4 {
             font-family: var(--font-serif);
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             color: var(--accent-gold);
             font-weight: 400;
         }
 
         .timeline-content p {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             color: var(--text-light-secondary);
         }
 
         /* -------------------------------------------------------------
-           ACT II — SCREEN 07 (THE WEDDING DETAILS)
+           05 — SOMEWHERE ALONG THE WAY (FULL SCREEN PAUSE)
+        ------------------------------------------------------------- */
+        #screen-05 {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+
+        #screen-05::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('picture5.jpeg');
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+        }
+
+        #screen-05 .fade-in {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* -------------------------------------------------------------
+           07, 08, 09 — THE PEOPLE, THE DAY, THE DETAILS
         ------------------------------------------------------------- */
         .details-grid {
             display: grid;
@@ -301,7 +348,7 @@
 
         .details-box {
             background: rgba(255, 255, 255, 0.6);
-            padding: 35px 25px;
+            padding: 30px 25px;
             border: 1px solid var(--border-light-card);
             backdrop-filter: blur(5px);
         }
@@ -310,41 +357,38 @@
             font-family: var(--font-serif);
             font-size: 1.8rem;
             font-weight: 400;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             color: var(--text-dark-primary);
         }
 
         .details-box p {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--text-dark-secondary);
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
-        /* -------------------------------------------------------------
-           ACT II — SCREEN 08 (THE PEOPLE WHO HAVE BEEN THERE)
-        ------------------------------------------------------------- */
         .people-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 30px;
             width: 100%;
             max-width: 900px;
-            margin-top: 25px;
+            margin-top: 20px;
         }
 
         .people-group {
             background: rgba(255, 255, 255, 0.6);
-            padding: 25px 20px;
+            padding: 20px;
             border: 1px solid var(--border-light-card);
         }
 
         .people-group h4 {
             font-family: var(--font-serif);
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             color: var(--text-dark-primary);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             border-bottom: 1px solid var(--border-light-card);
-            padding-bottom: 8px;
+            padding-bottom: 6px;
         }
 
         .people-group ul { list-style: none; }
@@ -354,22 +398,19 @@
             margin-bottom: 6px;
         }
 
-        /* -------------------------------------------------------------
-           ACT II — SCREEN 09 (THE DETAILS)
-        ------------------------------------------------------------- */
         .info-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
             width: 100%;
             max-width: 950px;
-            margin-top: 25px;
+            margin-top: 20px;
         }
 
         .info-card {
             background: rgba(255, 255, 255, 0.6);
             border: 1px solid var(--border-light-card);
-            padding: 25px 20px;
+            padding: 22px 18px;
             text-align: center;
         }
 
@@ -377,32 +418,24 @@
             font-size: 0.75rem;
             letter-spacing: 0.2em;
             color: var(--accent-gold);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .info-card p {
             font-size: 0.85rem;
             color: var(--text-dark-secondary);
-        }
-
-        .color-swatch {
-            width: 24px;
-            height: 24px;
-            background-color: var(--accent-purple);
-            border-radius: 50%;
-            margin: 10px auto 0 auto;
-            border: 1px solid var(--border-light-card);
+            margin-bottom: 3px;
         }
 
         /* -------------------------------------------------------------
-           ACT III — SCREEN 10 (THE LITTLE THINGS GALLERY)
+           10 — THE MEMORIES (THE LITTLE THINGS GALLERY)
         ------------------------------------------------------------- */
         .gallery-grid {
             columns: 3 200px;
             column-gap: 12px;
             width: 100%;
             max-width: 900px;
-            margin-top: 25px;
+            margin-top: 20px;
             max-height: 55vh;
             overflow-y: auto;
             padding-right: 5px;
@@ -429,125 +462,149 @@
         }
 
         /* -------------------------------------------------------------
-           ACT III — SCREEN 11 (RSVP)
+           11 — RSVP
         ------------------------------------------------------------- */
         .rsvp-form-container {
             width: 100%;
             max-width: 550px;
-            margin-top: 25px;
+            margin-top: 20px;
         }
 
         .google-form-iframe {
             width: 100%;
-            height: 420px;
+            height: 400px;
             border: none;
             background: rgba(255, 255, 255, 0.6);
             border: 1px solid var(--border-light-card);
         }
 
-        /* Mobile Adjustments */
+        /* Mobile Layout */
         @media (max-width: 768px) {
             .section-title { font-size: 2.2rem; }
             .body-text { font-size: 1.25rem; }
             .details-grid { grid-template-columns: 1fr; gap: 20px; }
             .gallery-grid { columns: 2 130px; max-height: 50vh; }
             .timeline-item { flex-direction: column; text-align: center; }
-            .timeline-photo { width: 100%; height: 120px; }
+            .timeline-photo { width: 100%; height: 110px; }
         }
     </style>
 </head>
 <body>
 
     <!-- =============================================================
-         ACT I — THEN (SCREEN 01 & SCREEN 02)
+         01 — THE OPENING (SCREEN 01)
     ============================================================= -->
     <div id="cinematic-overlay">
-        <!-- 7-Second vid.mp4 -->
+        <!-- 7-Second Video File -->
         <video id="bg-video" autoplay muted playsinline>
             <source src="vid.mp4" type="video/mp4">
         </video>
 
         <div class="overlay-text-box">
-            <!-- Screen 01: 0:02–0:05 text -->
-            <div class="overlay-text" id="fb-text-1">before this day</div>
-
-            <!-- Screen 02: Pause & Statements -->
-            <div class="overlay-text" id="fb-text-2">And somehow...</div>
-            <div class="overlay-text" id="fb-text-3" style="font-size: 2.5rem; letter-spacing: 0.1em;">HERE WE ARE.</div>
+            <!-- 0:02–0:04 Line -->
+            <div class="overlay-text" id="fb-text-1">We've shared so many little moments...</div>
+            <!-- 0:04–0:06 Line -->
+            <div class="overlay-text" id="fb-text-2">and somehow, they led us here.</div>
         </div>
     </div>
 
 
     <!-- =============================================================
-         ACT I — SCREEN 03 — THE REVEAL
+         01 — THE OPENING (REVEAL)
     ============================================================= -->
-    <section id="screen-03" class="theme-dark-memory">
+    <section id="screen-01-reveal" class="theme-dark">
         <div class="fade-in">
             <p class="section-label">WE'RE GETTING MARRIED.</p>
             <h1 class="serif" style="font-size: 4rem; font-weight: 300; margin-bottom: 0.5rem;">ELENA & ADRIAN</h1>
-            <p class="uppercase" style="font-size: 0.9rem; letter-spacing: 0.3em; color: var(--accent-gold); margin-bottom: 1.5rem;">31 · 01 · 2028</p>
-            <a href="javascript:void(0)" onclick="scrollToNextSection(this)" class="btn">ENTER &#x2192;</a>
+            <p class="uppercase" style="font-size: 0.9rem; letter-spacing: 0.3em; color: var(--accent-gold); margin-bottom: 1.5rem;">January 31, 2028</p>
+            <p class="body-text italic" style="font-size: 1.2rem; margin-bottom: 10px;">And we'd love for you to be there.</p>
+            <a href="javascript:void(0)" onclick="scrollToNextSection(this)" class="btn">ENTER OUR STORY &#x2192;</a>
         </div>
         <button class="scroll-down-arrow" onclick="scrollToNextSection(this)" aria-label="Scroll Down">&#x2193;</button>
     </section>
 
 
     <!-- =============================================================
-         ACT II — SCREEN 04 — OUR STORY
+         02 — ENTER OUR STORY
     ============================================================= -->
-    <section id="screen-04" class="theme-dark-memory">
+    <section id="screen-02" class="theme-dark">
         <div class="fade-in">
             <p class="section-label">OUR STORY</p>
-            <h2 class="section-title">It started somewhere ordinary.</h2>
-            <p class="body-text" style="margin-bottom: 1.5rem;">
-                A chance encounter on a rainy afternoon, shared coffees that turned into hours of talking, and quiet wrong turns on empty roads. We didn't plan it—it just happened.
-            </p>
-            <p class="body-text italic" style="color: var(--accent-gold);">
-                "And little by little, ordinary days became our favorite ones."
-            </p>
+            <h2 class="section-title">It started with the little things.</h2>
+            <div class="body-text" style="line-height: 2;">
+                <p>The ordinary days.</p>
+                <p>The spontaneous plans.</p>
+                <p>The places we went.</p>
+                <p class="italic" style="color: var(--accent-gold); margin-top: 10px;">The moments we didn't know we'd remember forever.</p>
+            </div>
+            <p class="uppercase" style="font-size: 0.75rem; letter-spacing: 0.3em; color: var(--text-light-muted); margin-top: 30px;">SCROLL TO BEGIN ↓</p>
         </div>
         <button class="scroll-down-arrow" onclick="scrollToNextSection(this)" aria-label="Scroll Down">&#x2193;</button>
     </section>
 
 
     <!-- =============================================================
-         ACT II — SCREEN 05 — THE MOMENTS (EMOTIONAL TIMELINE)
+         03 — THE BEGINNING (CHAPTER ONE)
     ============================================================= -->
-    <section id="screen-05" class="theme-dark-memory">
+    <section id="screen-03" class="theme-dark">
+        <div class="fade-in">
+            <p class="section-label">CHAPTER ONE</p>
+            <h2 class="section-title">WHERE IT STARTED</h2>
+            <div class="photo-frame">
+                <img src="picture1.jpeg" alt="The Beginning">
+            </div>
+            <p class="uppercase" style="color: var(--accent-gold); font-size: 0.85rem; margin-top: 10px;">2019</p>
+            <p class="body-text italic" style="font-size: 1.15rem; margin-top: 5px;">"We didn't know it then, but this was the beginning."</p>
+        </div>
+        <button class="scroll-down-arrow" onclick="scrollToNextSection(this)" aria-label="Scroll Down">&#x2193;</button>
+    </section>
+
+
+    <!-- =============================================================
+         04 — THE LITTLE THINGS (TIMELINE)
+    ============================================================= -->
+    <section id="screen-04" class="theme-dark">
         <div class="fade-in" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
-            <p class="section-label">THE MOMENTS</p>
-            <h2 class="section-title" style="margin-bottom: 20px;">The years that brought us here</h2>
+            <p class="section-label">THE LITTLE THINGS</p>
 
             <div class="timeline-container">
                 <div class="timeline-item">
-                    <img src="picture1.jpeg" alt="The Beginning" class="timeline-photo">
+                    <img src="picture1.jpeg" alt="2019" class="timeline-photo">
                     <div class="timeline-content">
-                        <h4>THE BEGINNING — 2019</h4>
-                        <p>The first hello.</p>
+                        <h4>2019</h4>
+                        <p>The beginning</p>
                     </div>
                 </div>
 
-                <div class="timeline-item">
-                    <img src="picture2.jpeg" alt="The Years" class="timeline-photo">
+                <div class="timeline-card timeline-item">
+                    <img src="picture2.jpeg" alt="2020" class="timeline-photo">
                     <div class="timeline-content">
-                        <h4>THE YEARS — 2020–2024</h4>
-                        <p>The years that became us.</p>
+                        <h4>2020</h4>
+                        <p>New memories</p>
                     </div>
                 </div>
 
-                <div class="timeline-item">
-                    <img src="picture3.jpeg" alt="The Question" class="timeline-photo">
+                <div class="timeline-card timeline-item">
+                    <img src="picture3.jpeg" alt="2022" class="timeline-photo">
                     <div class="timeline-content">
-                        <h4>THE QUESTION — 2025</h4>
-                        <p>The moment everything changed.</p>
+                        <h4>2022</h4>
+                        <p>More places. More stories.</p>
                     </div>
                 </div>
 
-                <div class="timeline-item" style="border-color: var(--accent-gold);">
-                    <img src="picture4.jpeg" alt="Today" class="timeline-photo">
+                <div class="timeline-card timeline-item">
+                    <img src="picture4.jpeg" alt="2025" class="timeline-photo">
                     <div class="timeline-content">
-                        <h4 style="color: var(--text-light-primary);">TODAY — 2028</h4>
-                        <p style="color: var(--accent-gold);">And now, we're here.</p>
+                        <h4>2025</h4>
+                        <p>Life started feeling like ours.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-card timeline-item" style="border-color: var(--accent-gold);">
+                    <img src="picture5.jpeg" alt="2028" class="timeline-photo">
+                    <div class="timeline-content">
+                        <h4 style="color: var(--accent-gold);">2028</h4>
+                        <p style="color: var(--text-light-primary);">And here we are.</p>
                     </div>
                 </div>
             </div>
@@ -557,14 +614,28 @@
 
 
     <!-- =============================================================
-         ACT II — SCREEN 06 — NOW (EMOTIONAL RESET & COUNTDOWN)
+         05 — SOMEWHERE ALONG THE WAY (FULL-SCREEN PAUSE)
     ============================================================= -->
-    <section id="screen-06" class="theme-warm-present">
+    <section id="screen-05" class="theme-dark">
         <div class="fade-in">
-            <p class="section-label">PAGE 06 — NOW</p>
-            <h2 class="section-title" style="font-size: 2.2rem; font-weight: 300;">AFTER ALL THOSE MOMENTS...</h2>
-            <h1 class="serif" style="font-size: 4rem; color: var(--accent-gold); margin-bottom: 1rem;">THIS ONE.</h1>
-            <p class="uppercase" style="letter-spacing: 0.25em; font-weight: 500; margin-bottom: 2rem;">31 JANUARY 2028</p>
+            <h1 class="serif" style="font-size: 3.5rem; font-weight: 300; line-height: 1.4;">
+                Somewhere along the way,<br>
+                <span class="italic" style="color: var(--accent-gold);">we became us.</span>
+            </h1>
+        </div>
+        <button class="scroll-down-arrow" onclick="scrollToNextSection(this)" aria-label="Scroll Down">&#x2193;</button>
+    </section>
+
+
+    <!-- =============================================================
+         06 — NOW (COUNTDOWN)
+    ============================================================= -->
+    <section id="screen-06" class="theme-warm">
+        <div class="fade-in">
+            <p class="section-label">NOW</p>
+            <h2 class="section-title">WE'RE GETTING MARRIED.</h2>
+            <p class="serif" style="font-size: 2.2rem; color: var(--accent-gold); margin-bottom: 5px;">ELENA & ADRIAN</p>
+            <p class="uppercase" style="letter-spacing: 0.25em; font-weight: 500; margin-bottom: 2rem;">JANUARY 31, 2028</p>
 
             <div style="display: flex; gap: 35px; justify-content: center;">
                 <div>
@@ -590,41 +661,13 @@
 
 
     <!-- =============================================================
-         ACT II — SCREEN 07 — THE WEDDING
+         07 — THE PEOPLE
     ============================================================= -->
-    <section id="screen-07" class="theme-warm-present">
-        <div class="fade-in">
-            <p class="section-label">THE WEDDING</p>
-            <h2 class="section-title">JOIN US IN CELEBRATION</h2>
-            
-            <div class="details-grid">
-                <div class="details-box">
-                    <h3>THE CEREMONY</h3>
-                    <p style="font-weight: 500; color: var(--text-dark-primary);">SAN SEBASTIAN CHURCH</p>
-                    <p>Plaza del Carmen, Quiapo, Manila</p>
-                    <p style="margin-top: 10px; font-weight: 500; color: var(--accent-gold);">3:30 PM</p>
-                </div>
-
-                <div class="details-box">
-                    <h3>THE RECEPTION</h3>
-                    <p style="font-weight: 500; color: var(--text-dark-primary);">MANILA HOTEL</p>
-                    <p>One Rizal Park, Ermita, Manila</p>
-                    <p style="margin-top: 10px; font-weight: 500; color: var(--accent-gold);">6:00 PM</p>
-                </div>
-            </div>
-        </div>
-        <button class="scroll-down-arrow" onclick="scrollToNextSection(this)" aria-label="Scroll Down">&#x2193;</button>
-    </section>
-
-
-    <!-- =============================================================
-         ACT II — SCREEN 08 — THE PEOPLE
-    ============================================================= -->
-    <section id="screen-08" class="theme-warm-present">
+    <section id="screen-07" class="theme-warm">
         <div class="fade-in">
             <p class="section-label">THE PEOPLE</p>
-            <h2 class="section-title">THE PEOPLE WHO HAVE BEEN THERE</h2>
-            <p class="body-text" style="font-size: 1.15rem; margin-bottom: 1rem;">The ones who've shared the years with us.</p>
+            <h2 class="section-title">THE PEOPLE WE LOVE</h2>
+            <p class="body-text" style="font-size: 1.15rem; margin-bottom: 1rem;">We wouldn't be here without the people who have been part of our journey.</p>
 
             <div class="people-grid">
                 <div class="people-group">
@@ -635,7 +678,7 @@
                     </ul>
                 </div>
                 <div class="people-group">
-                    <h4>BRIDAL PARTY</h4>
+                    <h4>OUR BRIDAL PARTY</h4>
                     <ul>
                         <li>Clara Santos — Maid of Honor</li>
                         <li>Julian Reyes — Best Man</li>
@@ -656,35 +699,28 @@
 
 
     <!-- =============================================================
-         ACT II — SCREEN 09 — THE DETAILS
+         08 — THE DAY (CEREMONY & RECEPTION)
     ============================================================= -->
-    <section id="screen-09" class="theme-warm-present">
+    <section id="screen-08" class="theme-warm">
         <div class="fade-in">
-            <p class="section-label">THE DETAILS</p>
-            <h2 class="section-title">PRACTICAL INFORMATION</h2>
-
-            <div class="info-cards">
-                <div class="info-card">
-                    <h4>WHAT TO WEAR</h4>
-                    <p style="font-weight: 500;">PURPLE · FORMAL ATTIRE</p>
-                    <div class="color-swatch"></div>
+            <p class="section-label">THE DAY</p>
+            <h2 class="section-title">THE WEDDING DETAILS</h2>
+            
+            <div class="details-grid">
+                <div class="details-box">
+                    <h3>THE CEREMONY</h3>
+                    <p style="font-weight: 500; color: var(--text-dark-primary);">SAN SEBASTIAN CHURCH</p>
+                    <p style="font-weight: 500; color: var(--accent-gold);">3:30 PM</p>
+                    <p style="margin-top: 8px;">Pasaje del Carmen, Quiapo, Manila</p>
+                    <a href="https://maps.google.com/?q=San+Sebastian+Church+Quiapo+Manila" target="_blank" style="color: var(--text-dark-primary); font-size: 0.75rem; text-decoration: underline; display: inline-block; margin-top: 10px;">VIEW LOCATION →</a>
                 </div>
 
-                <div class="info-card">
-                    <h4>WHERE TO GO</h4>
-                    <p>San Sebastian Church</p>
-                    <p>Manila Hotel</p>
-                </div>
-
-                <div class="info-card">
-                    <h4>WHEN</h4>
-                    <p>January 31, 2028</p>
-                    <p>Ceremony doors open 3:00 PM</p>
-                </div>
-
-                <div class="info-card">
-                    <h4>RSVP</h4>
-                    <p>Kindly confirm attendance below.</p>
+                <div class="details-box">
+                    <h3>THE RECEPTION</h3>
+                    <p style="font-weight: 500; color: var(--text-dark-primary);">MANILA HOTEL</p>
+                    <p style="font-weight: 500; color: var(--accent-gold);">6:00 PM</p>
+                    <p style="margin-top: 8px;">1 Rizal Park, Ermita, Manila</p>
+                    <a href="https://maps.google.com/?q=Manila+Hotel+Ermita+Manila" target="_blank" style="color: var(--text-dark-primary); font-size: 0.75rem; text-decoration: underline; display: inline-block; margin-top: 10px;">VIEW LOCATION →</a>
                 </div>
             </div>
         </div>
@@ -693,13 +729,51 @@
 
 
     <!-- =============================================================
-         ACT III — SCREEN 10 — THE MEMORIES (THE LITTLE THINGS)
+         09 — THE DETAILS
     ============================================================= -->
-    <section id="screen-10" class="theme-dark-gallery">
+    <section id="screen-09" class="theme-warm">
         <div class="fade-in">
-            <p class="section-label">THE MEMORIES</p>
+            <p class="section-label">THE DETAILS</p>
+            <h2 class="section-title">GUEST INFORMATION</h2>
+
+            <div class="info-cards">
+                <div class="info-card">
+                    <h4>WHAT TO WEAR</h4>
+                    <p style="font-weight: 500; color: var(--accent-purple);">PURPLE</p>
+                    <p>Formal Attire</p>
+                </div>
+
+                <div class="info-card">
+                    <h4>WHEN</h4>
+                    <p style="font-weight: 500;">JANUARY 31, 2028</p>
+                    <p>Ceremony doors open 3:00 PM</p>
+                </div>
+
+                <div class="info-card">
+                    <h4>WHERE</h4>
+                    <p>San Sebastian Church — Ceremony</p>
+                    <p>Manila Hotel — Reception</p>
+                </div>
+
+                <div class="info-card">
+                    <h4>WHAT TO BRING</h4>
+                    <p>Yourself.</p>
+                    <p>Your best dance moves.</p>
+                    <p class="italic" style="color: var(--accent-gold);">And maybe a tissue. ;)</p>
+                </div>
+            </div>
+        </div>
+        <button class="scroll-down-arrow" onclick="scrollToNextSection(this)" aria-label="Scroll Down">&#x2193;</button>
+    </section>
+
+
+    <!-- =============================================================
+         10 — THE MEMORIES (A FEW OF OUR FAVORITE MOMENTS)
+    ============================================================= -->
+    <section id="screen-10" class="theme-charcoal">
+        <div class="fade-in">
+            <p class="section-label">A FEW OF OUR FAVORITE MOMENTS</p>
             <h2 class="section-title">THE LITTLE THINGS</h2>
-            <p style="color: var(--text-light-muted); max-width: 600px; font-size: 0.9rem;">Old photos, silly photos, travel memories, screenshots, blurry pictures, and everyday life.</p>
 
             <div class="gallery-grid">
                 <div class="gallery-item"><img src="picture2.jpeg" alt="Memory 1"></div>
@@ -715,35 +789,36 @@
 
 
     <!-- =============================================================
-         ACT III — SCREEN 11 — RSVP
+         11 — RSVP
     ============================================================= -->
-    <section id="screen-11" class="theme-warm-present">
+    <section id="screen-11" class="theme-warm">
         <div class="fade-in">
             <p class="section-label">RSVP</p>
-            <h2 class="section-title">BE PART OF WHAT COMES NEXT.</h2>
-            <p class="body-text" style="font-size: 1.15rem; margin-bottom: 1rem;">We'd love to celebrate this day with you.</p>
+            <h2 class="section-title">WILL YOU BE THERE?</h2>
+            <p class="body-text" style="font-size: 1.15rem; margin-bottom: 1rem;">We'd love to celebrate this next chapter with you.</p>
 
             <div class="rsvp-form-container">
-                <!-- Google Form Embed Link Placeholder -->
+                <!-- Replace src with your Google Form Embed Link -->
                 <iframe class="google-form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSc_EXAMPLE/viewform?embedded=true">Loading Google Form…</iframe>
             </div>
+            <p style="font-size: 0.75rem; letter-spacing: 0.15em; color: var(--text-dark-secondary); margin-top: 10px;" class="uppercase">Kindly respond on or before December 31, 2027</p>
         </div>
         <button class="scroll-down-arrow" onclick="scrollToNextSection(this)" aria-label="Scroll Down">&#x2193;</button>
     </section>
 
 
     <!-- =============================================================
-         ACT III — SCREEN 12 — THE END
+         12 — THE END
     ============================================================= -->
-    <section id="screen-12" class="theme-warm-present">
+    <section id="screen-12" class="theme-dark">
         <div class="fade-in">
-            <p class="body-text italic" style="color: var(--text-dark-secondary); margin-bottom: 10px;">before this day...</p>
+            <p class="body-text italic" style="color: var(--text-light-secondary); margin-bottom: 10px;">Somewhere along the way, we became us.</p>
             <h1 class="serif" style="font-size: 3.2rem; margin-bottom: 30px;">And this is only the beginning.</h1>
 
             <p class="uppercase" style="font-size: 1rem; letter-spacing: 0.3em; color: var(--accent-gold); margin-bottom: 8px;">ELENA & ADRIAN</p>
-            <p class="uppercase" style="font-size: 0.8rem; letter-spacing: 0.2em; color: var(--text-dark-secondary); margin-bottom: 40px;">31 · 01 · 2028</p>
+            <p class="uppercase" style="font-size: 0.8rem; letter-spacing: 0.2em; color: var(--text-light-muted); margin-bottom: 40px;">January 31, 2028</p>
 
-            <p style="font-size: 0.85rem; letter-spacing: 0.1em; color: var(--text-dark-secondary);" class="italic">Thank you for being part of our story.</p>
+            <p style="font-size: 0.85rem; letter-spacing: 0.1em; color: var(--text-light-secondary);" class="italic">Thank you for being part of our story.</p>
         </div>
     </section>
 
@@ -752,17 +827,16 @@
     ============================================================= -->
     <script>
         window.addEventListener('DOMContentLoaded', () => {
-            runActOneSequence();
+            runOpeningSequence();
         });
 
-        function runActOneSequence() {
+        function runOpeningSequence() {
             const bgVideo = document.getElementById('bg-video');
             const text1 = document.getElementById('fb-text-1');
             const text2 = document.getElementById('fb-text-2');
-            const text3 = document.getElementById('fb-text-3');
             const overlay = document.getElementById('cinematic-overlay');
 
-            // 0:00–0:02 — Just video playing smoothly with natural audio
+            // 0:00–0:02 — Video only (natural audio plays)
             const videoPromise = bgVideo.play();
             if (videoPromise !== undefined) {
                 videoPromise.then(() => {
@@ -772,35 +846,29 @@
                 });
             }
 
-            // 0:02–0:05 — Very small text: "before this day"
+            // 0:02–0:04 — "We've shared so many little moments..."
             setTimeout(() => { text1.style.opacity = '1'; }, 2000);
-            
-            // 0:05–0:07 — Text fades away, video continues
-            setTimeout(() => { text1.style.opacity = '0'; }, 5000);
+            setTimeout(() => { text1.style.opacity = '0'; }, 4000);
 
-            // 0:07 — Video fades to black
+            // 0:04–0:06 — "...and somehow, they led us here."
+            setTimeout(() => { text2.style.opacity = '1'; }, 4200);
+            setTimeout(() => { text2.style.opacity = '0'; }, 6000);
+
+            // 0:06–0:07 — No text. Let final video frame breathe.
+            // 0:07 — Video fades to black & quiet pause.
             setTimeout(() => { 
                 bgVideo.style.opacity = '0'; 
                 bgVideo.pause();
             }, 7000);
 
-            // SCREEN 02 — THE PAUSE (Silence & Black Screen)
-            // 0:08.5 — "And somehow..."
-            setTimeout(() => { text2.style.opacity = '1'; }, 8500);
-            setTimeout(() => { text2.style.opacity = '0'; }, 10000);
-
-            // 0:10.5 — "HERE WE ARE."
-            setTimeout(() => { text3.style.opacity = '1'; }, 10500);
-            setTimeout(() => { text3.style.opacity = '0'; }, 12500);
-
-            // SCREEN 03 — TRANSITION TO REVEAL
+            // Reveal transition
             setTimeout(() => {
                 overlay.style.opacity = '0';
                 overlay.style.visibility = 'hidden';
-            }, 13200);
+            }, 8200);
         }
 
-        // SCROLL EXACTLY TO THE NEXT SECTION
+        // SCROLL EXACTLY TO THE NEXT SECTION ON BUTTON CLICK
         function scrollToNextSection(element) {
             const currentSection = element.closest('section');
             const nextSection = currentSection.nextElementSibling;
@@ -809,7 +877,7 @@
             }
         }
 
-        // Intersection Observer for Scroll Fade-ins
+        // Intersection Observer for Content Fade-ins
         const observerOptions = { threshold: 0.3 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
