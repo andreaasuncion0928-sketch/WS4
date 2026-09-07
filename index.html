@@ -13,10 +13,10 @@
         :root {
             --bg-dark: #000000;
             --bg-site: #F4F0E8;
-            --bg-card: #EAE5DC;
-            --bg-card-hover: #E2DDD3;
+            --bg-card: rgba(234, 229, 220, 0.85);
+            --bg-card-hover: rgba(226, 221, 211, 0.95);
             --text-dark: #171717;
-            --text-muted: #66625B;
+            --text-muted: #55514B;
             --accent-champagne: #B7A27A;
             --font-serif: 'Cormorant Garamond', Georgia, serif;
             --font-sans: 'Montserrat', sans-serif;
@@ -43,6 +43,24 @@
             line-height: 1.7;
             letter-spacing: 0.02em;
             background-color: var(--bg-site);
+            position: relative;
+        }
+
+        /* Fixed Background Image with 50% Opacity Across All Pages */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url('background.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.5;
+            z-index: -1;
+            pointer-events: none;
         }
 
         /* Typography Helpers */
@@ -71,7 +89,7 @@
             align-items: center;
             position: relative;
             text-align: center;
-            background-color: var(--bg-site);
+            background-color: transparent;
         }
 
         .section-label {
@@ -96,7 +114,7 @@
         .btn {
             display: inline-block;
             padding: 16px 38px;
-            background: transparent;
+            background: rgba(244, 240, 232, 0.8);
             border: 1px solid var(--text-dark);
             color: var(--text-dark);
             font-family: var(--font-sans);
@@ -107,6 +125,7 @@
             cursor: pointer;
             transition: var(--transition-smooth);
             margin-top: 20px;
+            backdrop-filter: blur(4px);
         }
 
         .btn:hover {
@@ -115,8 +134,10 @@
         }
 
         .btn-overlay {
+            background: transparent;
             border-color: #E8E6E3;
             color: #E8E6E3;
+            backdrop-filter: none;
         }
 
         .btn-overlay:hover {
@@ -201,7 +222,7 @@
            PAGE 01 — HERO / TRANSITION INTO INVITATION
         ------------------------------------------------------------- */
         #invitation-hero {
-            background: var(--bg-site);
+            background: transparent;
         }
 
         /* -------------------------------------------------------------
@@ -216,7 +237,7 @@
             font-family: var(--font-serif);
             font-size: 1.35rem;
             line-height: 1.8;
-            color: #383531;
+            color: #282522;
             margin-bottom: 2rem;
         }
 
@@ -228,6 +249,7 @@
             overflow: hidden;
             border: 1px solid rgba(23, 23, 23, 0.15);
             background-color: var(--bg-card);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
         .photo-frame img {
@@ -276,10 +298,11 @@
         .timeline-card {
             width: 280px;
             background: var(--bg-card);
-            border: 1px solid rgba(23, 23, 23, 0.08);
+            border: 1px solid rgba(23, 23, 23, 0.1);
             padding: 40px 30px;
             text-align: left;
             transition: var(--transition-smooth);
+            backdrop-filter: blur(5px);
         }
 
         .timeline-card:hover {
@@ -306,7 +329,7 @@
            PAGE 05 — NOW
         ------------------------------------------------------------- */
         #now-section {
-            background: var(--bg-site);
+            background: transparent;
         }
 
         .countdown-container {
@@ -334,7 +357,7 @@
            PAGE 06 — THE DAY
         ------------------------------------------------------------- */
         #the-day-section {
-            background-color: var(--bg-card);
+            background-color: transparent;
         }
 
         .details-grid {
@@ -344,6 +367,13 @@
             max-width: 850px;
             width: 100%;
             margin-top: 40px;
+        }
+
+        .details-box {
+            background: var(--bg-card);
+            padding: 40px 30px;
+            border: 1px solid rgba(23, 23, 23, 0.08);
+            backdrop-filter: blur(5px);
         }
 
         .details-box h3 {
@@ -370,6 +400,13 @@
             width: 100%;
             max-width: 900px;
             margin-top: 40px;
+        }
+
+        .people-group {
+            background: var(--bg-card);
+            padding: 30px 20px;
+            border: 1px solid rgba(23, 23, 23, 0.08);
+            backdrop-filter: blur(5px);
         }
 
         .people-group h4 {
@@ -408,6 +445,7 @@
             border: 1px solid rgba(23, 23, 23, 0.08);
             padding: 35px 25px;
             text-align: center;
+            backdrop-filter: blur(5px);
         }
 
         .info-card h4 {
@@ -425,7 +463,7 @@
         .color-swatch {
             width: 28px;
             height: 28px;
-            background-color: #4a284e; /* Purple dress code swatch */
+            background-color: #4a284e;
             border-radius: 50%;
             margin: 12px auto 0 auto;
             border: 1px solid rgba(23, 23, 23, 0.15);
@@ -446,8 +484,9 @@
             margin-bottom: 15px;
             break-inside: avoid;
             overflow: hidden;
-            border: 1px solid rgba(23, 23, 23, 0.08);
+            border: 1px solid rgba(23, 23, 23, 0.1);
             background-color: var(--bg-card);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
 
         .gallery-item img {
@@ -466,7 +505,7 @@
            PAGE 10 — RSVP
         ------------------------------------------------------------- */
         #rsvp-section {
-            background: var(--bg-site);
+            background: transparent;
         }
 
         .rsvp-form-container {
@@ -481,13 +520,14 @@
             border: none;
             background: var(--bg-card);
             border: 1px solid rgba(23, 23, 23, 0.08);
+            backdrop-filter: blur(5px);
         }
 
         /* -------------------------------------------------------------
            FINAL PAGE
         ------------------------------------------------------------- */
         #final-section {
-            background-color: var(--bg-card);
+            background-color: transparent;
         }
 
         .final-quote {
