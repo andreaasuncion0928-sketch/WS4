@@ -11,14 +11,13 @@
     
     <style>
         :root {
-            --bg-dark: #070707;
-            --bg-card: #121212;
-            --bg-light: #faf8f5;
-            --text-light: #e8e6e3;
-            --text-dark: #1f1e1c;
-            --text-muted: #807c77;
-            --accent-purple: #4a284e;
-            --accent-purple-light: #a47ba9;
+            --bg-dark: #000000;
+            --bg-site: #F4F0E8;
+            --bg-card: #EAE5DC;
+            --bg-card-hover: #E2DDD3;
+            --text-dark: #171717;
+            --text-muted: #66625B;
+            --accent-champagne: #B7A27A;
             --font-serif: 'Cormorant Garamond', Georgia, serif;
             --font-sans: 'Montserrat', sans-serif;
             --transition-smooth: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -33,15 +32,17 @@
         html {
             scroll-behavior: smooth;
             background-color: var(--bg-dark);
-            color: var(--text-light);
+            color: var(--text-dark);
             font-family: var(--font-sans);
             font-weight: 300;
             overflow-x: hidden;
+            transition: background-color 1.5s ease;
         }
 
         body {
             line-height: 1.7;
             letter-spacing: 0.02em;
+            background-color: var(--bg-site);
         }
 
         /* Typography Helpers */
@@ -70,14 +71,16 @@
             align-items: center;
             position: relative;
             text-align: center;
+            background-color: var(--bg-site);
         }
 
         .section-label {
             font-size: 0.65rem;
             letter-spacing: 0.3em;
-            color: var(--text-muted);
+            color: var(--accent-champagne);
             margin-bottom: 1.5rem;
             text-transform: uppercase;
+            font-weight: 500;
         }
 
         .section-title {
@@ -86,6 +89,7 @@
             font-weight: 300;
             margin-bottom: 1.5rem;
             line-height: 1.2;
+            color: var(--text-dark);
         }
 
         /* Buttons */
@@ -93,8 +97,8 @@
             display: inline-block;
             padding: 16px 38px;
             background: transparent;
-            border: 1px solid var(--text-light);
-            color: var(--text-light);
+            border: 1px solid var(--text-dark);
+            color: var(--text-dark);
             font-family: var(--font-sans);
             font-size: 0.7rem;
             text-transform: uppercase;
@@ -106,7 +110,17 @@
         }
 
         .btn:hover {
-            background: var(--text-light);
+            background: var(--text-dark);
+            color: var(--bg-site);
+        }
+
+        .btn-overlay {
+            border-color: #E8E6E3;
+            color: #E8E6E3;
+        }
+
+        .btn-overlay:hover {
+            background: #E8E6E3;
             color: var(--bg-dark);
         }
 
@@ -154,7 +168,7 @@
             font-family: var(--font-serif);
             font-size: 2rem;
             font-weight: 300;
-            color: var(--text-light);
+            color: #E8E6E3;
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
             line-height: 1.5;
@@ -180,13 +194,14 @@
             letter-spacing: 0.1em;
             margin: 12px 0 8px 0;
             line-height: 1.1;
+            color: #E8E6E3;
         }
 
         /* -------------------------------------------------------------
            PAGE 01 — HERO / TRANSITION INTO INVITATION
         ------------------------------------------------------------- */
         #invitation-hero {
-            background: radial-gradient(circle at center, #181618 0%, var(--bg-dark) 100%);
+            background: var(--bg-site);
         }
 
         /* -------------------------------------------------------------
@@ -201,7 +216,7 @@
             font-family: var(--font-serif);
             font-size: 1.35rem;
             line-height: 1.8;
-            color: #c9c5be;
+            color: #383531;
             margin-bottom: 2rem;
         }
 
@@ -211,14 +226,15 @@
             height: 380px;
             margin: 30px auto;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(23, 23, 23, 0.15);
+            background-color: var(--bg-card);
         }
 
         .photo-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: grayscale(25%);
+            filter: grayscale(15%);
             transition: var(--transition-smooth);
         }
 
@@ -248,7 +264,7 @@
             overflow-x: auto;
             padding: 20px 40px 60px 40px;
             scrollbar-width: thin;
-            scrollbar-color: rgba(255,255,255,0.2) transparent;
+            scrollbar-color: var(--accent-champagne) transparent;
         }
 
         .timeline-track {
@@ -260,22 +276,24 @@
         .timeline-card {
             width: 280px;
             background: var(--bg-card);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(23, 23, 23, 0.08);
             padding: 40px 30px;
             text-align: left;
             transition: var(--transition-smooth);
         }
 
         .timeline-card:hover {
-            border-color: var(--accent-purple-light);
+            border-color: var(--accent-champagne);
+            background: var(--bg-card-hover);
             transform: translateY(-5px);
         }
 
         .timeline-year {
             font-family: var(--font-serif);
             font-size: 2.2rem;
-            color: var(--accent-purple-light);
+            color: var(--accent-champagne);
             margin-bottom: 12px;
+            font-weight: 400;
         }
 
         .timeline-desc {
@@ -288,7 +306,7 @@
            PAGE 05 — NOW
         ------------------------------------------------------------- */
         #now-section {
-            background: radial-gradient(circle at center, #1b131c 0%, var(--bg-dark) 100%);
+            background: var(--bg-site);
         }
 
         .countdown-container {
@@ -302,6 +320,7 @@
             font-size: 3.5rem;
             font-weight: 300;
             display: block;
+            color: var(--text-dark);
         }
 
         .countdown-label {
@@ -312,11 +331,10 @@
         }
 
         /* -------------------------------------------------------------
-           PAGE 06 — THE DAY (BRIGHTER TRANSITION)
+           PAGE 06 — THE DAY
         ------------------------------------------------------------- */
         #the-day-section {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
+            background-color: var(--bg-card);
         }
 
         .details-grid {
@@ -333,11 +351,12 @@
             font-size: 2rem;
             font-weight: 400;
             margin-bottom: 15px;
+            color: var(--text-dark);
         }
 
         .details-box p {
             font-size: 0.9rem;
-            color: #555;
+            color: var(--text-muted);
             margin-bottom: 6px;
         }
 
@@ -356,9 +375,9 @@
         .people-group h4 {
             font-family: var(--font-serif);
             font-size: 1.5rem;
-            color: var(--accent-purple-light);
+            color: var(--accent-champagne);
             margin-bottom: 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(23, 23, 23, 0.1);
             padding-bottom: 10px;
         }
 
@@ -368,7 +387,7 @@
 
         .people-group li {
             font-size: 0.88rem;
-            color: var(--text-light);
+            color: var(--text-dark);
             margin-bottom: 8px;
         }
 
@@ -386,7 +405,7 @@
 
         .info-card {
             background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.06);
+            border: 1px solid rgba(23, 23, 23, 0.08);
             padding: 35px 25px;
             text-align: center;
         }
@@ -394,7 +413,7 @@
         .info-card h4 {
             font-size: 0.75rem;
             letter-spacing: 0.2em;
-            color: var(--accent-purple-light);
+            color: var(--accent-champagne);
             margin-bottom: 15px;
         }
 
@@ -406,10 +425,10 @@
         .color-swatch {
             width: 28px;
             height: 28px;
-            background-color: var(--accent-purple);
+            background-color: #4a284e; /* Purple dress code swatch */
             border-radius: 50%;
             margin: 12px auto 0 auto;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(23, 23, 23, 0.15);
         }
 
         /* -------------------------------------------------------------
@@ -427,13 +446,14 @@
             margin-bottom: 15px;
             break-inside: avoid;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid rgba(23, 23, 23, 0.08);
+            background-color: var(--bg-card);
         }
 
         .gallery-item img {
             width: 100%;
             display: block;
-            filter: grayscale(25%);
+            filter: grayscale(15%);
             transition: var(--transition-smooth);
         }
 
@@ -446,7 +466,7 @@
            PAGE 10 — RSVP
         ------------------------------------------------------------- */
         #rsvp-section {
-            background: linear-gradient(180deg, var(--bg-dark) 0%, #150f16 100%);
+            background: var(--bg-site);
         }
 
         .rsvp-form-container {
@@ -460,14 +480,14 @@
             height: 520px;
             border: none;
             background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid rgba(23, 23, 23, 0.08);
         }
 
         /* -------------------------------------------------------------
            FINAL PAGE
         ------------------------------------------------------------- */
         #final-section {
-            background-color: #000;
+            background-color: var(--bg-card);
         }
 
         .final-quote {
@@ -475,6 +495,7 @@
             font-size: 2.5rem;
             font-weight: 300;
             line-height: 1.5;
+            color: var(--text-dark);
         }
 
         /* Mobile Layout Modifications */
@@ -511,11 +532,11 @@
 
             <!-- Hero Turn -->
             <div class="hero-moment" id="fb-hero">
-                <p class="uppercase" style="font-size: 0.8rem; color: var(--accent-purple-light); letter-spacing: 0.3em;">THIS IS OUR MOMENT.</p>
-                <p style="font-size: 0.85rem; margin-top: 10px; color: var(--text-muted); letter-spacing: 0.2em;" class="uppercase">And now, we're getting married.</p>
+                <p class="uppercase" style="font-size: 0.8rem; color: #B7A27A; letter-spacing: 0.3em;">THIS IS OUR MOMENT.</p>
+                <p style="font-size: 0.85rem; margin-top: 10px; color: #A09C94; letter-spacing: 0.2em;" class="uppercase">And now, we're getting married.</p>
                 <h1>ELENA & ADRIAN</h1>
-                <p class="uppercase" style="font-size: 0.75rem; letter-spacing: 0.3em; color: var(--accent-purple-light); margin-bottom: 20px;">JANUARY 31, 2028</p>
-                <a href="#our-story" onclick="endFlashback()" class="btn">ENTER OUR STORY &#x2192;</a>
+                <p class="uppercase" style="font-size: 0.75rem; letter-spacing: 0.3em; color: #B7A27A; margin-bottom: 20px;">JANUARY 31, 2028</p>
+                <a href="#our-story" onclick="endFlashback()" class="btn btn-overlay">ENTER OUR STORY &#x2192;</a>
             </div>
         </div>
     </div>
@@ -528,8 +549,8 @@
         <div class="fade-in">
             <p class="story-body italic" style="font-size: 1.5rem; margin-bottom: 2rem;">Now, we'd love for you to be part of what comes next.</p>
             <p class="section-label">OUR WEDDING</p>
-            <h1 class="serif" style="font-size: 4rem; font-weight: 300; margin-bottom: 0.5rem;">Elena & Adrian</h1>
-            <p class="uppercase" style="font-size: 0.85rem; letter-spacing: 0.3em; color: var(--accent-purple-light); margin-bottom: 2rem;">JANUARY 31, 2028</p>
+            <h1 class="serif" style="font-size: 4rem; font-weight: 300; margin-bottom: 0.5rem; color: var(--text-dark);">Elena & Adrian</h1>
+            <p class="uppercase" style="font-size: 0.85rem; letter-spacing: 0.3em; color: var(--accent-champagne); margin-bottom: 2rem;">JANUARY 31, 2028</p>
             <a href="#our-story" class="btn">BEGIN &#x2192;</a>
         </div>
     </section>
@@ -556,12 +577,11 @@
         <div class="story-container fade-in">
             <p class="section-label">PAGE 03 — THE BEGINNING</p>
             <h2 class="section-title uppercase" style="letter-spacing: 0.1em;">IT STARTED HERE.</h2>
-            <p class="uppercase" style="color: var(--accent-purple-light); font-size: 0.85rem;">[ 2019 ]</p>
+            <p class="uppercase" style="color: var(--accent-champagne); font-size: 0.85rem; font-weight: 500;">[ 2019 ]</p>
             <div class="photo-frame">
                 <img src="picture1.jpeg" alt="First Memory">
             </div>
             <p class="story-body italic" style="font-size: 1.1rem; color: var(--text-muted);">"We didn't know it then, but this was the beginning."</p>
-            <a href="#timeline-section" class="btn">KEEP READING &#x2192;</a>
         </div>
     </section>
 
@@ -598,7 +618,7 @@
                     <div class="timeline-desc"><strong>The question.</strong><br>Under a canopy of stars, with tears and absolute certainty.</div>
                 </div>
 
-                <div class="timeline-card" style="border-color: var(--accent-purple-light);">
+                <div class="timeline-card" style="border-color: var(--accent-champagne);">
                     <div class="timeline-year">2028</div>
                     <div class="timeline-desc"><strong>The wedding.</strong><br>The day we invite you to stand with us as we start what's next.</div>
                 </div>
@@ -615,7 +635,7 @@
         <div class="fade-in">
             <p class="section-label">PAGE 05 — NOW</p>
             <h2 class="section-title" style="font-size: 3.2rem;">And now, we're here.</h2>
-            <p class="uppercase" style="letter-spacing: 0.25em; color: var(--accent-purple-light);">THE WEDDING — JANUARY 31, 2028</p>
+            <p class="uppercase" style="letter-spacing: 0.25em; color: var(--accent-champagne); font-weight: 500;">THE WEDDING — JANUARY 31, 2028</p>
 
             <div class="countdown-container">
                 <div>
@@ -644,8 +664,8 @@
     ============================================================= -->
     <section id="the-day-section">
         <div class="fade-in">
-            <p class="section-label" style="color: var(--text-muted);">PAGE 06 — THE DAY</p>
-            <h2 class="section-title" style="color: var(--text-dark);">JOIN US IN CELEBRATION</h2>
+            <p class="section-label">PAGE 06 — THE DAY</p>
+            <h2 class="section-title">JOIN US IN CELEBRATION</h2>
             
             <div class="details-grid">
                 <div class="details-box">
@@ -722,7 +742,7 @@
                 <div class="info-card">
                     <h4>WHERE TO GO</h4>
                     <p>San Sebastian Church & Manila Hotel.</p>
-                    <a href="https://maps.google.com" target="_blank" style="color: var(--accent-purple-light); font-size: 0.75rem; text-decoration: none; display: inline-block; margin-top: 10px;">VIEW ON MAP &#x2192;</a>
+                    <a href="https://maps.google.com" target="_blank" style="color: var(--text-dark); font-size: 0.75rem; text-decoration: underline; display: inline-block; margin-top: 10px;">VIEW ON MAP &#x2192;</a>
                 </div>
 
                 <div class="info-card">
@@ -784,7 +804,7 @@
         <div class="fade-in">
             <p class="final-quote">
                 Somewhere along the way,<br>
-                <span class="italic" style="color: var(--accent-purple-light);">we became us.</span>
+                <span class="italic" style="color: var(--accent-champagne);">we became us.</span>
             </p>
 
             <h2 class="section-title uppercase" style="font-size: 1.3rem; letter-spacing: 0.3em; margin-top: 50px;">
