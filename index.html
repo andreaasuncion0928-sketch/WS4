@@ -11,24 +11,23 @@
     
     <style>
         :root {
-            --bg-dark: #0a0a0a;
-            --bg-warm: #12100e;
-            --bg-light: #fbf9f6;
-            --text-gold: #d4af37;
-            --text-light: #e6e4e0;
-            --text-dark: #2a2825;
-            --text-muted: #88827b;
-            --accent-purple: #4a304d;
-            --accent-purple-light: #8e6893;
+            --bg-dark: #070707;
+            --bg-card: #121212;
+            --bg-light: #faf8f5;
+            --text-light: #e8e6e3;
+            --text-dark: #1f1e1c;
+            --text-muted: #807c77;
+            --accent-purple: #4a284e;
+            --accent-purple-light: #a47ba9;
             --font-serif: 'Cormorant Garamond', Georgia, serif;
             --font-sans: 'Montserrat', sans-serif;
-            --transition-smooth: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            --transition-smooth: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         html {
@@ -36,20 +35,21 @@
             background-color: var(--bg-dark);
             color: var(--text-light);
             font-family: var(--font-sans);
+            font-weight: 300;
             overflow-x: hidden;
         }
 
         body {
-            line-height: 1.6;
-            letter-spacing: 0.03em;
+            line-height: 1.7;
+            letter-spacing: 0.02em;
         }
 
-        /* Typography Helper Classes */
+        /* Typography Helpers */
         .serif { font-family: var(--font-serif); }
         .italic { font-style: italic; }
-        .uppercase { text-transform: uppercase; letter-spacing: 0.15em; }
+        .uppercase { text-transform: uppercase; letter-spacing: 0.25em; }
 
-        /* Smooth Fade In Scroll Animation */
+        /* Smooth Fade In Animation for Scroll */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
@@ -60,10 +60,10 @@
             transform: translateY(0);
         }
 
-        /* Container Sections */
+        /* Section Container Defaults */
         section {
             min-height: 100vh;
-            padding: 80px 20px;
+            padding: 100px 24px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -72,15 +72,31 @@
             text-align: center;
         }
 
+        .section-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 2.8rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
         /* Buttons */
         .btn {
             display: inline-block;
-            padding: 14px 32px;
+            padding: 16px 38px;
             background: transparent;
             border: 1px solid var(--text-light);
             color: var(--text-light);
             font-family: var(--font-sans);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.25em;
             text-decoration: none;
@@ -94,18 +110,8 @@
             color: var(--bg-dark);
         }
 
-        .btn-dark {
-            border-color: var(--text-dark);
-            color: var(--text-dark);
-        }
-
-        .btn-dark:hover {
-            background: var(--text-dark);
-            color: var(--bg-light);
-        }
-
         /* -------------------------------------------------------------
-           01. CINEMATIC FLASHBACK (OVERLAY / HERO)
+           01. CINEMATIC FLASHBACK (OVERLAY WITH vid.mp4)
         ------------------------------------------------------------- */
         #cinematic-overlay {
             position: fixed;
@@ -121,56 +127,58 @@
             transition: opacity 1.5s ease, visibility 1.5s;
         }
 
-        .overlay-content {
+        #bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        .flashback-text {
-            position: absolute;
-            font-family: var(--font-serif);
-            font-size: 1.8rem;
-            font-weight: 300;
-            color: var(--text-light);
+            object-fit: cover;
             opacity: 0;
-            transition: opacity 1.5s ease;
-            max-width: 80%;
-            line-height: 1.4;
+            transition: opacity 1s ease;
+            filter: grayscale(30%) brightness(0.85);
         }
 
-        .flashback-media {
+        /* Fallback Flash Images if Video is not available */
+        .flash-img {
             position: absolute;
             width: 100%;
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            transition: opacity 0.4s ease-in-out;
-            filter: grayscale(40%) contrast(110%);
+            transition: opacity 0.3s ease;
+            filter: grayscale(40%);
         }
 
-        .flashback-hero {
+        .overlay-text-box {
             position: absolute;
+            z-index: 2;
             text-align: center;
+            width: 85%;
+            max-width: 800px;
+        }
+
+        .overlay-text {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--text-light);
+            opacity: 0;
+            transition: opacity 1.2s ease;
+            line-height: 1.4;
+        }
+
+        .hero-moment {
             opacity: 0;
             transition: opacity 1.5s ease;
         }
 
-        .flashback-hero h1 {
+        .hero-moment h1 {
             font-family: var(--font-serif);
-            font-size: 3rem;
-            letter-spacing: 0.1em;
-            margin-bottom: 10px;
+            font-size: 3.5rem;
             font-weight: 300;
-        }
-
-        .flashback-hero p {
-            font-size: 0.85rem;
-            letter-spacing: 0.3em;
-            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            margin: 15px 0 10px 0;
         }
 
         .skip-btn {
@@ -179,80 +187,43 @@
             right: 30px;
             color: rgba(255,255,255,0.4);
             font-size: 0.65rem;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.25em;
             cursor: pointer;
             border: none;
             background: none;
             z-index: 10000;
+            text-transform: uppercase;
         }
 
         /* -------------------------------------------------------------
-           HERO / TRANSITION INTO INVITATION
+           PAGE 01 — HERO / TRANSITION INTO INVITATION
         ------------------------------------------------------------- */
         #invitation-hero {
-            background: radial-gradient(circle at center, #1a1816 0%, var(--bg-dark) 100%);
-        }
-
-        .hero-subtext {
-            font-family: var(--font-serif);
-            font-size: 1.5rem;
-            font-style: italic;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-        }
-
-        .hero-title {
-            font-family: var(--font-serif);
-            font-size: 4rem;
-            font-weight: 300;
-            letter-spacing: 0.05em;
-            margin-bottom: 1rem;
-        }
-
-        .hero-date {
-            font-size: 0.85rem;
-            letter-spacing: 0.3em;
-            color: var(--text-gold);
-            margin-bottom: 2rem;
+            background: radial-gradient(circle at center, #181618 0%, var(--bg-dark) 100%);
         }
 
         /* -------------------------------------------------------------
-           02 & 03. OUR STORY & THE BEGINNING
+           PAGE 02 & 03 — OUR STORY & THE BEGINNING
         ------------------------------------------------------------- */
         .story-container {
-            max-width: 800px;
+            max-width: 750px;
             margin: 0 auto;
         }
 
-        .section-label {
-            font-size: 0.7rem;
-            letter-spacing: 0.3em;
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-        }
-
-        .story-title {
+        .story-body {
             font-family: var(--font-serif);
-            font-size: 2.5rem;
-            font-weight: 300;
-            margin-bottom: 2rem;
-        }
-
-        .story-p {
-            font-family: var(--font-serif);
-            font-size: 1.3rem;
+            font-size: 1.35rem;
             line-height: 1.8;
-            color: #c4c0b9;
+            color: #c9c5be;
             margin-bottom: 2rem;
         }
 
         .photo-frame {
             width: 100%;
-            max-width: 500px;
-            height: 350px;
+            max-width: 550px;
+            height: 380px;
             margin: 30px auto;
             overflow: hidden;
-            position: relative;
             border: 1px solid rgba(255,255,255,0.1);
         }
 
@@ -260,7 +231,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: grayscale(30%);
+            filter: grayscale(25%);
             transition: var(--transition-smooth);
         }
 
@@ -270,7 +241,7 @@
         }
 
         /* -------------------------------------------------------------
-           04. THE YEARS BETWEEN (HORIZONTAL TIMELINE)
+           PAGE 04 — THE YEARS BETWEEN (HORIZONTAL TIMELINE)
         ------------------------------------------------------------- */
         #timeline-section {
             align-items: flex-start;
@@ -281,138 +252,114 @@
         .timeline-header {
             width: 100%;
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
+            padding: 0 24px;
         }
 
         .timeline-scroll-wrapper {
             width: 100%;
             overflow-x: auto;
-            padding: 20px 50px 60px 50px;
-            scrollbar-width: none; /* Firefox */
-        }
-
-        .timeline-scroll-wrapper::-webkit-scrollbar {
-            display: none; /* Safari/Chrome */
+            padding: 20px 40px 60px 40px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.2) transparent;
         }
 
         .timeline-track {
             display: flex;
-            gap: 60px;
+            gap: 40px;
             width: max-content;
         }
 
         .timeline-card {
-            width: 300px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            width: 280px;
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             padding: 40px 30px;
             text-align: left;
-            position: relative;
             transition: var(--transition-smooth);
         }
 
         .timeline-card:hover {
-            border-color: rgba(212, 175, 55, 0.3);
-            background: rgba(255, 255, 255, 0.04);
+            border-color: var(--accent-purple-light);
+            transform: translateY(-5px);
         }
 
         .timeline-year {
             font-family: var(--font-serif);
-            font-size: 2rem;
-            color: var(--text-gold);
-            margin-bottom: 10px;
+            font-size: 2.2rem;
+            color: var(--accent-purple-light);
+            margin-bottom: 12px;
         }
 
         .timeline-desc {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             color: var(--text-muted);
             line-height: 1.6;
         }
 
         /* -------------------------------------------------------------
-           05. NOW & COUNTDOWN (THE TRANSITION)
+           PAGE 05 — NOW & COUNTDOWN
         ------------------------------------------------------------- */
         #now-section {
-            background: radial-gradient(circle at center, #231c24 0%, var(--bg-dark) 100%);
+            background: radial-gradient(circle at center, #1b131c 0%, var(--bg-dark) 100%);
         }
 
         .countdown-container {
             display: flex;
-            gap: 30px;
+            gap: 35px;
             margin-top: 40px;
-        }
-
-        .countdown-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
         .countdown-num {
             font-family: var(--font-serif);
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 300;
+            display: block;
         }
 
         .countdown-label {
             font-size: 0.65rem;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.25em;
             color: var(--text-muted);
             text-transform: uppercase;
         }
 
         /* -------------------------------------------------------------
-           06. THE DAY (LIGHT ELEVATED BRIGHTNESS)
+           PAGE 06 — THE DAY (LIGHT THEME TRANSITION)
         ------------------------------------------------------------- */
         #the-day-section {
             background-color: var(--bg-light);
             color: var(--text-dark);
         }
 
-        #the-day-section .section-label {
-            color: var(--text-muted);
-        }
-
         .details-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            max-width: 900px;
+            gap: 50px;
+            max-width: 850px;
             width: 100%;
             margin-top: 40px;
-            text-align: center;
         }
 
         .details-box h3 {
             font-family: var(--font-serif);
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 400;
             margin-bottom: 15px;
-            letter-spacing: 0.05em;
         }
 
         .details-box p {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #555;
-            margin-bottom: 5px;
-        }
-
-        .details-box .venue {
-            font-weight: 500;
-            color: var(--text-dark);
-            margin-top: 10px;
+            margin-bottom: 6px;
         }
 
         /* -------------------------------------------------------------
-           07. THE PEOPLE WE LOVE
+           PAGE 07 — THE PEOPLE WE LOVE
         ------------------------------------------------------------- */
-        #people-section {
-            background-color: #151316;
-        }
-
         .people-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 40px;
             width: 100%;
             max-width: 900px;
@@ -421,7 +368,7 @@
 
         .people-group h4 {
             font-family: var(--font-serif);
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: var(--accent-purple-light);
             margin-bottom: 15px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
@@ -433,125 +380,104 @@
         }
 
         .people-group li {
-            font-size: 0.85rem;
+            font-size: 0.88rem;
             color: var(--text-light);
             margin-bottom: 8px;
         }
 
         /* -------------------------------------------------------------
-           08. PRACTICAL DETAILS
+           PAGE 08 — THE DETAILS
         ------------------------------------------------------------- */
         .info-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
+            gap: 25px;
             width: 100%;
-            max-width: 1000px;
+            max-width: 950px;
             margin-top: 40px;
         }
 
         .info-card {
-            border: 1px solid rgba(255,255,255,0.08);
-            padding: 30px 20px;
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.06);
+            padding: 35px 25px;
             text-align: center;
         }
 
         .info-card h4 {
             font-size: 0.75rem;
             letter-spacing: 0.2em;
-            color: var(--text-gold);
+            color: var(--accent-purple-light);
             margin-bottom: 15px;
         }
 
         .info-card p {
             font-size: 0.85rem;
             color: var(--text-muted);
-            line-height: 1.5;
         }
 
         .color-swatch {
-            width: 25px;
-            height: 25px;
+            width: 28px;
+            height: 28px;
             background-color: var(--accent-purple);
             border-radius: 50%;
-            margin: 10px auto 0 auto;
+            margin: 12px auto 0 auto;
             border: 1px solid rgba(255,255,255,0.2);
         }
 
         /* -------------------------------------------------------------
-           09. MEMORIES GALLERY (FAVORITE MOMENTS)
+           PAGE 09 — THE MEMORIES (GALLERY)
         ------------------------------------------------------------- */
         .gallery-grid {
-            columns: 3 200px;
+            columns: 3 220px;
             column-gap: 15px;
             width: 100%;
-            max-width: 1000px;
+            max-width: 950px;
             margin-top: 40px;
         }
 
         .gallery-item {
             margin-bottom: 15px;
             break-inside: avoid;
-            position: relative;
             overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .gallery-item img {
             width: 100%;
             display: block;
-            filter: grayscale(20%);
+            filter: grayscale(25%);
             transition: var(--transition-smooth);
         }
 
         .gallery-item:hover img {
             filter: grayscale(0%);
-            transform: scale(1.02);
+            transform: scale(1.03);
         }
 
         /* -------------------------------------------------------------
-           10. RSVP
+           PAGE 10 — RSVP
         ------------------------------------------------------------- */
         #rsvp-section {
-            background: linear-gradient(180deg, var(--bg-dark) 0%, #171219 100%);
+            background: linear-gradient(180deg, var(--bg-dark) 0%, #150f16 100%);
         }
 
-        .form-placeholder {
+        .rsvp-form-container {
             width: 100%;
-            max-width: 500px;
-            margin-top: 30px;
+            max-width: 550px;
+            margin-top: 35px;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.7rem;
-            letter-spacing: 0.15em;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
-        .form-group input, .form-group select {
+        .google-form-iframe {
             width: 100%;
-            padding: 12px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: var(--text-light);
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            outline: none;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            border-color: var(--text-gold);
+            height: 520px;
+            border: none;
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.08);
         }
 
         /* -------------------------------------------------------------
-           FINAL PAGE / CLOSING
+           FINAL PAGE
         ------------------------------------------------------------- */
         #final-section {
             background-color: #000;
@@ -559,81 +485,80 @@
 
         .final-quote {
             font-family: var(--font-serif);
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 300;
             line-height: 1.5;
-            max-width: 700px;
         }
 
-        /* -------------------------------------------------------------
-           MEDIA QUERIES FOR MOBILE RESPONSIVENESS
-        ------------------------------------------------------------- */
+        /* Mobile Layout Modifications */
         @media (max-width: 768px) {
-            .hero-title { font-size: 2.8rem; }
-            .details-grid { grid-template-columns: 1fr; gap: 40px; }
-            .story-title { font-size: 2rem; }
-            .flashback-hero h1 { font-size: 2.2rem; }
+            .section-title { font-size: 2.2rem; }
+            .details-grid { grid-template-columns: 1fr; gap: 35px; }
+            .hero-moment h1 { font-size: 2.5rem; }
             .countdown-container { gap: 15px; }
-            .countdown-num { font-size: 2rem; }
+            .countdown-num { font-size: 2.2rem; }
             .gallery-grid { columns: 2 140px; }
+            .overlay-text { font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
     <!-- =============================================================
-         01. CINEMATIC FLASHBACK (SEQUENCE OVERLAY)
+         01. OPENING — THE FLASHBACK OVERLAY
     ============================================================= -->
     <div id="cinematic-overlay">
         <button class="skip-btn" onclick="endFlashback()">SKIP INTRO &#x2192;</button>
-        <div class="overlay-content">
-            
-            <!-- Text Sequence 1 -->
-            <div class="flashback-text" id="fb-text-1">Somewhere along the way...</div>
 
-            <!-- Memory Cuts (Images simulating video frames) -->
-            <img class="flashback-media" id="fb-img-1" src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1200&q=80" alt="Memory Frame 1">
-            <img class="flashback-media" id="fb-img-2" src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1200&q=80" alt="Memory Frame 2">
-            <img class="flashback-media" id="fb-img-3" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1200&q=80" alt="Memory Frame 3">
-            <img class="flashback-media" id="fb-img-4" src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=1200&q=80" alt="Memory Frame 4">
+        <!-- Dynamic Local Video File with Fallback handling -->
+        <video id="bg-video" muted playsinline>
+            <source src="vid.mp4" type="video/mp4">
+        </video>
 
-            <!-- Text Sequence 2 -->
-            <div class="flashback-text" id="fb-text-2">And somehow...</div>
-            <div class="flashback-text" id="fb-text-3">all those little moments led us here.</div>
+        <!-- Fallback image slices in case video is absent -->
+        <img class="flash-img" id="f-img-1" src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1200&q=80" alt="Memory">
+        <img class="flash-img" id="f-img-2" src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1200&q=80" alt="Memory">
+        <img class="flash-img" id="f-img-3" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1200&q=80" alt="Memory">
+        <img class="flash-img" id="f-img-4" src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=1200&q=80" alt="Memory">
 
-            <!-- Emotional Turn & Hero Moment -->
-            <div class="flashback-hero" id="fb-hero">
-                <p class="uppercase">WE'RE GETTING MARRIED</p>
-                <h1 class="serif">Elena & Adrian</h1>
-                <p>JANUARY 31, 2028</p>
+        <div class="overlay-text-box">
+            <!-- Pacing sequence text containers -->
+            <div class="overlay-text" id="fb-text-1">Somewhere along the way...</div>
+            <div class="overlay-text" id="fb-text-2">And somehow...</div>
+            <div class="overlay-text" id="fb-text-3">all those little moments led us here.</div>
+
+            <!-- Hero Reveal -->
+            <div class="hero-moment" id="fb-hero">
+                <p class="uppercase" style="font-size: 0.8rem; color: var(--accent-purple-light);">WE'RE GETTING MARRIED.</p>
+                <h1>Elena & Adrian</h1>
+                <p class="uppercase" style="font-size: 0.75rem; letter-spacing: 0.3em; color: var(--text-muted);">JANUARY 31, 2028</p>
             </div>
-
         </div>
     </div>
 
 
     <!-- =============================================================
-         HERO INVITATION LANDING
+         PAGE 01 — HERO / INVITATION BEGINS
     ============================================================= -->
     <section id="invitation-hero">
         <div class="fade-in">
-            <p class="hero-subtext">Now, we'd love for you to be part of what comes next.</p>
+            <p class="story-body italic" style="font-size: 1.5rem; margin-bottom: 2rem;">Now, we'd love for you to be part of what comes next.</p>
             <p class="section-label">OUR WEDDING</p>
-            <h1 class="hero-title">Elena & Adrian</h1>
-            <p class="hero-date">JANUARY 31, 2028</p>
+            <h1 class="serif" style="font-size: 4rem; font-weight: 300; margin-bottom: 0.5rem;">Elena & Adrian</h1>
+            <p class="uppercase" style="font-size: 0.85rem; letter-spacing: 0.3em; color: var(--accent-purple-light); margin-bottom: 2rem;">JANUARY 31, 2028</p>
             <a href="#our-story" class="btn">BEGIN &#x2192;</a>
         </div>
     </section>
 
 
     <!-- =============================================================
-         02. OUR STORY
+         PAGE 02 — OUR STORY
     ============================================================= -->
     <section id="our-story">
         <div class="story-container fade-in">
             <p class="section-label">PAGE 02 — OUR STORY</p>
-            <h2 class="story-title">Before this day, there were a thousand little moments.</h2>
-            <p class="story-p">
+            <h2 class="section-title">Before this day, there were a thousand little moments.</h2>
+            <p class="story-body">
                 We didn't notice it at first. It was in the shared coffees on rainy Tuesday mornings, the late-night wrong turns on empty highways, and the quiet laughter between conversations. Our story wasn't created in a single moment—it was built softly, piece by piece.
             </p>
         </div>
@@ -641,31 +566,29 @@
 
 
     <!-- =============================================================
-         03. THE BEGINNING
+         PAGE 03 — THE BEGINNING
     ============================================================= -->
     <section id="the-beginning">
         <div class="story-container fade-in">
             <p class="section-label">PAGE 03 — THE BEGINNING</p>
-            <h2 class="story-title">IT STARTED HERE.</h2>
+            <h2 class="section-title uppercase" style="letter-spacing: 0.1em;">IT STARTED HERE.</h2>
+            <p class="uppercase" style="color: var(--accent-purple-light); font-size: 0.85rem;">[ 2019 ]</p>
             <div class="photo-frame">
-                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80" alt="The Beginning Frame">
+                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80" alt="First Memory">
             </div>
-            <p class="story-p italic">"We didn't know it then, but this was the beginning."</p>
-            <p class="story-p" style="font-size:1rem; color: var(--text-muted);">
-                2019 — A rainy afternoon, a mutual friend’s doorway, and a simple conversation that never really ended.
-            </p>
+            <p class="story-body italic" style="font-size: 1.1rem; color: var(--text-muted);">"We didn't know it then, but this was the beginning."</p>
             <a href="#timeline-section" class="btn">KEEP READING &#x2192;</a>
         </div>
     </section>
 
 
     <!-- =============================================================
-         04. THE YEARS BETWEEN (HORIZONTAL TIMELINE)
+         PAGE 04 — THE YEARS BETWEEN (HORIZONTAL TIMELINE)
     ============================================================= -->
     <section id="timeline-section">
         <div class="timeline-header fade-in">
             <p class="section-label">PAGE 04 — THE YEARS BETWEEN</p>
-            <h2 class="story-title">The moments that brought us here</h2>
+            <h2 class="section-title">The moments that brought us here.</h2>
         </div>
         
         <div class="timeline-scroll-wrapper fade-in">
@@ -691,7 +614,7 @@
                     <div class="timeline-desc"><strong>The question.</strong><br>Under a canopy of stars, with tears and absolute certainty.</div>
                 </div>
 
-                <div class="timeline-card" style="border-color: var(--text-gold);">
+                <div class="timeline-card" style="border-color: var(--accent-purple-light);">
                     <div class="timeline-year">2028</div>
                     <div class="timeline-desc"><strong>The wedding.</strong><br>The day we invite you to stand with us as we start what's next.</div>
                 </div>
@@ -702,28 +625,28 @@
 
 
     <!-- =============================================================
-         05. NOW & COUNTDOWN
+         PAGE 05 — NOW
     ============================================================= -->
     <section id="now-section">
         <div class="fade-in">
             <p class="section-label">PAGE 05 — NOW</p>
-            <h2 class="story-title" style="font-size: 3.5rem;">And now, we're here.</h2>
-            <p class="hero-date">THE WEDDING — JANUARY 31, 2028</p>
+            <h2 class="section-title" style="font-size: 3.2rem;">And now, we're here.</h2>
+            <p class="uppercase" style="letter-spacing: 0.25em; color: var(--accent-purple-light);">THE WEDDING — JANUARY 31, 2028</p>
 
             <div class="countdown-container">
-                <div class="countdown-box">
+                <div>
                     <span class="countdown-num" id="days">00</span>
                     <span class="countdown-label">Days</span>
                 </div>
-                <div class="countdown-box">
+                <div>
                     <span class="countdown-num" id="hours">00</span>
                     <span class="countdown-label">Hours</span>
                 </div>
-                <div class="countdown-box">
+                <div>
                     <span class="countdown-num" id="minutes">00</span>
                     <span class="countdown-label">Mins</span>
                 </div>
-                <div class="countdown-box">
+                <div>
                     <span class="countdown-num" id="seconds">00</span>
                     <span class="countdown-label">Secs</span>
                 </div>
@@ -733,26 +656,26 @@
 
 
     <!-- =============================================================
-         06. THE DAY (LIGHT THEME TRANSITION)
+         PAGE 06 — THE DAY (BRIGHTER TRANSITION)
     ============================================================= -->
     <section id="the-day-section">
         <div class="fade-in">
-            <p class="section-label">PAGE 06 — THE DAY</p>
-            <h2 class="story-title" style="color: var(--text-dark);">JOIN US IN CELEBRATION</h2>
+            <p class="section-label" style="color: var(--text-muted);">PAGE 06 — THE DAY</p>
+            <h2 class="section-title" style="color: var(--text-dark);">JOIN US IN CELEBRATION</h2>
             
             <div class="details-grid">
                 <div class="details-box">
                     <h3>THE CEREMONY</h3>
-                    <p class="venue">SAN SEBASTIAN CHURCH</p>
+                    <p style="font-weight: 500; color: var(--text-dark);">SAN SEBASTIAN CHURCH</p>
                     <p>Plaza del Carmen, Quiapo, Manila</p>
-                    <p style="margin-top: 15px; font-weight: 500;">3:30 IN THE AFTERNOON</p>
+                    <p style="margin-top: 12px; font-weight: 500; color: var(--text-dark);">3:30 PM</p>
                 </div>
 
                 <div class="details-box">
                     <h3>THE RECEPTION</h3>
-                    <p class="venue">MANILA HOTEL</p>
+                    <p style="font-weight: 500; color: var(--text-dark);">MANILA HOTEL</p>
                     <p>One Rizal Park, Ermita, Manila</p>
-                    <p style="margin-top: 15px; font-weight: 500;">6:00 IN THE EVENING</p>
+                    <p style="margin-top: 12px; font-weight: 500; color: var(--text-dark);">6:00 PM</p>
                 </div>
             </div>
         </div>
@@ -760,27 +683,27 @@
 
 
     <!-- =============================================================
-         07. THE PEOPLE WE LOVE
+         PAGE 07 — THE PEOPLE WE LOVE
     ============================================================= -->
     <section id="people-section">
         <div class="fade-in">
             <p class="section-label">PAGE 07 — THE PEOPLE</p>
-            <h2 class="story-title">THE PEOPLE WE LOVE</h2>
-            <p class="story-p" style="font-size: 1rem;">The ones who've been part of our story.</p>
+            <h2 class="section-title">THE PEOPLE WE LOVE</h2>
+            <p class="story-body" style="font-size: 1.1rem; margin-bottom: 2rem;">The ones who've been part of our story.</p>
 
             <div class="people-grid">
                 <div class="people-group">
                     <h4>OUR FAMILIES</h4>
                     <ul>
-                        <li>The Vance Family</li>
-                        <li>The Sterling Family</li>
+                        <li>The Santos Family</li>
+                        <li>The Reyes Family</li>
                     </ul>
                 </div>
                 <div class="people-group">
                     <h4>BRIDAL PARTY</h4>
                     <ul>
-                        <li>Clara Vance — Maid of Honor</li>
-                        <li>Julian Sterling — Best Man</li>
+                        <li>Clara Santos — Maid of Honor</li>
+                        <li>Julian Reyes — Best Man</li>
                         <li>Sophia, Mia, & Marcus</li>
                     </ul>
                 </div>
@@ -797,34 +720,35 @@
 
 
     <!-- =============================================================
-         08. PRACTICAL DETAILS
+         PAGE 08 — THE DETAILS
     ============================================================= -->
     <section id="details-section">
         <div class="fade-in">
             <p class="section-label">PAGE 08 — THE DETAILS</p>
-            <h2 class="story-title">EVERYTHING YOU NEED TO KNOW</h2>
+            <h2 class="section-title">PRACTICAL INFORMATION</h2>
 
             <div class="info-cards">
                 <div class="info-card">
                     <h4>WHAT TO WEAR</h4>
-                    <p>Formal / Black Tie Optional</p>
-                    <p style="margin-top: 10px; font-size: 0.75rem;">Color Palette: Warm Earth Tones or Deep Purple</p>
+                    <p>Formal / Formal Attire</p>
+                    <p style="margin-top: 8px; font-size: 0.75rem;">Color Theme: Deep Purple & Warm Tones</p>
                     <div class="color-swatch"></div>
                 </div>
 
                 <div class="info-card">
                     <h4>WHERE TO GO</h4>
-                    <p>San Sebastian Church followed by reception at Manila Hotel. Shuttle options provided upon request.</p>
+                    <p>San Sebastian Church & Manila Hotel.</p>
+                    <a href="https://maps.google.com" target="_blank" style="color: var(--accent-purple-light); font-size: 0.75rem; text-decoration: none; display: inline-block; margin-top: 10px;">VIEW ON MAP &#x2192;</a>
                 </div>
 
                 <div class="info-card">
                     <h4>WHEN TO BE THERE</h4>
-                    <p>Please arrive 30 minutes prior to the ceremony. Doors close promptly at 3:30 PM.</p>
+                    <p>Ceremony doors open at 3:00 PM. Kindly arrive 30 minutes prior.</p>
                 </div>
 
                 <div class="info-card">
                     <h4>WHAT TO BRING</h4>
-                    <p>Your warm presence is our greatest gift. Should you wish to honor us with a gift, a monetary contribution toward our future home would be deeply appreciated.</p>
+                    <p>Your warm presence is our greatest gift. Optional gift registry details upon request.</p>
                 </div>
             </div>
         </div>
@@ -832,141 +756,144 @@
 
 
     <!-- =============================================================
-         09. THE MEMORIES (GALLERY)
+         PAGE 09 — THE MEMORIES (UNPOLISHED GALLERY)
     ============================================================= -->
     <section id="memories-section">
         <div class="fade-in">
             <p class="section-label">PAGE 09 — THE MEMORIES</p>
-            <h2 class="story-title">A FEW OF OUR FAVORITE MOMENTS</h2>
-            <p class="story-p" style="font-size: 0.95rem; color: var(--text-muted);">Old phone photos, blurry trips, and quiet candids that made us.</p>
+            <h2 class="section-title">A FEW OF OUR FAVORITE MOMENTS</h2>
+            <p style="color: var(--text-muted); max-width: 600px; margin-bottom: 20px;">Old phone photos, blurry pictures, travel moments, and candid laughter.</p>
 
             <div class="gallery-grid">
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80" alt="Memory"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&w=600&q=80" alt="Memory"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=600&q=80" alt="Memory"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80" alt="Memory"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80" alt="Memory"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=600&q=80" alt="Memory"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80" alt="Memory 1"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&w=600&q=80" alt="Memory 2"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=600&q=80" alt="Memory 3"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80" alt="Memory 4"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80" alt="Memory 5"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=600&q=80" alt="Memory 6"></div>
             </div>
         </div>
     </section>
 
 
     <!-- =============================================================
-         10. RSVP
+         PAGE 10 — RSVP
     ============================================================= -->
     <section id="rsvp-section">
         <div class="fade-in">
             <p class="section-label">PAGE 10 — RSVP</p>
-            <h2 class="story-title">BE THERE FOR THE NEXT CHAPTER</h2>
-            <p class="story-p" style="font-size: 1rem;">We'd love to celebrate this moment with you.</p>
+            <h2 class="section-title">BE THERE FOR THE NEXT CHAPTER</h2>
+            <p class="story-body" style="font-size: 1.1rem;">We'd love to celebrate this moment with you.</p>
 
-            <div class="form-placeholder">
-                <form onsubmit="event.preventDefault(); alert('Thank you for responding!');">
-                    <div class="form-group">
-                        <label for="name">Your Full Name(s)</label>
-                        <input type="text" id="name" required placeholder="Elena & Guest">
-                    </div>
-                    <div class="form-group">
-                        <label for="attendance">Will you join us?</label>
-                        <select id="attendance">
-                            <option value="yes">Joyfully Accept</option>
-                            <option value="no">Regretfully Decline</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">A note for the couple (Optional)</label>
-                        <input type="text" id="message" placeholder="Can't wait to celebrate!">
-                    </div>
-                    <button type="submit" class="btn" style="width: 100%;">CONFIRM ATTENDANCE</button>
-                </form>
+            <div class="rsvp-form-container">
+                <!-- Replace src with your actual Google Form Embed Link -->
+                <iframe class="google-form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSc_EXAMPLE/viewform?embedded=true">Loading Google Form…</iframe>
             </div>
         </div>
     </section>
 
 
     <!-- =============================================================
-         FINAL PAGE
+         FINAL PAGE — CLOSING
     ============================================================= -->
     <section id="final-section">
         <div class="fade-in">
             <p class="final-quote">
                 Somewhere along the way,<br>
-                <span class="italic" style="color: var(--text-gold);">we became us.</span>
+                <span class="italic" style="color: var(--accent-purple-light);">we became us.</span>
             </p>
-            <p class="story-title uppercase" style="font-size: 1.2rem; letter-spacing: 0.3em; margin-top: 40px;">
+
+            <h2 class="section-title uppercase" style="font-size: 1.3rem; letter-spacing: 0.3em; margin-top: 50px;">
                 AND THIS IS ONLY THE BEGINNING.
-            </p>
-            <p style="font-size: 0.8rem; letter-spacing: 0.2em; color: var(--text-muted); margin-top: 20px;">
+            </h2>
+
+            <p class="uppercase" style="font-size: 0.8rem; letter-spacing: 0.2em; color: var(--text-muted); margin-top: 20px;">
                 ELENA & ADRIAN — JANUARY 31, 2028
             </p>
         </div>
     </section>
 
     <!-- =============================================================
-         INTERACTIVE JAVASCRIPT
+         JAVASCRIPT LOGIC
     ============================================================= -->
     <script>
-        // -------------------------------------------------------------
-        // 1. FLASHBACK VIDEO / PHOTO SEQUENCE LOGIC
-        // -------------------------------------------------------------
+        // 1. TIMING & SEQUENCING LOGIC FOR FLASHBACK (VID.MP4 + FALLBACK)
         window.addEventListener('DOMContentLoaded', () => {
             runFlashbackSequence();
         });
 
         function runFlashbackSequence() {
             const overlay = document.getElementById('cinematic-overlay');
+            const bgVideo = document.getElementById('bg-video');
             const text1 = document.getElementById('fb-text-1');
-            const img1 = document.getElementById('fb-img-1');
-            const img2 = document.getElementById('fb-img-2');
-            const img3 = document.getElementById('fb-img-3');
-            const img4 = document.getElementById('fb-img-4');
             const text2 = document.getElementById('fb-text-2');
             const text3 = document.getElementById('fb-text-3');
             const hero = document.getElementById('fb-hero');
 
-            // Timeline Sequence Timings (In Milliseconds)
-            setTimeout(() => { text1.style.opacity = '1'; }, 500);          // 0:00 - Text 1
-            setTimeout(() => { text1.style.opacity = '0'; }, 3000);
+            // Try playing video file vid.mp4
+            let videoPromise = bgVideo.play();
 
-            // Memory Cuts (Simulating fast-paced visual memories)
-            setTimeout(() => { img1.style.opacity = '0.7'; }, 3800);
-            setTimeout(() => { img1.style.opacity = '0'; img2.style.opacity = '0.7'; }, 4600);
-            setTimeout(() => { img2.style.opacity = '0'; img3.style.opacity = '0.7'; }, 5300);
-            setTimeout(() => { img3.style.opacity = '0'; img4.style.opacity = '0.7'; }, 5900);
-            setTimeout(() => { img4.style.opacity = '0'; }, 6600);
+            if (videoPromise !== undefined) {
+                videoPromise.then(() => {
+                    bgVideo.style.opacity = '0.75';
+                }).catch(() => {
+                    // Fallback to flash frames if local video fails to load/play automatically
+                    runFallbackImageSlices();
+                });
+            }
 
-            // Text Turn
-            setTimeout(() => { text2.style.opacity = '1'; }, 7200);          // "And somehow..."
-            setTimeout(() => { text2.style.opacity = '0'; }, 9000);
+            // Timeline Execution (0:00 - 0:38 timeline sequence)
+            setTimeout(() => { text1.style.opacity = '1'; }, 500);            // 0:00 - 0:03 "Before this day / Somewhere along..."
+            setTimeout(() => { text1.style.opacity = '0'; }, 3200);
 
-            setTimeout(() => { text3.style.opacity = '1'; }, 9500);          // "...all those moments led us here"
-            setTimeout(() => { text3.style.opacity = '0'; }, 11500);
+            // Memory cuts acceleration (If vid.mp4 is playing, video shows moments. If images, frames cycle)
 
-            // Hero reveal
-            setTimeout(() => { hero.style.opacity = '1'; }, 12200);         // "WE'RE GETTING MARRIED"
+            // Emotional Turn: Everything stops. Black screen & Silence (around 0:27 - 0:30)
+            setTimeout(() => { 
+                bgVideo.style.opacity = '0'; 
+                hideFallbackImages();
+            }, 20000);
 
-            // End overlay & Transition into Web Experience
+            setTimeout(() => { text2.style.opacity = '1'; }, 22000);           // "And somehow..."
+            setTimeout(() => { text2.style.opacity = '0'; }, 24500);
+
+            setTimeout(() => { text3.style.opacity = '1'; }, 25000);           // "all those little moments led us here."
+            setTimeout(() => { text3.style.opacity = '0'; }, 28000);
+
+            // Hero Moment (0:30 - 0:38)
+            setTimeout(() => { hero.style.opacity = '1'; }, 29000);            // "WE'RE GETTING MARRIED."
+
+            // Complete intro sequence & hand control to main site
             setTimeout(() => {
                 endFlashback();
-            }, 15500);
+            }, 35000);
+        }
+
+        function runFallbackImageSlices() {
+            const f1 = document.getElementById('f-img-1');
+            const f2 = document.getElementById('f-img-2');
+            const f3 = document.getElementById('f-img-3');
+            const f4 = document.getElementById('f-img-4');
+
+            setTimeout(() => { f1.style.opacity = '0.6'; }, 3500);
+            setTimeout(() => { f1.style.opacity = '0'; f2.style.opacity = '0.6'; }, 8000);
+            setTimeout(() => { f2.style.opacity = '0'; f3.style.opacity = '0.6'; }, 13000);
+            setTimeout(() => { f3.style.opacity = '0'; f4.style.opacity = '0.6'; }, 17000);
+        }
+
+        function hideFallbackImages() {
+            document.querySelectorAll('.flash-img').forEach(img => img.style.opacity = '0');
         }
 
         function endFlashback() {
             const overlay = document.getElementById('cinematic-overlay');
             overlay.style.opacity = '0';
             overlay.style.visibility = 'hidden';
-            document.body.style.overflowY = 'auto'; // enable scrolling
+            document.body.style.overflowY = 'auto';
         }
 
-
-        // -------------------------------------------------------------
-        // 2. SCROLL FADE-IN ANIMATION OBSERVER
-        // -------------------------------------------------------------
-        const observerOptions = {
-            threshold: 0.2
-        };
-
+        // 2. SCROLL OBSERVER FOR SMOOTH FADE-IN
+        const observerOptions = { threshold: 0.2 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -977,231 +904,19 @@
 
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-
-        // -------------------------------------------------------------
-        // 3. WEDDING COUNTDOWN TIMER
-        // -------------------------------------------------------------
+        // 3. COUNTDOWN TIMER LOGIC
         const weddingDate = new Date("January 31, 2028 15:30:00").getTime();
-
-        const timer = setInterval(function() {
+        setInterval(function() {
             const now = new Date().getTime();
             const distance = weddingDate - now;
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (Here is a complete, single-file HTML implementation designed to capture the nostalgic, cinematic, and emotional journey described in your concept. 
-
-It includes smooth scrolling transitions, an interactive timeline, a dynamic wedding countdown, modal lightbox galleries, an integrated RSVP form section, and subtle fade-in animations that recreate the cinematic experience directly in the browser.
-
-Save the following code with an `.html` extension (e.g., `wedding-invitation.html`) and open it in any modern browser.
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elena & Adrian — January 31, 2028</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
-    <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
-    <link href="[https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500&display=swap](https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500&display=swap)" rel="stylesheet">
-    
-    <style>
-        :root {
-            --bg-dark: #0a0a0a;
-            --bg-card: #141414;
-            --text-light: #f4f4f4;
-            --text-muted: #a0a0a0;
-            --accent-purple: #8a5a9e;
-            --accent-light: #d1b3e0;
-            --font-serif: 'Cormorant Garamond', serif;
-            --font-sans: 'Montserrat', sans-serif;
-            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            font-family: var(--font-sans);
-            font-weight: 300;
-            overflow-x: hidden;
-        }
-
-        body {
-            line-height: 1.6;
-        }
-
-        /* Typography */
-        h1, h2, h3, h4, .serif {
-            font-family: var(--font-serif);
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
-
-        p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            letter-spacing: 0.5px;
-        }
-
-        /* Utility Components */
-        .section {
-            padding: 100px 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-            min-height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 14px 36px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            background: transparent;
-            color: var(--text-light);
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 3px;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-top: 20px;
-        }
-
-        .btn:hover {
-            border-color: var(--text-light);
-            background: rgba(255, 255, 255, 0.05);
-            letter-spacing: 4px;
-        }
-
-        /* --- INTRO / FLASHBACK OVERLAY --- */
-        #intro-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #000;
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            cursor: pointer;
-        }
-
-        .intro-text {
-            font-family: var(--font-serif);
-            font-size: 1.5rem;
-            font-style: italic;
-            opacity: 0;
-            transition: opacity 1.5s ease-in-out;
-            color: #d1d1d1;
-            position: absolute;
-            text-align: center;
-            padding: 0 20px;
-        }
-
-        .intro-media {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out, transform 4s ease-out;
-            filter: grayscale(40%) contrast(110%);
-        }
-
-        /* --- HERO SECTION --- */
-        #hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
-            padding: 0 20px;
-        }
-
-        #hero h3 {
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-        }
-
-        #hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-        }
-
-        #hero h2 {
-            font-size: 1.2rem;
-            letter-spacing: 3px;
-            color: var(--accent-light);
-            margin-bottom: 40px;
-        }
-
-        /* --- STORY & BEGINNING --- */
-        .story-text {
-            font-size: 1.25rem;
-            line-height: 1.8;
-            max-width: 700px;
-            margin-bottom: 30px;
-            font-weight: 300;
-        }
-
-        .photo-frame {
-            width: 100%;
-            max-width: 600px;
-            height: 400px;
-            background-color: var(--bg-card);
-            margin: 30px 0;
-            background-size: cover;
-            background-position: center;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            filter: grayscale(20%);
-        }
-
-        /* --- HORIZONTAL TIMELINE --- */
-        #timeline {
-            max-width: 100%;
-            overflow: hidden;
-            width: 100%;
-        }
-
-        .timeline-container {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            padding: 40px 0;
-            gap: 30px;
-            scrollbar-width: thin;
-            scrollbar-color: var(--accent-purple) transparent;
-        }
+            if (distance > 0) {
+                document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+                document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+                document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+                document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
