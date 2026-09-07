@@ -1,594 +1,1207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A Love Story | Elena & Adrian</title>
-  
-  <!-- Google Fonts: Playfair Display for cinematic headers, Montserrat for clean subtext -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elena & Adrian — January 31, 2028</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-warm: #12100e;
+            --bg-light: #fbf9f6;
+            --text-gold: #d4af37;
+            --text-light: #e6e4e0;
+            --text-dark: #2a2825;
+            --text-muted: #88827b;
+            --accent-purple: #4a304d;
+            --accent-purple-light: #8e6893;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --font-sans: 'Montserrat', sans-serif;
+            --transition-smooth: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
 
-  <style>
-    /* RESET & BASE STYLES */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      background-color: #080808;
-      color: #f0f0f0;
-      font-family: 'Montserrat', sans-serif;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-    }
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+        }
 
-    h1, h2, h3, h4, .serif {
-      font-family: 'Playfair Display', serif;
-      letter-spacing: 2px;
-    }
+        body {
+            line-height: 1.6;
+            letter-spacing: 0.03em;
+        }
 
-    /* VIGNETTE & FILM GRAIN OVERLAY */
-    .film-grain {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      pointer-events: none;
-      z-index: 999;
-      background: radial-gradient(circle, transparent 60%, rgba(0,0,0,0.8) 100%);
-      box-shadow: inset 0 0 100px rgba(0,0,0,0.9);
-    }
+        /* Typography Helper Classes */
+        .serif { font-family: var(--font-serif); }
+        .italic { font-style: italic; }
+        .uppercase { text-transform: uppercase; letter-spacing: 0.15em; }
 
-    section {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 4rem 2rem;
-      position: relative;
-    }
+        /* Smooth Fade In Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.2s ease, transform 1.2s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-    .btn {
-      display: inline-block;
-      margin-top: 2rem;
-      padding: 1rem 2.5rem;
-      border: 1px solid #ffffff;
-      background: transparent;
-      color: #fff;
-      font-size: 0.85rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.4s ease;
-    }
+        /* Container Sections */
+        section {
+            min-height: 100vh;
+            padding: 80px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            text-align: center;
+        }
 
-    .btn:hover {
-      background: #ffffff;
-      color: #000;
-      box-shadow: 0 0 20px rgba(255,255,255,0.4);
-    }
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: transparent;
+            border: 1px solid var(--text-light);
+            color: var(--text-light);
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            text-decoration: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            margin-top: 30px;
+        }
 
-    /* SCREEN 01: INTRO COUNTDOWN */
-    #screen-01 {
-      background: #000;
-      z-index: 10;
-    }
+        .btn:hover {
+            background: var(--text-light);
+            color: var(--bg-dark);
+        }
 
-    .intro-text {
-      font-size: 1.2rem;
-      letter-spacing: 4px;
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeIn 2s forwards;
-    }
+        .btn-dark {
+            border-color: var(--text-dark);
+            color: var(--text-dark);
+        }
 
-    .countdown {
-      font-size: 5rem;
-      font-weight: bold;
-      margin-top: 2rem;
-      font-family: 'Playfair Display', serif;
-    }
+        .btn-dark:hover {
+            background: var(--text-dark);
+            color: var(--bg-light);
+        }
 
-    /* SCREEN 02: TITLE CARD */
-    #screen-02 {
-      background: linear-gradient(180deg, #000 0%, #111 100%);
-      border-bottom: 1px solid #222;
-    }
+        /* -------------------------------------------------------------
+           01. CINEMATIC FLASHBACK (OVERLAY / HERO)
+        ------------------------------------------------------------- */
+        #cinematic-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1.5s ease, visibility 1.5s;
+        }
 
-    .subtitle {
-      font-size: 0.9rem;
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      color: #888;
-      margin-bottom: 1rem;
-    }
+        .overlay-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
 
-    .names {
-      font-size: 4rem;
-      margin: 1.5rem 0;
-      line-height: 1.2;
-    }
+        .flashback-text {
+            position: absolute;
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: var(--text-light);
+            opacity: 0;
+            transition: opacity 1.5s ease;
+            max-width: 80%;
+            line-height: 1.4;
+        }
 
-    .credits-line {
-      font-size: 0.85rem;
-      color: #aaa;
-      margin: 0.4rem 0;
-      letter-spacing: 2px;
-    }
+        .flashback-media {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+            filter: grayscale(40%) contrast(110%);
+        }
 
-    .release-date {
-      font-size: 1.5rem;
-      color: #dfb25e; /* Golden dynamic detail */
-      margin-top: 2rem;
-    }
+        .flashback-hero {
+            position: absolute;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
 
-    /* SCREEN 03: TRAILER */
-    #screen-03 {
-      background: #090909;
-    }
+        .flashback-hero h1 {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
 
-    .trailer-card {
-      max-width: 600px;
-      margin: 2rem 0;
-      background: #141414;
-      padding: 1.5rem;
-      border: 1px solid #222;
-      border-radius: 4px;
-    }
+        .flashback-hero p {
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            color: var(--text-muted);
+        }
 
-    .trailer-img-placeholder {
-      width: 100%;
-      height: 250px;
-      background: #222;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #555;
-      margin-bottom: 1rem;
-      font-style: italic;
-    }
+        .skip-btn {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            cursor: pointer;
+            border: none;
+            background: none;
+            z-index: 10000;
+        }
 
-    /* SCREEN 04: CHAPTERS */
-    #screen-04 {
-      background: #0a0a0c;
-    }
+        /* -------------------------------------------------------------
+           HERO / TRANSITION INTO INVITATION
+        ------------------------------------------------------------- */
+        #invitation-hero {
+            background: radial-gradient(circle at center, #1a1816 0%, var(--bg-dark) 100%);
+        }
 
-    .chapters-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      width: 100%;
-      max-width: 1000px;
-      margin-top: 3rem;
-    }
+        .hero-subtext {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
 
-    .chapter-card {
-      background: #121215;
-      padding: 2.5rem 1.5rem;
-      border: 1px solid #222;
-      transition: border 0.3s ease, transform 0.3s ease;
-    }
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: 4rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
 
-    .chapter-card:hover {
-      border-color: #7b5294;
-      transform: translateY(-5px);
-    }
+        .hero-date {
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            color: var(--text-gold);
+            margin-bottom: 2rem;
+        }
 
-    .chapter-num {
-      font-size: 0.75rem;
-      letter-spacing: 3px;
-      color: #7b5294;
-      margin-bottom: 0.5rem;
-    }
+        /* -------------------------------------------------------------
+           02 & 03. OUR STORY & THE BEGINNING
+        ------------------------------------------------------------- */
+        .story-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-    /* SCREEN 05: CAST */
-    #screen-05 {
-      background: #080808;
-    }
+        .section-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
 
-    .cast-category {
-      margin: 2rem 0;
-    }
+        .story-title {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
 
-    .cast-category h3 {
-      font-size: 1rem;
-      color: #888;
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-    }
+        .story-p {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #c4c0b9;
+            margin-bottom: 2rem;
+        }
 
-    .cast-role {
-      margin: 0.8rem 0;
-    }
+        .photo-frame {
+            width: 100%;
+            max-width: 500px;
+            height: 350px;
+            margin: 30px auto;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
 
-    .cast-name {
-      font-size: 1.5rem;
-      font-weight: 600;
-    }
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(30%);
+            transition: var(--transition-smooth);
+        }
 
-    .role-title {
-      font-size: 0.8rem;
-      color: #666;
-      text-transform: uppercase;
-    }
+        .photo-frame:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.03);
+        }
 
-    /* SCREEN 06: PREMIERE DETAILS */
-    #screen-06 {
-      background: #0d0d10;
-    }
+        /* -------------------------------------------------------------
+           04. THE YEARS BETWEEN (HORIZONTAL TIMELINE)
+        ------------------------------------------------------------- */
+        #timeline-section {
+            align-items: flex-start;
+            padding: 100px 0;
+            overflow: hidden;
+        }
 
-    .venue-box {
-      margin: 2rem 0;
-      padding: 2rem;
-      border-left: 2px solid #fff;
-      text-align: left;
-      max-width: 500px;
-    }
+        .timeline-header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 50px;
+        }
 
-    /* SCREEN 07: COSTUME DESIGN */
-    #screen-07 {
-      background: #0a080d;
-    }
+        .timeline-scroll-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            padding: 20px 50px 60px 50px;
+            scrollbar-width: none; /* Firefox */
+        }
 
-    .palette {
-      display: flex;
-      gap: 1.5rem;
-      margin: 2.5rem 0;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+        .timeline-scroll-wrapper::-webkit-scrollbar {
+            display: none; /* Safari/Chrome */
+        }
 
-    .swatch {
-      width: 100px;
-      height: 120px;
-      border-radius: 4px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 0.5rem;
-      font-size: 0.7rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    }
+        .timeline-track {
+            display: flex;
+            gap: 60px;
+            width: max-content;
+        }
 
-    .lavender { background: #E6E6FA; color: #000; }
-    .violet   { background: #8A2BE2; color: #fff; }
-    .plum     { background: #dda0dd; color: #000; }
-    .mauve    { background: #E0B0FF; color: #000; }
+        .timeline-card {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px 30px;
+            text-align: left;
+            position: relative;
+            transition: var(--transition-smooth);
+        }
 
-    /* SCREEN 08: FILM ARCHIVE */
-    #screen-08 {
-      background: #050505;
-      overflow: hidden;
-    }
+        .timeline-card:hover {
+            border-color: rgba(212, 175, 55, 0.3);
+            background: rgba(255, 255, 255, 0.04);
+        }
 
-    .film-strip {
-      display: flex;
-      gap: 2rem;
-      overflow-x: auto;
-      width: 100vw;
-      padding: 3rem 2rem;
-      scroll-snap-type: x mandatory;
-    }
+        .timeline-year {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            color: var(--text-gold);
+            margin-bottom: 10px;
+        }
 
-    .film-frame {
-      min-width: 280px;
-      background: #111;
-      padding: 15px 15px 30px 15px;
-      border: 1px solid #333;
-      scroll-snap-align: center;
-      position: relative;
-    }
+        .timeline-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
 
-    .frame-img {
-      width: 100%;
-      height: 200px;
-      background: #222;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #444;
-      margin-bottom: 10px;
-    }
+        /* -------------------------------------------------------------
+           05. NOW & COUNTDOWN (THE TRANSITION)
+        ------------------------------------------------------------- */
+        #now-section {
+            background: radial-gradient(circle at center, #231c24 0%, var(--bg-dark) 100%);
+        }
 
-    .meta {
-      font-size: 0.65rem;
-      color: #777;
-      display: flex;
-      justify-content: space-between;
-      font-family: monospace;
-    }
+        .countdown-container {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+        }
 
-    /* SCREEN 09: RSVP TICKET */
-    #screen-09 {
-      background: #0d0d0d;
-    }
+        .countdown-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    .ticket {
-      background: #18181c;
-      border: 2px dashed #444;
-      padding: 3rem 2rem;
-      max-width: 450px;
-      width: 100%;
-      position: relative;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-    }
+        .countdown-num {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            font-weight: 300;
+        }
 
-    /* SCREEN 10: END CREDITS */
-    #screen-10 {
-      background: #000;
-      color: #ccc;
-    }
+        .countdown-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
 
-    .credits-scroll {
-      line-height: 2.2;
-    }
+        /* -------------------------------------------------------------
+           06. THE DAY (LIGHT ELEVATED BRIGHTNESS)
+        ------------------------------------------------------------- */
+        #the-day-section {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
 
-    .credits-title {
-      font-size: 0.75rem;
-      color: #666;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-top: 1.5rem;
-    }
+        #the-day-section .section-label {
+            color: var(--text-muted);
+        }
 
-    .credits-value {
-      font-size: 1.1rem;
-      color: #fff;
-    }
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 900px;
+            width: 100%;
+            margin-top: 40px;
+            text-align: center;
+        }
 
-    /* KEYFRAMES */
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-  </style>
+        .details-box h3 {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 15px;
+            letter-spacing: 0.05em;
+        }
+
+        .details-box p {
+            font-size: 0.85rem;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .details-box .venue {
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-top: 10px;
+        }
+
+        /* -------------------------------------------------------------
+           07. THE PEOPLE WE LOVE
+        ------------------------------------------------------------- */
+        #people-section {
+            background-color: #151316;
+        }
+
+        .people-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            width: 100%;
+            max-width: 900px;
+            margin-top: 40px;
+        }
+
+        .people-group h4 {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            color: var(--accent-purple-light);
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+        }
+
+        .people-group ul {
+            list-style: none;
+        }
+
+        .people-group li {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        /* -------------------------------------------------------------
+           08. PRACTICAL DETAILS
+        ------------------------------------------------------------- */
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 40px;
+        }
+
+        .info-card {
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .info-card h4 {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: var(--text-gold);
+            margin-bottom: 15px;
+        }
+
+        .info-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .color-swatch {
+            width: 25px;
+            height: 25px;
+            background-color: var(--accent-purple);
+            border-radius: 50%;
+            margin: 10px auto 0 auto;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* -------------------------------------------------------------
+           09. MEMORIES GALLERY (FAVORITE MOMENTS)
+        ------------------------------------------------------------- */
+        .gallery-grid {
+            columns: 3 200px;
+            column-gap: 15px;
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            margin-bottom: 15px;
+            break-inside: avoid;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            display: block;
+            filter: grayscale(20%);
+            transition: var(--transition-smooth);
+        }
+
+        .gallery-item:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.02);
+        }
+
+        /* -------------------------------------------------------------
+           10. RSVP
+        ------------------------------------------------------------- */
+        #rsvp-section {
+            background: linear-gradient(180deg, var(--bg-dark) 0%, #171219 100%);
+        }
+
+        .form-placeholder {
+            width: 100%;
+            max-width: 500px;
+            margin-top: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-light);
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--text-gold);
+        }
+
+        /* -------------------------------------------------------------
+           FINAL PAGE / CLOSING
+        ------------------------------------------------------------- */
+        #final-section {
+            background-color: #000;
+        }
+
+        .final-quote {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: 300;
+            line-height: 1.5;
+            max-width: 700px;
+        }
+
+        /* -------------------------------------------------------------
+           MEDIA QUERIES FOR MOBILE RESPONSIVENESS
+        ------------------------------------------------------------- */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.8rem; }
+            .details-grid { grid-template-columns: 1fr; gap: 40px; }
+            .story-title { font-size: 2rem; }
+            .flashback-hero h1 { font-size: 2.2rem; }
+            .countdown-container { gap: 15px; }
+            .countdown-num { font-size: 2rem; }
+            .gallery-grid { columns: 2 140px; }
+        }
+    </style>
 </head>
 <body>
 
-  <div class="film-grain"></div>
+    <!-- =============================================================
+         01. CINEMATIC FLASHBACK (SEQUENCE OVERLAY)
+    ============================================================= -->
+    <div id="cinematic-overlay">
+        <button class="skip-btn" onclick="endFlashback()">SKIP INTRO &#x2192;</button>
+        <div class="overlay-content">
+            
+            <!-- Text Sequence 1 -->
+            <div class="flashback-text" id="fb-text-1">Somewhere along the way...</div>
 
-  <!-- 🎞️ SCREEN 01 — THE FILM OPENS -->
-  <section id="screen-01">
-    <div class="intro-text" id="line1">A STORY ABOUT TWO PEOPLE.</div>
-    <div class="intro-text" id="line2" style="animation-delay: 2s;">AND ONE VERY IMPORTANT QUESTION.</div>
-    <div class="intro-text" id="line3" style="animation-delay: 4s; font-weight: bold; margin-top: 1rem;">WILL YOU BE THERE?</div>
-    
-    <div class="countdown" id="countdown-timer"></div>
-    
-    <a href="#screen-02" class="btn" style="margin-top: 3rem;">Skip Intro</a>
-  </section>
+            <!-- Memory Cuts (Images simulating video frames) -->
+            <img class="flashback-media" id="fb-img-1" src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1200&q=80" alt="Memory Frame 1">
+            <img class="flashback-media" id="fb-img-2" src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1200&q=80" alt="Memory Frame 2">
+            <img class="flashback-media" id="fb-img-3" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1200&q=80" alt="Memory Frame 3">
+            <img class="flashback-media" id="fb-img-4" src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=1200&q=80" alt="Memory Frame 4">
 
-  <!-- 🎬 SCREEN 02 — THE TITLE CARD -->
-  <section id="screen-02">
-    <div class="subtitle">A Cinematic Experience</div>
-    <h1 style="font-size: 2rem; letter-spacing: 6px;">A LOVE STORY</h1>
-    
-    <div class="subtitle" style="margin-top: 2rem;">Starring</div>
-    <div class="names serif">ELENA<br><span style="font-size: 2rem;">&</span><br>ADRIAN</div>
-    
-    <div class="credits-line">WRITTEN BY: <strong>Fate</strong></div>
-    <div class="credits-line">DIRECTED BY: <strong>Two people who didn't know what they were getting into</strong></div>
-    
-    <div class="release-date serif">COMING TO SAN SEBASTIAN<br><strong>JANUARY 31, 2028</strong></div>
-    
-    <a href="#screen-03" class="btn">▶ PLAY OUR STORY</a>
-  </section>
+            <!-- Text Sequence 2 -->
+            <div class="flashback-text" id="fb-text-2">And somehow...</div>
+            <div class="flashback-text" id="fb-text-3">all those little moments led us here.</div>
 
-  <!-- 🎥 SCREEN 03 — THE TRAILER -->
-  <section id="screen-03">
-    <div class="subtitle">Official Trailer</div>
-    
-    <div class="trailer-card">
-      <p style="margin-bottom: 0.5rem; font-size: 0.9rem;">"It started with an ordinary afternoon..."</p>
-      <div class="trailer-img-placeholder">[ Photo Frame 01 ]</div>
-      
-      <p style="margin-bottom: 0.5rem; font-size: 0.9rem;">"One conversation..."</p>
-      <div class="trailer-img-placeholder">[ Photo Frame 02 ]</div>
+            <!-- Emotional Turn & Hero Moment -->
+            <div class="flashback-hero" id="fb-hero">
+                <p class="uppercase">WE'RE GETTING MARRIED</p>
+                <h1 class="serif">Elena & Adrian</h1>
+                <p>JANUARY 31, 2028</p>
+            </div>
 
-      <p style="margin-bottom: 0.5rem; font-size: 0.9rem;">"A few too many coffees..."</p>
-      <div class="trailer-img-placeholder">[ Photo Frame 03 ]</div>
-
-      <h2 class="serif" style="margin: 2rem 0 1rem 0; color: #dfb25e;">THEY FELL IN LOVE.</h2>
-      <p style="color: #888; font-size: 0.85rem;">But that's not where the story ends.</p>
+        </div>
     </div>
 
-    <a href="#screen-04" class="btn">WATCH THE FULL STORY →</a>
-  </section>
 
-  <!-- 🍿 SCREEN 04 — CHAPTERS -->
-  <section id="screen-04">
-    <div class="subtitle">The Feature Film</div>
-    <h2 class="serif" style="font-size: 2.5rem;">THE FILM</h2>
+    <!-- =============================================================
+         HERO INVITATION LANDING
+    ============================================================= -->
+    <section id="invitation-hero">
+        <div class="fade-in">
+            <p class="hero-subtext">Now, we'd love for you to be part of what comes next.</p>
+            <p class="section-label">OUR WEDDING</p>
+            <h1 class="hero-title">Elena & Adrian</h1>
+            <p class="hero-date">JANUARY 31, 2028</p>
+            <a href="#our-story" class="btn">BEGIN &#x2192;</a>
+        </div>
+    </section>
 
-    <div class="chapters-grid">
-      <div class="chapter-card">
-        <div class="chapter-num">CHAPTER 01</div>
-        <h3 class="serif">THE MEET-CUTE</h3>
-      </div>
-      <div class="chapter-card">
-        <div class="chapter-num">CHAPTER 02</div>
-        <h3 class="serif">THE FIRST DATE</h3>
-      </div>
-      <div class="chapter-card">
-        <div class="chapter-num">CHAPTER 03</div>
-        <h3 class="serif">THE PLOT TWIST</h3>
-      </div>
-      <div class="chapter-card">
-        <div class="chapter-num">CHAPTER 04</div>
-        <h3 class="serif">THE GOOD YEARS</h3>
-      </div>
-      <div class="chapter-card">
-        <div class="chapter-num">CHAPTER 05</div>
-        <h3 class="serif">THE QUESTION</h3>
-      </div>
-      <div class="chapter-card">
-        <div class="chapter-num">CHAPTER 06</div>
-        <h3 class="serif">THE WEDDING</h3>
-      </div>
-    </div>
-  </section>
 
-  <!-- 🎭 SCREEN 05 — THE CAST -->
-  <section id="screen-05">
-    <div class="subtitle">Billing Block</div>
-    <h2 class="serif" style="font-size: 2.5rem; margin-bottom: 2rem;">THE CAST</h2>
+    <!-- =============================================================
+         02. OUR STORY
+    ============================================================= -->
+    <section id="our-story">
+        <div class="story-container fade-in">
+            <p class="section-label">PAGE 02 — OUR STORY</p>
+            <h2 class="story-title">Before this day, there were a thousand little moments.</h2>
+            <p class="story-p">
+                We didn't notice it at first. It was in the shared coffees on rainy Tuesday mornings, the late-night wrong turns on empty highways, and the quiet laughter between conversations. Our story wasn't created in a single moment—it was built softly, piece by piece.
+            </p>
+        </div>
+    </section>
 
-    <div class="cast-category">
-      <h3>Leading Roles</h3>
-      <div class="cast-role">
-        <div class="cast-name serif">ELENA</div>
-        <div class="role-title">The Bride</div>
-      </div>
-      <div class="cast-role" style="margin-top: 1rem;">
-        <div class="cast-name serif">ADRIAN</div>
-        <div class="role-title">The Groom</div>
-      </div>
-    </div>
 
-    <div class="cast-category">
-      <h3>Supporting Cast</h3>
-      <div class="role-title" style="font-size: 1rem; color: #fff;">Parents of the Bride & Groom</div>
-    </div>
+    <!-- =============================================================
+         03. THE BEGINNING
+    ============================================================= -->
+    <section id="the-beginning">
+        <div class="story-container fade-in">
+            <p class="section-label">PAGE 03 — THE BEGINNING</p>
+            <h2 class="story-title">IT STARTED HERE.</h2>
+            <div class="photo-frame">
+                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80" alt="The Beginning Frame">
+            </div>
+            <p class="story-p italic">"We didn't know it then, but this was the beginning."</p>
+            <p class="story-p" style="font-size:1rem; color: var(--text-muted);">
+                2019 — A rainy afternoon, a mutual friend’s doorway, and a simple conversation that never really ended.
+            </p>
+            <a href="#timeline-section" class="btn">KEEP READING &#x2192;</a>
+        </div>
+    </section>
 
-    <div class="cast-category">
-      <h3>Special Appearances</h3>
-      <p style="color: #aaa; font-size: 0.9rem; max-width: 400px; margin: 0 auto; line-height: 1.6;">
-        Bridesmaids · Groomsmen · Flower Girls · Ring Bearer
-      </p>
-    </div>
-  </section>
 
-  <!-- 🎟️ SCREEN 06 — THE PREMIERE -->
-  <section id="screen-06">
-    <div class="subtitle">Event Info</div>
-    <h2 class="serif" style="font-size: 2.5rem;">THE PREMIERE</h2>
-    <p style="letter-spacing: 3px; color: #dfb25e; margin-top: 0.5rem;">JANUARY 31, 2028</p>
+    <!-- =============================================================
+         04. THE YEARS BETWEEN (HORIZONTAL TIMELINE)
+    ============================================================= -->
+    <section id="timeline-section">
+        <div class="timeline-header fade-in">
+            <p class="section-label">PAGE 04 — THE YEARS BETWEEN</p>
+            <h2 class="story-title">The moments that brought us here</h2>
+        </div>
+        
+        <div class="timeline-scroll-wrapper fade-in">
+            <div class="timeline-track">
+                
+                <div class="timeline-card">
+                    <div class="timeline-year">2019</div>
+                    <div class="timeline-desc"><strong>The first hello.</strong><br>A chance encounter that quietly rearranged everything.</div>
+                </div>
 
-    <div class="venue-box">
-      <h3 class="serif" style="font-size: 1.5rem;">CEREMONY</h3>
-      <p style="color: #aaa; margin: 0.5rem 0 1.5rem 0;">San Sebastian Church · [TIME]</p>
-      
-      <h3 class="serif" style="font-size: 1.5rem;">AFTER THE CEREMONY</h3>
-      <p style="color: #aaa; margin-top: 0.5rem;">Manila Hotel · [TIME]</p>
-    </div>
+                <div class="timeline-card">
+                    <div class="timeline-year">2020</div>
+                    <div class="timeline-desc"><strong>The first adventure.</strong><br>A road trip with no destination, a broken car stereo, and endless talking.</div>
+                </div>
 
-    <!-- Replace '#' with your actual Google Maps URL -->
-    <a href="#" target="_blank" class="btn">GET DIRECTIONS →</a>
-  </section>
+                <div class="timeline-card">
+                    <div class="timeline-year">2022</div>
+                    <div class="timeline-desc"><strong>Somewhere along the way...</strong><br>You slowly became home. Quiet Sundays and shared dreams.</div>
+                </div>
 
-  <!-- 👗 SCREEN 07 — COSTUME DESIGN -->
-  <section id="screen-07">
-    <div class="subtitle">Attire Guide</div>
-    <h2 class="serif" style="font-size: 2.5rem;">COSTUME DESIGN</h2>
-    <p style="letter-spacing: 2px; color: #aaa; margin-top: 0.5rem;">THEME: PURPLE</p>
+                <div class="timeline-card">
+                    <div class="timeline-year">2025</div>
+                    <div class="timeline-desc"><strong>The question.</strong><br>Under a canopy of stars, with tears and absolute certainty.</div>
+                </div>
 
-    <div class="palette">
-      <div class="swatch lavender">Lavender</div>
-      <div class="swatch violet">Violet</div>
-      <div class="swatch plum">Plum</div>
-      <div class="swatch mauve">Mauve</div>
-    </div>
+                <div class="timeline-card" style="border-color: var(--text-gold);">
+                    <div class="timeline-year">2028</div>
+                    <div class="timeline-desc"><strong>The wedding.</strong><br>The day we invite you to stand with us as we start what's next.</div>
+                </div>
 
-    <p style="font-style: italic; color: #888; font-size: 0.9rem;">"Come dressed for your role in our story."</p>
-  </section>
+            </div>
+        </div>
+    </section>
 
-  <!-- 📸 SCREEN 08 — THE FILM ARCHIVE -->
-  <section id="screen-08">
-    <div class="subtitle">Gallery</div>
-    <h2 class="serif" style="font-size: 2.5rem;">THE ARCHIVE</h2>
-    <p style="font-size: 0.8rem; color: #666; margin-bottom: 1rem;">(Scroll Horizontally)</p>
 
-    <div class="film-strip">
-      <div class="film-frame">
-        <div class="frame-img">[ Photo 01 ]</div>
-        <div class="meta"><span>ROLL 01</span><span>35mm · 2019</span><span>Manila, PH</span></div>
-      </div>
-      <div class="film-frame">
-        <div class="frame-img">[ Photo 02 ]</div>
-        <div class="meta"><span>ROLL 01</span><span>35mm · 2021</span><span>Manila, PH</span></div>
-      </div>
-      <div class="film-frame">
-        <div class="frame-img">[ Photo 03 ]</div>
-        <div class="meta"><span>ROLL 02</span><span>35mm · 2023</span><span>Manila, PH</span></div>
-      </div>
-      <div class="film-frame">
-        <div class="frame-img">[ Photo 04 ]</div>
-        <div class="meta"><span>ROLL 03</span><span>35mm · 2027</span><span>Manila, PH</span></div>
-      </div>
-    </div>
-  </section>
+    <!-- =============================================================
+         05. NOW & COUNTDOWN
+    ============================================================= -->
+    <section id="now-section">
+        <div class="fade-in">
+            <p class="section-label">PAGE 05 — NOW</p>
+            <h2 class="story-title" style="font-size: 3.5rem;">And now, we're here.</h2>
+            <p class="hero-date">THE WEDDING — JANUARY 31, 2028</p>
 
-  <!-- 🎟️ SCREEN 09 — RSVP -->
-  <section id="screen-09">
-    <div class="ticket">
-      <div class="subtitle" style="color: #888;">ADMIT ONE</div>
-      <h2 class="serif" style="font-size: 1.8rem; margin: 0.5rem 0;">YOUR TICKET AWAITS</h2>
-      <p style="font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 1.5rem; color: #dfb25e;">A LOVE STORY</p>
-      
-      <p style="font-size: 0.8rem; color: #aaa;">DATE: January 31, 2028</p>
-      <p style="font-size: 0.8rem; color: #aaa; margin-bottom: 1.5rem;">VENUE: Manila</p>
+            <div class="countdown-container">
+                <div class="countdown-box">
+                    <span class="countdown-num" id="days">00</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-box">
+                    <span class="countdown-num" id="hours">00</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-box">
+                    <span class="countdown-num" id="minutes">00</span>
+                    <span class="countdown-label">Mins</span>
+                </div>
+                <div class="countdown-box">
+                    <span class="countdown-num" id="seconds">00</span>
+                    <span class="countdown-label">Secs</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      <!-- Replace '#' with your Google Form URL -->
-      <a href="#" target="_blank" class="btn" style="background: #fff; color: #000;">RSVP NOW</a>
-    </div>
-  </section>
 
-  <!-- 🎞️ SCREEN 10 — END CREDITS -->
-  <section id="screen-10">
-    <div class="credits-scroll">
-      <div class="credits-title">A FILM BY</div>
-      <div class="credits-value serif">Elena & Adrian</div>
+    <!-- =============================================================
+         06. THE DAY (LIGHT THEME TRANSITION)
+    ============================================================= -->
+    <section id="the-day-section">
+        <div class="fade-in">
+            <p class="section-label">PAGE 06 — THE DAY</p>
+            <h2 class="story-title" style="color: var(--text-dark);">JOIN US IN CELEBRATION</h2>
+            
+            <div class="details-grid">
+                <div class="details-box">
+                    <h3>THE CEREMONY</h3>
+                    <p class="venue">SAN SEBASTIAN CHURCH</p>
+                    <p>Plaza del Carmen, Quiapo, Manila</p>
+                    <p style="margin-top: 15px; font-weight: 500;">3:30 IN THE AFTERNOON</p>
+                </div>
 
-      <div class="credits-title">STARRING</div>
-      <div class="credits-value">Elena</div>
-      <div class="credits-value">Adrian</div>
+                <div class="details-box">
+                    <h3>THE RECEPTION</h3>
+                    <p class="venue">MANILA HOTEL</p>
+                    <p>One Rizal Park, Ermita, Manila</p>
+                    <p style="margin-top: 15px; font-weight: 500;">6:00 IN THE EVENING</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      <div class="credits-title">WITH SPECIAL APPEARANCES BY</div>
-      <div class="credits-value">Family & Friends</div>
 
-      <div class="credits-title">CINEMATOGRAPHY</div>
-      <div class="credits-value">Life</div>
+    <!-- =============================================================
+         07. THE PEOPLE WE LOVE
+    ============================================================= -->
+    <section id="people-section">
+        <div class="fade-in">
+            <p class="section-label">PAGE 07 — THE PEOPLE</p>
+            <h2 class="story-title">THE PEOPLE WE LOVE</h2>
+            <p class="story-p" style="font-size: 1rem;">The ones who've been part of our story.</p>
 
-      <div class="credits-title">PRODUCTION DESIGN</div>
-      <div class="credits-value">Love</div>
+            <div class="people-grid">
+                <div class="people-group">
+                    <h4>OUR FAMILIES</h4>
+                    <ul>
+                        <li>The Vance Family</li>
+                        <li>The Sterling Family</li>
+                    </ul>
+                </div>
+                <div class="people-group">
+                    <h4>BRIDAL PARTY</h4>
+                    <ul>
+                        <li>Clara Vance — Maid of Honor</li>
+                        <li>Julian Sterling — Best Man</li>
+                        <li>Sophia, Mia, & Marcus</li>
+                    </ul>
+                </div>
+                <div class="people-group">
+                    <h4>OUR FRIENDS</h4>
+                    <ul>
+                        <li>And all of you who made</li>
+                        <li>these years unforgettable.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      <div class="credits-title">ORIGINAL SCORE</div>
-      <div class="credits-value">Their Favorite Song</div>
 
-      <h2 class="serif" style="font-size: 3rem; margin-top: 4rem; letter-spacing: 4px;">THE END</h2>
-      
-      <p style="color: #666; margin-top: 2rem; font-size: 0.85rem; letter-spacing: 2px;">OR IS IT?</p>
-      <p style="color: #dfb25e; margin-top: 0.5rem; font-size: 1.1rem; font-style: italic;">See you at the wedding.</p>
-    </div>
-  </section>
+    <!-- =============================================================
+         08. PRACTICAL DETAILS
+    ============================================================= -->
+    <section id="details-section">
+        <div class="fade-in">
+            <p class="section-label">PAGE 08 — THE DETAILS</p>
+            <h2 class="story-title">EVERYTHING YOU NEED TO KNOW</h2>
 
-  <!-- JS CONTROLLER FOR COUNTDOWN INTRO -->
-  <script>
-    let count = 3;
-    const timerElement = document.getElementById('countdown-timer');
+            <div class="info-cards">
+                <div class="info-card">
+                    <h4>WHAT TO WEAR</h4>
+                    <p>Formal / Black Tie Optional</p>
+                    <p style="margin-top: 10px; font-size: 0.75rem;">Color Palette: Warm Earth Tones or Deep Purple</p>
+                    <div class="color-swatch"></div>
+                </div>
 
-    setTimeout(() => {
-      timerElement.innerText = count;
-      const interval = setInterval(() => {
-        count--;
-        if (count > 0) {
-          timerElement.innerText = count;
-        } else {
-          clearInterval(interval);
-          timerElement.innerText = "CUT!";
-          setTimeout(() => {
-            document.getElementById('screen-02').scrollIntoView({ behavior: 'smooth' });
-          }, 800);
+                <div class="info-card">
+                    <h4>WHERE TO GO</h4>
+                    <p>San Sebastian Church followed by reception at Manila Hotel. Shuttle options provided upon request.</p>
+                </div>
+
+                <div class="info-card">
+                    <h4>WHEN TO BE THERE</h4>
+                    <p>Please arrive 30 minutes prior to the ceremony. Doors close promptly at 3:30 PM.</p>
+                </div>
+
+                <div class="info-card">
+                    <h4>WHAT TO BRING</h4>
+                    <p>Your warm presence is our greatest gift. Should you wish to honor us with a gift, a monetary contribution toward our future home would be deeply appreciated.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =============================================================
+         09. THE MEMORIES (GALLERY)
+    ============================================================= -->
+    <section id="memories-section">
+        <div class="fade-in">
+            <p class="section-label">PAGE 09 — THE MEMORIES</p>
+            <h2 class="story-title">A FEW OF OUR FAVORITE MOMENTS</h2>
+            <p class="story-p" style="font-size: 0.95rem; color: var(--text-muted);">Old phone photos, blurry trips, and quiet candids that made us.</p>
+
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80" alt="Memory"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&w=600&q=80" alt="Memory"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=600&q=80" alt="Memory"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80" alt="Memory"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=600&q=80" alt="Memory"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=600&q=80" alt="Memory"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =============================================================
+         10. RSVP
+    ============================================================= -->
+    <section id="rsvp-section">
+        <div class="fade-in">
+            <p class="section-label">PAGE 10 — RSVP</p>
+            <h2 class="story-title">BE THERE FOR THE NEXT CHAPTER</h2>
+            <p class="story-p" style="font-size: 1rem;">We'd love to celebrate this moment with you.</p>
+
+            <div class="form-placeholder">
+                <form onsubmit="event.preventDefault(); alert('Thank you for responding!');">
+                    <div class="form-group">
+                        <label for="name">Your Full Name(s)</label>
+                        <input type="text" id="name" required placeholder="Elena & Guest">
+                    </div>
+                    <div class="form-group">
+                        <label for="attendance">Will you join us?</label>
+                        <select id="attendance">
+                            <option value="yes">Joyfully Accept</option>
+                            <option value="no">Regretfully Decline</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">A note for the couple (Optional)</label>
+                        <input type="text" id="message" placeholder="Can't wait to celebrate!">
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">CONFIRM ATTENDANCE</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =============================================================
+         FINAL PAGE
+    ============================================================= -->
+    <section id="final-section">
+        <div class="fade-in">
+            <p class="final-quote">
+                Somewhere along the way,<br>
+                <span class="italic" style="color: var(--text-gold);">we became us.</span>
+            </p>
+            <p class="story-title uppercase" style="font-size: 1.2rem; letter-spacing: 0.3em; margin-top: 40px;">
+                AND THIS IS ONLY THE BEGINNING.
+            </p>
+            <p style="font-size: 0.8rem; letter-spacing: 0.2em; color: var(--text-muted); margin-top: 20px;">
+                ELENA & ADRIAN — JANUARY 31, 2028
+            </p>
+        </div>
+    </section>
+
+    <!-- =============================================================
+         INTERACTIVE JAVASCRIPT
+    ============================================================= -->
+    <script>
+        // -------------------------------------------------------------
+        // 1. FLASHBACK VIDEO / PHOTO SEQUENCE LOGIC
+        // -------------------------------------------------------------
+        window.addEventListener('DOMContentLoaded', () => {
+            runFlashbackSequence();
+        });
+
+        function runFlashbackSequence() {
+            const overlay = document.getElementById('cinematic-overlay');
+            const text1 = document.getElementById('fb-text-1');
+            const img1 = document.getElementById('fb-img-1');
+            const img2 = document.getElementById('fb-img-2');
+            const img3 = document.getElementById('fb-img-3');
+            const img4 = document.getElementById('fb-img-4');
+            const text2 = document.getElementById('fb-text-2');
+            const text3 = document.getElementById('fb-text-3');
+            const hero = document.getElementById('fb-hero');
+
+            // Timeline Sequence Timings (In Milliseconds)
+            setTimeout(() => { text1.style.opacity = '1'; }, 500);          // 0:00 - Text 1
+            setTimeout(() => { text1.style.opacity = '0'; }, 3000);
+
+            // Memory Cuts (Simulating fast-paced visual memories)
+            setTimeout(() => { img1.style.opacity = '0.7'; }, 3800);
+            setTimeout(() => { img1.style.opacity = '0'; img2.style.opacity = '0.7'; }, 4600);
+            setTimeout(() => { img2.style.opacity = '0'; img3.style.opacity = '0.7'; }, 5300);
+            setTimeout(() => { img3.style.opacity = '0'; img4.style.opacity = '0.7'; }, 5900);
+            setTimeout(() => { img4.style.opacity = '0'; }, 6600);
+
+            // Text Turn
+            setTimeout(() => { text2.style.opacity = '1'; }, 7200);          // "And somehow..."
+            setTimeout(() => { text2.style.opacity = '0'; }, 9000);
+
+            setTimeout(() => { text3.style.opacity = '1'; }, 9500);          // "...all those moments led us here"
+            setTimeout(() => { text3.style.opacity = '0'; }, 11500);
+
+            // Hero reveal
+            setTimeout(() => { hero.style.opacity = '1'; }, 12200);         // "WE'RE GETTING MARRIED"
+
+            // End overlay & Transition into Web Experience
+            setTimeout(() => {
+                endFlashback();
+            }, 15500);
         }
-      }, 1000);
-    }, 5500); // Waits for text animations to display first
-  </script>
-</body>
-</html>
+
+        function endFlashback() {
+            const overlay = document.getElementById('cinematic-overlay');
+            overlay.style.opacity = '0';
+            overlay.style.visibility = 'hidden';
+            document.body.style.overflowY = 'auto'; // enable scrolling
+        }
+
+
+        // -------------------------------------------------------------
+        // 2. SCROLL FADE-IN ANIMATION OBSERVER
+        // -------------------------------------------------------------
+        const observerOptions = {
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+
+        // -------------------------------------------------------------
+        // 3. WEDDING COUNTDOWN TIMER
+        // -------------------------------------------------------------
+        const weddingDate = new Date("January 31, 2028 15:30:00").getTime();
+
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (Here is a complete, single-file HTML implementation designed to capture the nostalgic, cinematic, and emotional journey described in your concept. 
+
+It includes smooth scrolling transitions, an interactive timeline, a dynamic wedding countdown, modal lightbox galleries, an integrated RSVP form section, and subtle fade-in animations that recreate the cinematic experience directly in the browser.
+
+Save the following code with an `.html` extension (e.g., `wedding-invitation.html`) and open it in any modern browser.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elena & Adrian — January 31, 2028</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
+    <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
+    <link href="[https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500&display=swap](https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500&display=swap)" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #141414;
+            --text-light: #f4f4f4;
+            --text-muted: #a0a0a0;
+            --accent-purple: #8a5a9e;
+            --accent-light: #d1b3e0;
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Montserrat', sans-serif;
+            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: var(--font-sans);
+            font-weight: 300;
+            overflow-x: hidden;
+        }
+
+        body {
+            line-height: 1.6;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, .serif {
+            font-family: var(--font-serif);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Utility Components */
+        .section {
+            padding: 100px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 36px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: transparent;
+            color: var(--text-light);
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            border-color: var(--text-light);
+            background: rgba(255, 255, 255, 0.05);
+            letter-spacing: 4px;
+        }
+
+        /* --- INTRO / FLASHBACK OVERLAY --- */
+        #intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #000;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .intro-text {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-style: italic;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            color: #d1d1d1;
+            position: absolute;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .intro-media {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out, transform 4s ease-out;
+            filter: grayscale(40%) contrast(110%);
+        }
+
+        /* --- HERO SECTION --- */
+        #hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
+            padding: 0 20px;
+        }
+
+        #hero h3 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        #hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
+
+        #hero h2 {
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            color: var(--accent-light);
+            margin-bottom: 40px;
+        }
+
+        /* --- STORY & BEGINNING --- */
+        .story-text {
+            font-size: 1.25rem;
+            line-height: 1.8;
+            max-width: 700px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .photo-frame {
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            background-color: var(--bg-card);
+            margin: 30px 0;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            filter: grayscale(20%);
+        }
+
+        /* --- HORIZONTAL TIMELINE --- */
+        #timeline {
+            max-width: 100%;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .timeline-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            padding: 40px 0;
+            gap: 30px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-purple) transparent;
+        }
