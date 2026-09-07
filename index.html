@@ -29,37 +29,32 @@
             padding: 0;
         }
 
-        html {
-            scroll-behavior: smooth;
-            background-color: var(--bg-dark);
+        html, body {
+            min-height: 100%;
+            width: 100%;
+            background-color: var(--bg-site);
             color: var(--text-dark);
             font-family: var(--font-sans);
             font-weight: 300;
             overflow-x: hidden;
-            transition: background-color 1.5s ease;
+            scroll-behavior: smooth;
         }
 
-        body {
-            line-height: 1.7;
-            letter-spacing: 0.02em;
-            background-color: var(--bg-site);
-            position: relative;
-        }
-
-        /* Fixed Background Image with 50% Opacity Across All Pages */
-        body::before {
-            content: "";
+        /* -------------------------------------------------------------
+           GUARANTEED FIXED BACKGROUND AT 50% OPACITY
+        ------------------------------------------------------------- */
+        #fixed-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-image: url('background.jpeg');
+            background-image: url('./background.jpeg'); /* Explicit path notation */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            opacity: 0.5;
-            z-index: -1;
+            opacity: 0.5; /* 50% Opacity */
+            z-index: 0;
             pointer-events: none;
         }
 
@@ -89,7 +84,8 @@
             align-items: center;
             position: relative;
             text-align: center;
-            background-color: transparent;
+            z-index: 1; /* Sits above the background layer */
+            background: transparent;
         }
 
         .section-label {
@@ -219,13 +215,6 @@
         }
 
         /* -------------------------------------------------------------
-           PAGE 01 — HERO / TRANSITION INTO INVITATION
-        ------------------------------------------------------------- */
-        #invitation-hero {
-            background: transparent;
-        }
-
-        /* -------------------------------------------------------------
            PAGE 02 & 03 — OUR STORY & THE BEGINNING
         ------------------------------------------------------------- */
         .story-container {
@@ -328,10 +317,6 @@
         /* -------------------------------------------------------------
            PAGE 05 — NOW
         ------------------------------------------------------------- */
-        #now-section {
-            background: transparent;
-        }
-
         .countdown-container {
             display: flex;
             gap: 35px;
@@ -356,10 +341,6 @@
         /* -------------------------------------------------------------
            PAGE 06 — THE DAY
         ------------------------------------------------------------- */
-        #the-day-section {
-            background-color: transparent;
-        }
-
         .details-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -504,10 +485,6 @@
         /* -------------------------------------------------------------
            PAGE 10 — RSVP
         ------------------------------------------------------------- */
-        #rsvp-section {
-            background: transparent;
-        }
-
         .rsvp-form-container {
             width: 100%;
             max-width: 550px;
@@ -526,10 +503,6 @@
         /* -------------------------------------------------------------
            FINAL PAGE
         ------------------------------------------------------------- */
-        #final-section {
-            background-color: transparent;
-        }
-
         .final-quote {
             font-family: var(--font-serif);
             font-size: 2.5rem;
@@ -552,13 +525,16 @@
 </head>
 <body>
 
+    <!-- GUARANTEED FULLSCREEN FIXED BACKGROUND (50% OPACITY) -->
+    <div id="fixed-background"></div>
+
     <!-- =============================================================
          01. OPENING — THE 7-SECOND FLASHBACK OVERLAY
     ============================================================= -->
     <div id="cinematic-overlay">
 
         <!-- 7-Second Video File -->
-        <video id="bg-video" muted playsinline>
+        <video id="bg-video" autoplay muted playsinline>
             <source src="vid.mp4" type="video/mp4">
         </video>
 
@@ -874,16 +850,19 @@
             const text5 = document.getElementById('fb-text-5');
             const hero = document.getElementById('fb-hero');
 
-            // Start Video
-            bgVideo.play().then(() => {
-                bgVideo.style.opacity = '0.75';
-            }).catch(() => {
-                bgVideo.style.opacity = '0';
-            });
+            // Play video smoothly
+            const videoPromise = bgVideo.play();
+            if (videoPromise !== undefined) {
+                videoPromise.then(() => {
+                    bgVideo.style.opacity = '0.75';
+                }).catch(() => {
+                    bgVideo.style.opacity = '0';
+                });
+            }
 
             // 0:00 - Text 1 fades in
             setTimeout(() => { text1.style.opacity = '1'; }, 200);
-            // 0:01.6 - Text 1 fades out completely before Text 2
+            // 0:01.6 - Text 1 fades out
             setTimeout(() => { text1.style.opacity = '0'; }, 1600);
 
             // 0:02 - Text 2 fades in
@@ -899,7 +878,7 @@
             // 0:06 - Text 4 fades in
             setTimeout(() => { text4.style.opacity = '1'; }, 6000);
             
-            // 0:07 — Video ends, text 4 fades out, black screen pause
+            // 0:07 — Video ends, black screen pause
             setTimeout(() => { 
                 text4.style.opacity = '0';
                 bgVideo.style.opacity = '0'; 
@@ -910,7 +889,7 @@
             setTimeout(() => { text5.style.opacity = '1'; }, 8000);
             setTimeout(() => { text5.style.opacity = '0'; }, 9400);
 
-            // 0:10.2 - Hero Moment appears centrally with full button visibility
+            // 0:10.2 - Hero Moment appears
             setTimeout(() => { 
                 hero.style.opacity = '1'; 
             }, 10200);
