@@ -136,18 +136,7 @@
             object-fit: cover;
             opacity: 0;
             transition: opacity 1s ease;
-            filter: grayscale(30%) brightness(0.85);
-        }
-
-        /* Fallback Flash Images if Video is not available */
-        .flash-img {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            filter: grayscale(40%);
+            filter: grayscale(30%) brightness(0.75);
         }
 
         .overlay-text-box {
@@ -164,8 +153,8 @@
             font-weight: 300;
             color: var(--text-light);
             opacity: 0;
-            transition: opacity 1.2s ease;
-            line-height: 1.4;
+            transition: opacity 0.8s ease;
+            line-height: 1.5;
         }
 
         .hero-moment {
@@ -298,7 +287,7 @@
         }
 
         /* -------------------------------------------------------------
-           PAGE 05 — NOW & COUNTDOWN
+           PAGE 05 — NOW
         ------------------------------------------------------------- */
         #now-section {
             background: radial-gradient(circle at center, #1b131c 0%, var(--bg-dark) 100%);
@@ -325,7 +314,7 @@
         }
 
         /* -------------------------------------------------------------
-           PAGE 06 — THE DAY (LIGHT THEME TRANSITION)
+           PAGE 06 — THE DAY (BRIGHTER TRANSITION)
         ------------------------------------------------------------- */
         #the-day-section {
             background-color: var(--bg-light);
@@ -505,40 +494,38 @@
 <body>
 
     <!-- =============================================================
-         01. OPENING — THE FLASHBACK OVERLAY
+         01. OPENING — THE 7-SECOND FLASHBACK OVERLAY
     ============================================================= -->
     <div id="cinematic-overlay">
         <button class="skip-btn" onclick="endFlashback()">SKIP INTRO &#x2192;</button>
 
-        <!-- Dynamic Local Video File with Fallback handling -->
+        <!-- 7-Second Video File -->
         <video id="bg-video" muted playsinline>
             <source src="vid.mp4" type="video/mp4">
         </video>
 
-        <!-- Fallback image slices in case video is absent -->
-        <img class="flash-img" id="f-img-1" src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1200&q=80" alt="Memory">
-        <img class="flash-img" id="f-img-2" src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=1200&q=80" alt="Memory">
-        <img class="flash-img" id="f-img-3" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1200&q=80" alt="Memory">
-        <img class="flash-img" id="f-img-4" src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=1200&q=80" alt="Memory">
-
         <div class="overlay-text-box">
-            <!-- Pacing sequence text containers -->
-            <div class="overlay-text" id="fb-text-1">Somewhere along the way...</div>
-            <div class="overlay-text" id="fb-text-2">And somehow...</div>
-            <div class="overlay-text" id="fb-text-3">all those little moments led us here.</div>
+            <!-- Subtle Fading Overlay Sentences -->
+            <div class="overlay-text" id="fb-text-1">Before this day,<br><span class="italic">there was a story.</span></div>
+            <div class="overlay-text" id="fb-text-2">A story made of little moments.</div>
+            <div class="overlay-text" id="fb-text-3">Moments we didn't know<br><span class="italic">would lead us here.</span></div>
+            <div class="overlay-text" id="fb-text-4">Until one day...</div>
+            <div class="overlay-text" id="fb-text-5">We realized...</div>
 
-            <!-- Hero Reveal -->
+            <!-- Hero Turn -->
             <div class="hero-moment" id="fb-hero">
-                <p class="uppercase" style="font-size: 0.8rem; color: var(--accent-purple-light);">WE'RE GETTING MARRIED.</p>
-                <h1>Elena & Adrian</h1>
-                <p class="uppercase" style="font-size: 0.75rem; letter-spacing: 0.3em; color: var(--text-muted);">JANUARY 31, 2028</p>
+                <p class="uppercase" style="font-size: 0.85rem; color: var(--accent-purple-light); letter-spacing: 0.3em;">THIS IS OUR MOMENT.</p>
+                <p style="font-size: 0.9rem; margin-top: 15px; color: var(--text-muted); letter-spacing: 0.2em;" class="uppercase">And now, we're getting married.</p>
+                <h1>ELENA & ADRIAN</h1>
+                <p class="uppercase" style="font-size: 0.8rem; letter-spacing: 0.3em; color: var(--accent-purple-light); margin-bottom: 25px;">JANUARY 31, 2028</p>
+                <a href="#our-story" onclick="endFlashback()" class="btn">ENTER OUR STORY &#x2192;</a>
             </div>
         </div>
     </div>
 
 
     <!-- =============================================================
-         PAGE 01 — HERO / INVITATION BEGINS
+         PAGE 01 — HERO / TRANSITION INTO INVITATION
     ============================================================= -->
     <section id="invitation-hero">
         <div class="fade-in">
@@ -656,7 +643,7 @@
 
 
     <!-- =============================================================
-         PAGE 06 — THE DAY (BRIGHTER TRANSITION)
+         PAGE 06 — THE DAY
     ============================================================= -->
     <section id="the-day-section">
         <div class="fade-in">
@@ -730,8 +717,8 @@
             <div class="info-cards">
                 <div class="info-card">
                     <h4>WHAT TO WEAR</h4>
-                    <p>Formal / Formal Attire</p>
-                    <p style="margin-top: 8px; font-size: 0.75rem;">Color Theme: Deep Purple & Warm Tones</p>
+                    <p>PURPLE / Formal Attire</p>
+                    <p style="margin-top: 8px; font-size: 0.75rem;">Palette: Deep Purple & Warm Tones</p>
                     <div class="color-swatch"></div>
                 </div>
 
@@ -748,7 +735,7 @@
 
                 <div class="info-card">
                     <h4>WHAT TO BRING</h4>
-                    <p>Your warm presence is our greatest gift. Optional gift registry details upon request.</p>
+                    <p>Your warm presence is our greatest gift. Optional wedding gift information available upon request.</p>
                 </div>
             </div>
         </div>
@@ -756,13 +743,13 @@
 
 
     <!-- =============================================================
-         PAGE 09 — THE MEMORIES (UNPOLISHED GALLERY)
+         PAGE 09 — THE MEMORIES
     ============================================================= -->
     <section id="memories-section">
         <div class="fade-in">
             <p class="section-label">PAGE 09 — THE MEMORIES</p>
             <h2 class="section-title">A FEW OF OUR FAVORITE MOMENTS</h2>
-            <p style="color: var(--text-muted); max-width: 600px; margin-bottom: 20px;">Old phone photos, blurry pictures, travel moments, and candid laughter.</p>
+            <p style="color: var(--text-muted); max-width: 600px; margin-bottom: 20px;">Engagement photos, old phone photos, blurry pictures, screenshots, silly moments, travel photos, and candid pictures.</p>
 
             <div class="gallery-grid">
                 <div class="gallery-item"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80" alt="Memory 1"></div>
@@ -786,7 +773,7 @@
             <p class="story-body" style="font-size: 1.1rem;">We'd love to celebrate this moment with you.</p>
 
             <div class="rsvp-form-container">
-                <!-- Replace src with your actual Google Form Embed Link -->
+                <!-- Replace src with your Google Form Embed Link -->
                 <iframe class="google-form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSc_EXAMPLE/viewform?embedded=true">Loading Google Form…</iframe>
             </div>
         </div>
@@ -814,75 +801,59 @@
     </section>
 
     <!-- =============================================================
-         JAVASCRIPT LOGIC
+         JAVASCRIPT TIMING LOGIC
     ============================================================= -->
     <script>
-        // 1. TIMING & SEQUENCING LOGIC FOR FLASHBACK (VID.MP4 + FALLBACK)
         window.addEventListener('DOMContentLoaded', () => {
-            runFlashbackSequence();
+            run7SecondFlashback();
         });
 
-        function runFlashbackSequence() {
-            const overlay = document.getElementById('cinematic-overlay');
+        function run7SecondFlashback() {
             const bgVideo = document.getElementById('bg-video');
             const text1 = document.getElementById('fb-text-1');
             const text2 = document.getElementById('fb-text-2');
             const text3 = document.getElementById('fb-text-3');
+            const text4 = document.getElementById('fb-text-4');
+            const text5 = document.getElementById('fb-text-5');
             const hero = document.getElementById('fb-hero');
 
-            // Try playing video file vid.mp4
-            let videoPromise = bgVideo.play();
+            // 0:00 — Video begins
+            bgVideo.play().then(() => {
+                bgVideo.style.opacity = '0.75';
+            }).catch(() => {
+                bgVideo.style.opacity = '0';
+            });
 
-            if (videoPromise !== undefined) {
-                videoPromise.then(() => {
-                    bgVideo.style.opacity = '0.75';
-                }).catch(() => {
-                    // Fallback to flash frames if local video fails to load/play automatically
-                    runFallbackImageSlices();
-                });
-            }
+            // 0:00 - Text: Before this day, there was a story.
+            setTimeout(() => { text1.style.opacity = '1'; }, 200);
+            setTimeout(() => { text1.style.opacity = '0'; }, 1800);
 
-            // Timeline Execution (0:00 - 0:38 timeline sequence)
-            setTimeout(() => { text1.style.opacity = '1'; }, 500);            // 0:00 - 0:03 "Before this day / Somewhere along..."
-            setTimeout(() => { text1.style.opacity = '0'; }, 3200);
+            // 0:02 - Text: A story made of little moments.
+            setTimeout(() => { text2.style.opacity = '1'; }, 2000);
+            setTimeout(() => { text2.style.opacity = '0'; }, 3800);
 
-            // Memory cuts acceleration (If vid.mp4 is playing, video shows moments. If images, frames cycle)
+            // 0:04 - Text: Moments we didn't know would lead us here.
+            setTimeout(() => { text3.style.opacity = '1'; }, 4000);
+            setTimeout(() => { text3.style.opacity = '0'; }, 5800);
 
-            // Emotional Turn: Everything stops. Black screen & Silence (around 0:27 - 0:30)
+            // 0:06 - Text: Until one day...
+            setTimeout(() => { text4.style.opacity = '1'; }, 6000);
+            
+            // 0:07 — Video ends, screen fades to black
             setTimeout(() => { 
+                text4.style.opacity = '0';
                 bgVideo.style.opacity = '0'; 
-                hideFallbackImages();
-            }, 20000);
+                bgVideo.pause();
+            }, 7000);
 
-            setTimeout(() => { text2.style.opacity = '1'; }, 22000);           // "And somehow..."
-            setTimeout(() => { text2.style.opacity = '0'; }, 24500);
+            // Silence pause -> "We realized..."
+            setTimeout(() => { text5.style.opacity = '1'; }, 8000);
+            setTimeout(() => { text5.style.opacity = '0'; }, 9500);
 
-            setTimeout(() => { text3.style.opacity = '1'; }, 25000);           // "all those little moments led us here."
-            setTimeout(() => { text3.style.opacity = '0'; }, 28000);
-
-            // Hero Moment (0:30 - 0:38)
-            setTimeout(() => { hero.style.opacity = '1'; }, 29000);            // "WE'RE GETTING MARRIED."
-
-            // Complete intro sequence & hand control to main site
-            setTimeout(() => {
-                endFlashback();
-            }, 35000);
-        }
-
-        function runFallbackImageSlices() {
-            const f1 = document.getElementById('f-img-1');
-            const f2 = document.getElementById('f-img-2');
-            const f3 = document.getElementById('f-img-3');
-            const f4 = document.getElementById('f-img-4');
-
-            setTimeout(() => { f1.style.opacity = '0.6'; }, 3500);
-            setTimeout(() => { f1.style.opacity = '0'; f2.style.opacity = '0.6'; }, 8000);
-            setTimeout(() => { f2.style.opacity = '0'; f3.style.opacity = '0.6'; }, 13000);
-            setTimeout(() => { f3.style.opacity = '0'; f4.style.opacity = '0.6'; }, 17000);
-        }
-
-        function hideFallbackImages() {
-            document.querySelectorAll('.flash-img').forEach(img => img.style.opacity = '0');
+            // Hero Moment: "THIS IS OUR MOMENT. / And now, we're getting married. / ENTER OUR STORY →"
+            setTimeout(() => { 
+                hero.style.opacity = '1'; 
+            }, 10500);
         }
 
         function endFlashback() {
@@ -892,7 +863,7 @@
             document.body.style.overflowY = 'auto';
         }
 
-        // 2. SCROLL OBSERVER FOR SMOOTH FADE-IN
+        // Scroll Intersection Observer
         const observerOptions = { threshold: 0.2 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -904,7 +875,7 @@
 
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-        // 3. COUNTDOWN TIMER LOGIC
+        // Countdown Timer
         const weddingDate = new Date("January 31, 2028 15:30:00").getTime();
         setInterval(function() {
             const now = new Date().getTime();
