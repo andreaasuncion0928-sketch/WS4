@@ -30,20 +30,23 @@
             padding: 0;
         }
 
+        /* -------------------------------------------------------------
+           LOCKED SECTION SCROLL SNAP EXPERIENCE
+        ------------------------------------------------------------- */
         html, body {
-            min-height: 100%;
+            height: 100%;
             width: 100%;
             background-color: var(--bg-dark);
             color: var(--text-primary);
             font-family: var(--font-sans);
             font-weight: 300;
             overflow-x: hidden;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory; /* Locks scroll to exact sections */
             scroll-behavior: smooth;
         }
 
-        /* -------------------------------------------------------------
-           FIXED BACKGROUND WITH 70% DARK OVERLAY
-        ------------------------------------------------------------- */
+        /* FIXED BACKGROUND WITH 70% DARK OVERLAY */
         #fixed-background {
             position: fixed;
             top: 0;
@@ -74,10 +77,11 @@
             transform: translateY(0);
         }
 
-        /* Section Container Defaults */
+        /* LOCKED SECTION DEFAULTS */
         section {
-            min-height: 100vh;
-            padding: 100px 24px;
+            height: 100vh;
+            width: 100vw;
+            padding: 80px 24px 100px 24px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -86,13 +90,16 @@
             text-align: center;
             z-index: 1;
             background: transparent;
+            scroll-snap-align: start; /* Snap point */
+            scroll-snap-stop: always; /* Prevents skipping multiple pages */
+            overflow: hidden;
         }
 
         .section-label {
             font-size: 0.7rem;
             letter-spacing: 0.3em;
             color: var(--accent-gold);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             text-transform: uppercase;
             font-weight: 500;
         }
@@ -101,7 +108,7 @@
             font-family: var(--font-serif);
             font-size: 2.8rem;
             font-weight: 300;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             line-height: 1.2;
             color: var(--text-primary);
             text-shadow: 0 2px 10px rgba(0,0,0,0.5);
@@ -140,6 +147,47 @@
         .btn-overlay:hover {
             background: #E8E6E3;
             color: var(--bg-dark);
+        }
+
+        /* -------------------------------------------------------------
+           ANIMATED SCROLL DOWN ARROW BUTTON
+        ------------------------------------------------------------- */
+        .scroll-down-arrow {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            background: none;
+            border: none;
+            outline: none;
+            animation: bounce 2s infinite;
+            opacity: 0.85;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .scroll-down-arrow:hover {
+            opacity: 1;
+            color: #FFFFFF;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
         }
 
         /* -------------------------------------------------------------
@@ -227,18 +275,18 @@
 
         .story-body {
             font-family: var(--font-serif);
-            font-size: 1.45rem;
-            line-height: 1.8;
+            font-size: 1.4rem;
+            line-height: 1.7;
             color: var(--text-secondary);
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             text-shadow: 0 1px 5px rgba(0,0,0,0.8);
         }
 
         .photo-frame {
             width: 100%;
-            max-width: 550px;
-            height: 380px;
-            margin: 30px auto;
+            max-width: 480px;
+            height: 320px;
+            margin: 20px auto;
             overflow: hidden;
             border: 1px solid var(--border-light);
             background-color: var(--bg-card);
@@ -262,37 +310,36 @@
            PAGE 04 — THE YEARS BETWEEN (HORIZONTAL TIMELINE)
         ------------------------------------------------------------- */
         #timeline-section {
-            align-items: flex-start;
-            padding: 100px 0;
-            overflow: hidden;
+            align-items: center;
+            padding: 80px 0;
         }
 
         .timeline-header {
             width: 100%;
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             padding: 0 24px;
         }
 
         .timeline-scroll-wrapper {
             width: 100%;
             overflow-x: auto;
-            padding: 20px 40px 60px 40px;
+            padding: 20px 40px 40px 40px;
             scrollbar-width: thin;
             scrollbar-color: var(--accent-gold) transparent;
         }
 
         .timeline-track {
             display: flex;
-            gap: 40px;
+            gap: 30px;
             width: max-content;
         }
 
         .timeline-card {
-            width: 280px;
+            width: 260px;
             background: var(--bg-card);
             border: 1px solid var(--border-light);
-            padding: 40px 30px;
+            padding: 30px 25px;
             text-align: left;
             transition: var(--transition-smooth);
             backdrop-filter: blur(8px);
@@ -307,16 +354,16 @@
 
         .timeline-year {
             font-family: var(--font-serif);
-            font-size: 2.2rem;
+            font-size: 2rem;
             color: var(--accent-gold);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             font-weight: 400;
         }
 
         .timeline-desc {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         /* -------------------------------------------------------------
@@ -325,7 +372,7 @@
         .countdown-container {
             display: flex;
             gap: 35px;
-            margin-top: 40px;
+            margin-top: 30px;
         }
 
         .countdown-num {
@@ -350,15 +397,15 @@
         .details-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 50px;
+            gap: 40px;
             max-width: 850px;
             width: 100%;
-            margin-top: 40px;
+            margin-top: 30px;
         }
 
         .details-box {
             background: var(--bg-card);
-            padding: 40px 30px;
+            padding: 35px 25px;
             border: 1px solid var(--border-light);
             backdrop-filter: blur(8px);
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
@@ -366,16 +413,16 @@
 
         .details-box h3 {
             font-family: var(--font-serif);
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 400;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             color: var(--accent-gold);
         }
 
         .details-box p {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--text-secondary);
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
 
         /* -------------------------------------------------------------
@@ -383,16 +430,16 @@
         ------------------------------------------------------------- */
         .people-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
             width: 100%;
             max-width: 900px;
-            margin-top: 40px;
+            margin-top: 30px;
         }
 
         .people-group {
             background: var(--bg-card);
-            padding: 30px 20px;
+            padding: 25px 20px;
             border: 1px solid var(--border-light);
             backdrop-filter: blur(8px);
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
@@ -400,11 +447,11 @@
 
         .people-group h4 {
             font-family: var(--font-serif);
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             color: var(--accent-gold);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             border-bottom: 1px solid var(--border-light);
-            padding-bottom: 10px;
+            padding-bottom: 8px;
         }
 
         .people-group ul {
@@ -412,9 +459,9 @@
         }
 
         .people-group li {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         /* -------------------------------------------------------------
@@ -422,17 +469,17 @@
         ------------------------------------------------------------- */
         .info-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
             width: 100%;
             max-width: 950px;
-            margin-top: 40px;
+            margin-top: 30px;
         }
 
         .info-card {
             background: var(--bg-card);
             border: 1px solid var(--border-light);
-            padding: 35px 25px;
+            padding: 25px 20px;
             text-align: center;
             backdrop-filter: blur(8px);
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
@@ -442,20 +489,20 @@
             font-size: 0.75rem;
             letter-spacing: 0.2em;
             color: var(--accent-gold);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .info-card p {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
         }
 
         .color-swatch {
-            width: 28px;
-            height: 28px;
+            width: 24px;
+            height: 24px;
             background-color: #6B3E75;
             border-radius: 50%;
-            margin: 12px auto 0 auto;
+            margin: 10px auto 0 auto;
             border: 1px solid var(--accent-gold);
         }
 
@@ -463,15 +510,18 @@
            PAGE 09 — THE MEMORIES (GALLERY)
         ------------------------------------------------------------- */
         .gallery-grid {
-            columns: 3 220px;
-            column-gap: 15px;
+            columns: 3 200px;
+            column-gap: 12px;
             width: 100%;
-            max-width: 950px;
-            margin-top: 40px;
+            max-width: 900px;
+            margin-top: 25px;
+            max-height: 55vh;
+            overflow-y: auto;
+            padding-right: 5px;
         }
 
         .gallery-item {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             break-inside: avoid;
             overflow: hidden;
             border: 1px solid var(--border-light);
@@ -497,12 +547,12 @@
         .rsvp-form-container {
             width: 100%;
             max-width: 550px;
-            margin-top: 35px;
+            margin-top: 25px;
         }
 
         .google-form-iframe {
             width: 100%;
-            height: 520px;
+            height: 440px;
             border: none;
             background: var(--bg-card);
             border: 1px solid var(--border-light);
@@ -525,13 +575,14 @@
         /* Mobile Layout Modifications */
         @media (max-width: 768px) {
             .section-title { font-size: 2.2rem; }
-            .details-grid { grid-template-columns: 1fr; gap: 35px; }
+            .details-grid { grid-template-columns: 1fr; gap: 20px; }
             .hero-moment h1 { font-size: 2.5rem; }
             .countdown-container { gap: 15px; }
             .countdown-num { font-size: 2.2rem; }
-            .gallery-grid { columns: 2 140px; }
+            .gallery-grid { columns: 2 130px; max-height: 50vh; }
             .overlay-text { font-size: 1.6rem; }
             .story-body { font-size: 1.25rem; }
+            .photo-frame { height: 260px; }
         }
     </style>
 </head>
@@ -564,7 +615,7 @@
                 <p style="font-size: 0.9rem; margin-top: 10px; color: var(--text-muted); letter-spacing: 0.2em;" class="uppercase">And now, we're getting married.</p>
                 <h1>ELENA & ADRIAN</h1>
                 <p class="uppercase" style="font-size: 0.8rem; letter-spacing: 0.3em; color: var(--accent-gold); margin-bottom: 20px;">JANUARY 31, 2028</p>
-                <a href="#our-story" onclick="endFlashback()" class="btn btn-overlay">ENTER OUR STORY &#x2192;</a>
+                <a href="#invitation-hero" onclick="endFlashback()" class="btn btn-overlay">ENTER OUR STORY &#x2192;</a>
             </div>
         </div>
     </div>
@@ -579,8 +630,9 @@
             <p class="section-label">OUR WEDDING</p>
             <h1 class="serif" style="font-size: 4rem; font-weight: 300; margin-bottom: 0.5rem; color: var(--text-primary);">Elena & Adrian</h1>
             <p class="uppercase" style="font-size: 0.85rem; letter-spacing: 0.3em; color: var(--accent-gold); margin-bottom: 2rem;">JANUARY 31, 2028</p>
-            <a href="#our-story" class="btn">BEGIN &#x2192;</a>
+            <a href="javascript:void(0)" onclick="scrollToNextSection(this)" class="btn">BEGIN &#x2192;</a>
         </div>
+        <button class="scroll-down-arrow" onclick="scrollToNextSection(this)" aria-label="Scroll Down">&#x2193;</button>
     </section>
 
 
@@ -595,6 +647,7 @@
                 We didn't notice it at first. It was in the shared coffees on rainy Tuesday mornings, the late-night wrong turns on empty highways, and the quiet laughter between conversations. Our story wasn't created in a single moment—it was built softly, piece by piece.
             </p>
         </div>
+        <button class="scroll-down-arrow" onclick="scrollToNextSection(this)" aria-label="Scroll Down">&#x2193;</button>
     </section>
 
 
@@ -609,8 +662,9 @@
             <div class="photo-frame">
                 <img src="picture1.jpeg" alt="First Memory">
             </div>
-            <p class="story-body italic" style="font-size: 1.2rem; color: var(--text-secondary);">"We didn't know it then, but this was the beginning."</p>
+            <p class="story-body italic" style="font-size: 1.1rem; color: var(--text-secondary);">"We didn't know it then, but this was the beginning."</p>
         </div>
+        <button class="scroll-down-arrow" onclick="scrollToNextSection(this)" aria-label="Scroll Down">&#x2193;</button>
     </section>
 
 
@@ -653,6 +707,7 @@
 
             </div>
         </div>
+        <button class="scroll-down-arrow" onclick="scrollToNextSection(this)" aria-label="Scroll Down">&#x2193;</button>
     </section>
 
 
@@ -684,6 +739,7 @@
                 </div>
             </div>
         </div>
+        <button class="scroll-down-arrow" onclick="scrollToNextSection(this)" aria-label="Scroll Down">&#x2193;</button>
     </section>
 
 
@@ -711,6 +767,7 @@
                 </div>
             </div>
         </div>
+        <button class="scroll-down-arrow" onclick="scrollToNextSection(this)" aria-label="Scroll Down">&#x2193;</button>
     </section>
 
 
@@ -721,7 +778,7 @@
         <div class="fade-in">
             <p class="section-label">PAGE 07 — THE PEOPLE</p>
             <h2 class="section-title">THE PEOPLE WE LOVE</h2>
-            <p class="story-body" style="font-size: 1.15rem; margin-bottom: 2rem;">The ones who've been part of our story.</p>
+            <p class="story-body" style="font-size: 1.15rem; margin-bottom: 1.5rem;">The ones who've been part of our story.</p>
 
             <div class="people-grid">
                 <div class="people-group">
@@ -748,6 +805,7 @@
                 </div>
             </div>
         </div>
+        <button class="scroll-down-arrow" onclick="scrollToNextSection(this)" aria-label="Scroll Down">&#x2193;</button>
     </section>
 
 
@@ -784,6 +842,7 @@
                 </div>
             </div>
         </div>
+        <button class="scroll-down-arrow" onclick="scrollToNextSection(this)" aria-label="Scroll Down">&#x2193;</button>
     </section>
 
 
@@ -794,7 +853,7 @@
         <div class="fade-in">
             <p class="section-label">PAGE 09 — THE MEMORIES</p>
             <h2 class="section-title">A FEW OF OUR FAVORITE MOMENTS</h2>
-            <p style="color: var(--text-secondary); max-width: 600px; margin-bottom: 20px;">Engagement photos, old phone photos, blurry pictures, screenshots, silly moments, travel photos, and candid pictures.</p>
+            <p style="color: var(--text-secondary); max-width: 600px; margin-bottom: 15px; font-size: 0.9rem;">Engagement photos, old phone photos, blurry pictures, screenshots, silly moments, travel photos, and candid pictures.</p>
 
             <div class="gallery-grid">
                 <div class="gallery-item"><img src="picture2.jpeg" alt="Memory 1"></div>
@@ -805,6 +864,7 @@
                 <div class="gallery-item"><img src="picture7.jpeg" alt="Memory 6"></div>
             </div>
         </div>
+        <button class="scroll-down-arrow" onclick="scrollToNextSection(this)" aria-label="Scroll Down">&#x2193;</button>
     </section>
 
 
@@ -815,13 +875,14 @@
         <div class="fade-in">
             <p class="section-label">PAGE 10 — RSVP</p>
             <h2 class="section-title">BE THERE FOR THE NEXT CHAPTER</h2>
-            <p class="story-body" style="font-size: 1.15rem;">We'd love to celebrate this moment with you.</p>
+            <p class="story-body" style="font-size: 1.15rem; margin-bottom: 1rem;">We'd love to celebrate this moment with you.</p>
 
             <div class="rsvp-form-container">
                 <!-- Replace src with your Google Form Embed Link -->
                 <iframe class="google-form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSc_EXAMPLE/viewform?embedded=true">Loading Google Form…</iframe>
             </div>
         </div>
+        <button class="scroll-down-arrow" onclick="scrollToNextSection(this)" aria-label="Scroll Down">&#x2193;</button>
     </section>
 
 
@@ -835,7 +896,7 @@
                 <span class="italic" style="color: var(--accent-gold);">we became us.</span>
             </p>
 
-            <h2 class="section-title uppercase" style="font-size: 1.3rem; letter-spacing: 0.3em; margin-top: 50px;">
+            <h2 class="section-title uppercase" style="font-size: 1.3rem; letter-spacing: 0.3em; margin-top: 40px;">
                 AND THIS IS ONLY THE BEGINNING.
             </h2>
 
@@ -846,7 +907,7 @@
     </section>
 
     <!-- =============================================================
-         JAVASCRIPT TIMING LOGIC
+         JAVASCRIPT TIMING & CLICK-TO-SCROLL LOGIC
     ============================================================= -->
     <script>
         window.addEventListener('DOMContentLoaded', () => {
@@ -911,11 +972,19 @@
             const overlay = document.getElementById('cinematic-overlay');
             overlay.style.opacity = '0';
             overlay.style.visibility = 'hidden';
-            document.body.style.overflowY = 'auto';
         }
 
-        // Scroll Intersection Observer
-        const observerOptions = { threshold: 0.2 };
+        // SCROLL EXACTLY TO THE NEXT SECTION ON BUTTON CLICK
+        function scrollToNextSection(element) {
+            const currentSection = element.closest('section');
+            const nextSection = currentSection.nextElementSibling;
+            if (nextSection && nextSection.tagName === 'SECTION') {
+                nextSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Scroll Intersection Observer for smooth content fade-in
+        const observerOptions = { threshold: 0.3 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
