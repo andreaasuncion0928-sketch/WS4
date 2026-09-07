@@ -102,7 +102,7 @@
             text-decoration: none;
             cursor: pointer;
             transition: var(--transition-smooth);
-            margin-top: 30px;
+            margin-top: 20px;
         }
 
         .btn:hover {
@@ -145,6 +145,9 @@
             text-align: center;
             width: 85%;
             max-width: 800px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .overlay-text {
@@ -153,35 +156,30 @@
             font-weight: 300;
             color: var(--text-light);
             opacity: 0;
-            transition: opacity 0.8s ease;
+            transition: opacity 0.5s ease-in-out;
             line-height: 1.5;
+            position: absolute;
+            width: 100%;
+            pointer-events: none;
         }
 
         .hero-moment {
             opacity: 0;
-            transition: opacity 1.5s ease;
+            transition: opacity 1.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
         }
 
         .hero-moment h1 {
             font-family: var(--font-serif);
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             font-weight: 300;
             letter-spacing: 0.1em;
-            margin: 15px 0 10px 0;
-        }
-
-        .skip-btn {
-            position: absolute;
-            bottom: 30px;
-            right: 30px;
-            color: rgba(255,255,255,0.4);
-            font-size: 0.65rem;
-            letter-spacing: 0.25em;
-            cursor: pointer;
-            border: none;
-            background: none;
-            z-index: 10000;
-            text-transform: uppercase;
+            margin: 12px 0 8px 0;
+            line-height: 1.1;
         }
 
         /* -------------------------------------------------------------
@@ -483,7 +481,7 @@
         @media (max-width: 768px) {
             .section-title { font-size: 2.2rem; }
             .details-grid { grid-template-columns: 1fr; gap: 35px; }
-            .hero-moment h1 { font-size: 2.5rem; }
+            .hero-moment h1 { font-size: 2.3rem; }
             .countdown-container { gap: 15px; }
             .countdown-num { font-size: 2.2rem; }
             .gallery-grid { columns: 2 140px; }
@@ -497,7 +495,6 @@
          01. OPENING — THE 7-SECOND FLASHBACK OVERLAY
     ============================================================= -->
     <div id="cinematic-overlay">
-        <button class="skip-btn" onclick="endFlashback()">SKIP INTRO &#x2192;</button>
 
         <!-- 7-Second Video File -->
         <video id="bg-video" muted playsinline>
@@ -505,7 +502,7 @@
         </video>
 
         <div class="overlay-text-box">
-            <!-- Subtle Fading Overlay Sentences -->
+            <!-- Distinct Text Lines for Fading -->
             <div class="overlay-text" id="fb-text-1">Before this day,<br><span class="italic">there was a story.</span></div>
             <div class="overlay-text" id="fb-text-2">A story made of little moments.</div>
             <div class="overlay-text" id="fb-text-3">Moments we didn't know<br><span class="italic">would lead us here.</span></div>
@@ -514,10 +511,10 @@
 
             <!-- Hero Turn -->
             <div class="hero-moment" id="fb-hero">
-                <p class="uppercase" style="font-size: 0.85rem; color: var(--accent-purple-light); letter-spacing: 0.3em;">THIS IS OUR MOMENT.</p>
-                <p style="font-size: 0.9rem; margin-top: 15px; color: var(--text-muted); letter-spacing: 0.2em;" class="uppercase">And now, we're getting married.</p>
+                <p class="uppercase" style="font-size: 0.8rem; color: var(--accent-purple-light); letter-spacing: 0.3em;">THIS IS OUR MOMENT.</p>
+                <p style="font-size: 0.85rem; margin-top: 10px; color: var(--text-muted); letter-spacing: 0.2em;" class="uppercase">And now, we're getting married.</p>
                 <h1>ELENA & ADRIAN</h1>
-                <p class="uppercase" style="font-size: 0.8rem; letter-spacing: 0.3em; color: var(--accent-purple-light); margin-bottom: 25px;">JANUARY 31, 2028</p>
+                <p class="uppercase" style="font-size: 0.75rem; letter-spacing: 0.3em; color: var(--accent-purple-light); margin-bottom: 20px;">JANUARY 31, 2028</p>
                 <a href="#our-story" onclick="endFlashback()" class="btn">ENTER OUR STORY &#x2192;</a>
             </div>
         </div>
@@ -817,43 +814,46 @@
             const text5 = document.getElementById('fb-text-5');
             const hero = document.getElementById('fb-hero');
 
-            // 0:00 — Video begins
+            // Start Video
             bgVideo.play().then(() => {
                 bgVideo.style.opacity = '0.75';
             }).catch(() => {
                 bgVideo.style.opacity = '0';
             });
 
-            // 0:00 - Text: Before this day, there was a story.
+            // 0:00 - Text 1 fades in
             setTimeout(() => { text1.style.opacity = '1'; }, 200);
-            setTimeout(() => { text1.style.opacity = '0'; }, 1800);
+            // 0:01.6 - Text 1 fades out completely before Text 2
+            setTimeout(() => { text1.style.opacity = '0'; }, 1600);
 
-            // 0:02 - Text: A story made of little moments.
+            // 0:02 - Text 2 fades in
             setTimeout(() => { text2.style.opacity = '1'; }, 2000);
-            setTimeout(() => { text2.style.opacity = '0'; }, 3800);
+            // 0:03.6 - Text 2 fades out
+            setTimeout(() => { text2.style.opacity = '0'; }, 3600);
 
-            // 0:04 - Text: Moments we didn't know would lead us here.
+            // 0:04 - Text 3 fades in
             setTimeout(() => { text3.style.opacity = '1'; }, 4000);
-            setTimeout(() => { text3.style.opacity = '0'; }, 5800);
+            // 0:05.6 - Text 3 fades out
+            setTimeout(() => { text3.style.opacity = '0'; }, 5600);
 
-            // 0:06 - Text: Until one day...
+            // 0:06 - Text 4 fades in
             setTimeout(() => { text4.style.opacity = '1'; }, 6000);
             
-            // 0:07 — Video ends, screen fades to black
+            // 0:07 — Video ends, text 4 fades out, black screen pause
             setTimeout(() => { 
                 text4.style.opacity = '0';
                 bgVideo.style.opacity = '0'; 
                 bgVideo.pause();
             }, 7000);
 
-            // Silence pause -> "We realized..."
+            // 0:08 - "We realized..." appears on black screen
             setTimeout(() => { text5.style.opacity = '1'; }, 8000);
-            setTimeout(() => { text5.style.opacity = '0'; }, 9500);
+            setTimeout(() => { text5.style.opacity = '0'; }, 9400);
 
-            // Hero Moment: "THIS IS OUR MOMENT. / And now, we're getting married. / ENTER OUR STORY →"
+            // 0:10.2 - Hero Moment appears centrally with full button visibility
             setTimeout(() => { 
                 hero.style.opacity = '1'; 
-            }, 10500);
+            }, 10200);
         }
 
         function endFlashback() {
