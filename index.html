@@ -32,7 +32,6 @@
             padding: 0;
         }
 
-        /* Lock scroll to section-by-section snapping */
         html, body {
             height: 100%;
             width: 100%;
@@ -46,7 +45,6 @@
             scroll-behavior: smooth;
         }
 
-        /* FULLSCREEN FIXED BACKGROUND (background.jpg) */
         #fixed-background {
             position: fixed;
             top: 0;
@@ -61,12 +59,10 @@
             pointer-events: none;
         }
 
-        /* Typography Helpers */
         .serif { font-family: var(--font-serif); }
         .italic { font-style: italic; }
         .uppercase { text-transform: uppercase; letter-spacing: 0.25em; }
 
-        /* Smooth Fade In Animation for Scroll */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
@@ -77,7 +73,6 @@
             transform: translateY(0);
         }
 
-        /* FLOATING MUSIC TOGGLE BUTTON */
         .music-control-btn {
             position: fixed;
             top: 25px;
@@ -112,7 +107,6 @@
             box-shadow: 0 0 15px rgba(194, 166, 117, 0.4);
         }
 
-        /* Section Base Styles */
         section {
             height: 100vh;
             width: 100vw;
@@ -130,7 +124,6 @@
             background: transparent;
         }
 
-        /* Theme Styles Matching Screenshot Palette */
         .theme-dark {
             background-color: transparent;
             color: var(--text-light-primary);
@@ -162,7 +155,6 @@
             max-width: 700px;
         }
 
-        /* Buttons matching screenshot outline style */
         .btn {
             display: inline-block;
             padding: 16px 38px;
@@ -184,7 +176,6 @@
             color: var(--bg-dark);
         }
 
-        /* STEADY SCROLL DOWN ARROW BUTTON */
         .scroll-down-arrow {
             position: absolute;
             bottom: 30px;
@@ -206,7 +197,7 @@
         }
 
         /* -------------------------------------------------------------
-           01 — OPENING (CINEMATIC OVERLAY & REVEAL)
+           01 — OPENING OVERLAY & START PROMPT
         ------------------------------------------------------------- */
         #cinematic-overlay {
             position: fixed;
@@ -220,6 +211,7 @@
             justify-content: center;
             align-items: center;
             transition: opacity 1.5s ease, visibility 1.5s;
+            cursor: pointer;
         }
 
         #bg-video {
@@ -258,9 +250,22 @@
             text-shadow: 0 2px 10px rgba(0,0,0,0.8);
         }
 
-        /* -------------------------------------------------------------
-           03 — CINEMATIC FILTER FOR PICTURE1.JPEG
-        ------------------------------------------------------------- */
+        /* TAP TO START SCREEN PROMPT */
+        #start-prompt {
+            position: absolute;
+            z-index: 10;
+            color: var(--accent-gold);
+            font-size: 0.75rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            padding: 14px 28px;
+            border: 1px solid var(--accent-gold);
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            transition: opacity 0.6s ease;
+        }
+
+        /* PHOTOGRAPHY & CARDS */
         .cinematic-photo-frame {
             width: 100%;
             max-width: 480px;
@@ -286,9 +291,6 @@
             transform: scale(1.03);
         }
 
-        /* -------------------------------------------------------------
-           04 — TIMELINE
-        ------------------------------------------------------------- */
         .timeline-container {
             display: flex;
             flex-direction: column;
@@ -331,9 +333,6 @@
             color: var(--text-light-secondary);
         }
 
-        /* -------------------------------------------------------------
-           05 — SOMEWHERE ALONG THE WAY
-        ------------------------------------------------------------- */
         #screen-05 {
             position: relative;
             background-size: cover;
@@ -355,9 +354,6 @@
             z-index: 1;
         }
 
-        /* -------------------------------------------------------------
-           06 — MINIMALIST COUNTDOWN
-        ------------------------------------------------------------- */
         .minimalist-countdown {
             display: flex;
             gap: 40px;
@@ -388,9 +384,6 @@
             font-weight: 400;
         }
 
-        /* -------------------------------------------------------------
-           07, 08 — THE ENTOURAGE & THE VENUES
-        ------------------------------------------------------------- */
         .details-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -470,9 +463,6 @@
             line-height: 1.4;
         }
 
-        /* -------------------------------------------------------------
-           09 — THE DETAILS
-        ------------------------------------------------------------- */
         .info-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -518,9 +508,7 @@
             border: 1px solid rgba(255,255,255,0.3);
         }
 
-        /* -------------------------------------------------------------
-           10 — CINEMATIC 3D INFINITE MARQUEE GALLERY
-        ------------------------------------------------------------- */
+        /* 3D MARQUEE GALLERY */
         .cinematic-gallery-wrapper {
             width: 100vw;
             max-width: 1200px;
@@ -548,17 +536,10 @@
             transform-style: preserve-3d;
         }
 
-        .marquee-left {
-            animation: marqueeScrollLeft 32s linear infinite;
-        }
+        .marquee-left { animation: marqueeScrollLeft 32s linear infinite; }
+        .marquee-right { animation: marqueeScrollRight 32s linear infinite; }
 
-        .marquee-right {
-            animation: marqueeScrollRight 32s linear infinite;
-        }
-
-        .marquee-track-container:hover .marquee-track {
-            animation-play-state: paused;
-        }
+        .marquee-track-container:hover .marquee-track { animation-play-state: paused; }
 
         .cinematic-card {
             width: 240px;
@@ -574,9 +555,7 @@
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
         }
 
-        .marquee-right .cinematic-card {
-            transform: rotateY(6deg) rotateX(-4deg);
-        }
+        .marquee-right .cinematic-card { transform: rotateY(6deg) rotateX(-4deg); }
 
         .cinematic-card:hover {
             transform: scale(1.08) rotateY(0deg) rotateX(0deg) translateZ(20px) !important;
@@ -593,23 +572,11 @@
             transition: filter 0.5s ease;
         }
 
-        .cinematic-card:hover img {
-            filter: contrast(100%) saturate(120%) brightness(105%);
-        }
+        .cinematic-card:hover img { filter: contrast(100%) saturate(120%) brightness(105%); }
 
-        @keyframes marqueeScrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
+        @keyframes marqueeScrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes marqueeScrollRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
 
-        @keyframes marqueeScrollRight {
-            0% { transform: translateX(-50%); }
-            100% { transform: translateX(0); }
-        }
-
-        /* -------------------------------------------------------------
-           11 — RSVP
-        ------------------------------------------------------------- */
         .rsvp-card-box {
             background: rgba(0, 0, 0, 0.45);
             border: 1px solid var(--border-dark-card);
@@ -642,7 +609,6 @@
             object-fit: contain;
         }
 
-        /* Mobile Layout */
         @media (max-width: 768px) {
             .section-title { font-size: 2.2rem; }
             .body-text { font-size: 1.25rem; }
@@ -658,7 +624,6 @@
 </head>
 <body>
 
-    <!-- GUARANTEED FULLSCREEN FIXED BACKGROUND (background.jpg) -->
     <div id="fixed-background"></div>
 
     <!-- BACKGROUND AUDIO ELEMENT (song.mp3) -->
@@ -670,9 +635,13 @@
     <!-- =============================================================
          01 — THE OPENING (SCREEN 01 OVERLAY)
     ============================================================= -->
-    <div id="cinematic-overlay">
-        <!-- 7-Second Video File -->
-        <video id="bg-video" autoplay muted playsinline>
+    <div id="cinematic-overlay" onclick="startExperience(this)">
+        
+        <!-- TAP TO START PROMPT (NO AUTOPLAY UNTIL CLICKED) -->
+        <div id="start-prompt">TAP TO EXPERIENCE OUR STORY</div>
+
+        <!-- 7-Second Video File (NO AUTOPLAY ATTRIBUTE) -->
+        <video id="bg-video" muted playsinline>
             <source src="vid.mp4" type="video/mp4">
         </video>
 
@@ -686,7 +655,7 @@
 
 
     <!-- =============================================================
-         01 — THE OPENING (REVEAL - EXACT SCREENSHOT STYLE)
+         01 — REVEAL
     ============================================================= -->
     <section id="screen-01-reveal" class="theme-dark">
         <div class="fade-in">
@@ -694,7 +663,7 @@
             <h1 class="serif" style="font-size: 4.2rem; font-weight: 300; margin-bottom: 0.5rem; letter-spacing: 0.05em;">ELENA & ADRIAN</h1>
             <p class="uppercase" style="font-size: 0.9rem; letter-spacing: 0.3em; color: var(--accent-gold); margin-bottom: 1.8rem;">JANUARY 31, 2028</p>
             <p class="body-text italic" style="font-size: 1.25rem; margin-bottom: 25px; color: var(--text-light-secondary);">And we'd love for you to be there.</p>
-            <a href="javascript:void(0)" onclick="enterStoryWithAudio(this)" class="btn">ENTER OUR STORY &#x2192;</a>
+            <a href="javascript:void(0)" onclick="scrollToNextSection(this)" class="btn">ENTER OUR STORY &#x2192;</a>
         </div>
     </section>
 
@@ -718,7 +687,7 @@
 
 
     <!-- =============================================================
-         03 — THE BEGINNING (CINEMATIC FILTER ON PICTURE1.JPEG)
+         03 — THE BEGINNING
     ============================================================= -->
     <section id="screen-03" class="theme-dark">
         <div class="fade-in">
@@ -788,7 +757,7 @@
 
 
     <!-- =============================================================
-         05 — SOMEWHERE ALONG THE WAY (FULL-SCREEN PAUSE)
+         05 — SOMEWHERE ALONG THE WAY
     ============================================================= -->
     <section id="screen-05" class="theme-dark">
         <div class="fade-in">
@@ -802,7 +771,7 @@
 
 
     <!-- =============================================================
-         06 — NOW (MINIMALIST COUNTDOWN)
+         06 — NOW
     ============================================================= -->
     <section id="screen-06" class="theme-dark">
         <div class="fade-in">
@@ -902,7 +871,7 @@
 
 
     <!-- =============================================================
-         08 — THE DAY (SAN SEBASTIAN CHURCH & MANILA HOTEL)
+         08 — THE DAY
     ============================================================= -->
     <section id="screen-08" class="theme-dark">
         <div class="fade-in">
@@ -934,7 +903,7 @@
 
 
     <!-- =============================================================
-         09 — THE DETAILS (GUEST INFORMATION CARDS)
+         09 — THE DETAILS
     ============================================================= -->
     <section id="screen-09" class="theme-dark">
         <div class="fade-in">
@@ -942,7 +911,6 @@
             <h2 class="section-title">GUEST INFORMATION</h2>
 
             <div class="info-cards">
-                <!-- Card 1: Attire with Shades of Purple -->
                 <div class="info-card">
                     <h4>WHAT TO WEAR</h4>
                     <p style="font-weight: 500; color: var(--text-light-primary);">FORMAL ATTIRE</p>
@@ -955,20 +923,17 @@
                     </div>
                 </div>
 
-                <!-- Card 2: Plus One Policy -->
                 <div class="info-card">
                     <h4>PLUS ONE (+1)</h4>
                     <p>Due to venue capacity, we can only accommodate guests named on the invitation.</p>
                     <p class="italic" style="color: var(--text-light-muted); font-size: 0.8rem; margin-top: 6px;">Thank you for understanding!</p>
                 </div>
 
-                <!-- Card 3: Gifts Policy -->
                 <div class="info-card">
                     <h4>WEDDING GIFTS</h4>
                     <p>Your presence is our greatest gift. Should you wish to honor us with a gift, a monetary contribution toward our future home would be deeply appreciated.</p>
                 </div>
 
-                <!-- Card 4: Warm Note -->
                 <div class="info-card">
                     <h4>WHAT TO BRING</h4>
                     <p>Yourself.</p>
@@ -982,7 +947,7 @@
 
 
     <!-- =============================================================
-         10 — THE MEMORIES (3D ADVANCED CINEMATIC MARQUEE SLIDER)
+         10 — THE MEMORIES
     ============================================================= -->
     <section id="screen-10" class="theme-dark">
         <div class="fade-in" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
@@ -990,7 +955,6 @@
             <h2 class="section-title">THE LITTLE THINGS</h2>
 
             <div class="cinematic-gallery-wrapper">
-                <!-- Top Marquee Track (Left Scroll) -->
                 <div class="marquee-track-container">
                     <div class="marquee-track marquee-left">
                         <div class="cinematic-card"><img src="picture2.jpeg" alt="Moment 1"></div>
@@ -999,7 +963,6 @@
                         <div class="cinematic-card"><img src="picture5.jpeg" alt="Moment 4"></div>
                         <div class="cinematic-card"><img src="picture6.jpeg" alt="Moment 5"></div>
                         <div class="cinematic-card"><img src="picture7.jpeg" alt="Moment 6"></div>
-                        <!-- Duplicated set for continuous loop -->
                         <div class="cinematic-card"><img src="picture2.jpeg" alt="Moment 1"></div>
                         <div class="cinematic-card"><img src="picture3.jpeg" alt="Moment 2"></div>
                         <div class="cinematic-card"><img src="picture4.jpeg" alt="Moment 3"></div>
@@ -1009,7 +972,6 @@
                     </div>
                 </div>
 
-                <!-- Bottom Marquee Track (Right Scroll) -->
                 <div class="marquee-track-container">
                     <div class="marquee-track marquee-right">
                         <div class="cinematic-card"><img src="picture7.jpeg" alt="Moment 6"></div>
@@ -1018,7 +980,6 @@
                         <div class="cinematic-card"><img src="picture4.jpeg" alt="Moment 3"></div>
                         <div class="cinematic-card"><img src="picture3.jpeg" alt="Moment 2"></div>
                         <div class="cinematic-card"><img src="picture2.jpeg" alt="Moment 1"></div>
-                        <!-- Duplicated set for continuous loop -->
                         <div class="cinematic-card"><img src="picture7.jpeg" alt="Moment 6"></div>
                         <div class="cinematic-card"><img src="picture6.jpeg" alt="Moment 5"></div>
                         <div class="cinematic-card"><img src="picture5.jpeg" alt="Moment 4"></div>
@@ -1034,7 +995,7 @@
 
 
     <!-- =============================================================
-         11 — RSVP (CLEAN QR CODE & DIRECT FORM LINK)
+         11 — RSVP
     ============================================================= -->
     <section id="screen-11" class="theme-dark">
         <div class="fade-in">
@@ -1043,14 +1004,12 @@
             <p class="body-text" style="font-size: 1.15rem; margin-bottom: 0.5rem;">We'd love to celebrate this next chapter with you.</p>
 
             <div class="rsvp-card-box">
-                <!-- Scan QR Code -->
                 <div class="qr-frame">
                     <img src="sampleQR.png" alt="Scan to RSVP QR Code">
                 </div>
                 
                 <p style="font-size: 0.85rem; color: var(--text-light-secondary);">Scan the QR code or click below to respond</p>
 
-                <!-- Direct Button Link (Replace URL with your actual Google Form URL) -->
                 <a href="https://forms.google.com" target="_blank" class="btn" style="margin-top: 0;">FILL OUT RSVP FORM &#x2192;</a>
             </div>
 
@@ -1076,70 +1035,60 @@
     </section>
 
     <!-- =============================================================
-         JAVASCRIPT TIMING, AUDIO, & CLICK-TO-SCROLL LOGIC
+         SYNCHRONIZED AUDIO & VIDEO JAVASCRIPT
     ============================================================= -->
     <script>
         let isAudioPlaying = false;
+        let hasStarted = false;
 
-        window.addEventListener('DOMContentLoaded', () => {
-            runOpeningSequence();
-        });
+        function startExperience(overlayElement) {
+            if (hasStarted) return;
+            hasStarted = true;
 
-        function runOpeningSequence() {
+            const prompt = document.getElementById('start-prompt');
             const bgVideo = document.getElementById('bg-video');
+            const bgMusic = document.getElementById('bg-music');
             const text1 = document.getElementById('fb-text-1');
             const text2 = document.getElementById('fb-text-2');
+            const musicBtn = document.getElementById('music-toggle-btn');
 
-            // 0:00–0:02 — Video only
-            const videoPromise = bgVideo.play();
-            if (videoPromise !== undefined) {
-                videoPromise.then(() => {
-                    bgVideo.style.opacity = '0.85';
-                }).catch(() => {
-                    bgVideo.style.opacity = '0';
-                });
-            }
+            // Hide the TAP prompt
+            prompt.style.opacity = '0';
+            setTimeout(() => prompt.remove(), 600);
 
-            // 0:02–0:04 — "We've shared so many little moments..."
+            // 1. START SONG.MP3 AT EXACT MOMENT 0:00 (TRIGGERED BY USER TAP)
+            bgMusic.play().then(() => {
+                isAudioPlaying = true;
+                musicBtn.classList.add('visible');
+            }).catch(err => {
+                console.log("Audio play error: ", err);
+            });
+
+            // 2. START VID.MP4 AT EXACT MOMENT 0:00 (TRIGGERED BY USER TAP)
+            bgVideo.play().then(() => {
+                bgVideo.style.opacity = '0.85';
+            });
+
+            // 0:02–0:04 Text Line
             setTimeout(() => { text1.style.opacity = '1'; }, 2000);
             setTimeout(() => { text1.style.opacity = '0'; }, 4000);
 
-            // 0:04–0:06 — "...and somehow, they led us here."
+            // 0:04–0:06 Text Line
             setTimeout(() => { text2.style.opacity = '1'; }, 4200);
             setTimeout(() => { text2.style.opacity = '0'; }, 6000);
 
-            // 0:06–0:07 — No text. Let final video frame breathe.
-            // 0:07 — Video fades to black & quiet pause.
+            // 0:07 — Video fades to black (Audio continues continuously)
             setTimeout(() => { 
                 bgVideo.style.opacity = '0'; 
                 bgVideo.pause();
             }, 7000);
 
-            // Reveal transition
+            // Reveal transition to Main Invitation
             setTimeout(() => {
                 const overlay = document.getElementById('cinematic-overlay');
                 overlay.style.opacity = '0';
                 overlay.style.visibility = 'hidden';
             }, 8200);
-        }
-
-        // ENTER STORY WITH song.mp3 AUDIO TRIGGER
-        function enterStoryWithAudio(btnElement) {
-            startAudio();
-            scrollToNextSection(btnElement);
-        }
-
-        function startAudio() {
-            const music = document.getElementById('bg-music');
-            const musicBtn = document.getElementById('music-toggle-btn');
-            
-            music.play().then(() => {
-                isAudioPlaying = true;
-                musicBtn.classList.add('visible');
-                musicBtn.innerHTML = '🎵';
-            }).catch(err => {
-                console.log("Audio autoplay prevented: " + err);
-            });
         }
 
         function toggleAudio() {
@@ -1157,7 +1106,6 @@
             }
         }
 
-        // SCROLL EXACTLY TO THE NEXT SECTION ON BUTTON CLICK
         function scrollToNextSection(element) {
             const currentSection = element.closest('section');
             const nextSection = currentSection.nextElementSibling;
@@ -1166,7 +1114,6 @@
             }
         }
 
-        // Intersection Observer for Content Fade-ins
         const observerOptions = { threshold: 0.3 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1178,7 +1125,7 @@
 
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-        // Wedding Countdown
+        // Countdown Timer
         const weddingDate = new Date("January 31, 2028 15:30:00").getTime();
         setInterval(function() {
             const now = new Date().getTime();
