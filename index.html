@@ -197,7 +197,7 @@
         }
 
         /* -------------------------------------------------------------
-           01 — OLD MOVIE CINEMATIC OPENING OVERLAY WITH GRAIN & FLICKER
+           01 — OLD MOVIE CINEMATIC OPENING OVERLAY
         ------------------------------------------------------------- */
         #cinematic-overlay {
             position: fixed;
@@ -292,7 +292,7 @@
             letter-spacing: 0.05em;
         }
 
-        /* VINTAGE MOVIE TITLE CARD PROMPT ("YOU ARE INVITED") */
+        /* VINTAGE MOVIE TITLE CARD PROMPT ("A PERSONAL INVITATION") */
         #start-prompt {
             position: absolute;
             z-index: 8;
@@ -324,9 +324,7 @@
             opacity: 0.85;
         }
 
-        /* -------------------------------------------------------------
-           PHOTOGRAPHY & CARDS
-        ------------------------------------------------------------- */
+        /* PHOTOGRAPHY & CARDS */
         .cinematic-photo-frame {
             width: 100%;
             max-width: 480px;
@@ -702,10 +700,10 @@
         <!-- Animated Film Grain Layer -->
         <div id="film-grain"></div>
 
-        <!-- VINTAGE TITLE CARD PROMPT ("YOU ARE INVITED") -->
+        <!-- UPDATED PROMPT: "A PERSONAL INVITATION / Tap to continue →" -->
         <div id="start-prompt">
-            <h3>YOU ARE INVITED</h3>
-            <p>TAP TO START THE FILM</p>
+            <h3>A PERSONAL INVITATION</h3>
+            <p>Tap to continue →</p>
         </div>
 
         <!-- 7-Second Video File -->
@@ -731,7 +729,8 @@
             <h1 class="serif" style="font-size: 4.2rem; font-weight: 300; margin-bottom: 0.5rem; letter-spacing: 0.05em;">ELENA & ADRIAN</h1>
             <p class="uppercase" style="font-size: 0.9rem; letter-spacing: 0.3em; color: var(--accent-gold); margin-bottom: 1.8rem;">JANUARY 31, 2028</p>
             <p class="body-text italic" style="font-size: 1.25rem; margin-bottom: 25px; color: var(--text-light-secondary);">And we'd love for you to be there.</p>
-            <a href="javascript:void(0)" onclick="scrollToNextSection(this)" class="btn">ENTER OUR STORY &#x2192;</a>
+            <!-- JUMPS song.mp3 TO 13.7 SECONDS ON CLICK -->
+            <a href="javascript:void(0)" onclick="enterStoryAndSyncAudio(this)" class="btn">ENTER OUR STORY &#x2192;</a>
         </div>
     </section>
 
@@ -1103,7 +1102,7 @@
     </section>
 
     <!-- =============================================================
-         SYNCHRONIZED AUDIO & VIDEO JAVASCRIPT
+         JAVASCRIPT TIMING & AUDIO SYNCHRONIZATION LOGIC
     ============================================================= -->
     <script>
         let isAudioPlaying = false;
@@ -1115,25 +1114,15 @@
 
             const prompt = document.getElementById('start-prompt');
             const bgVideo = document.getElementById('bg-video');
-            const bgMusic = document.getElementById('bg-music');
             const text1 = document.getElementById('fb-text-1');
             const text2 = document.getElementById('fb-text-2');
-            const musicBtn = document.getElementById('music-toggle-btn');
 
             // Hide the VINTAGE TITLE CARD PROMPT
             prompt.style.opacity = '0';
             prompt.style.transform = 'scale(0.95)';
             setTimeout(() => prompt.remove(), 800);
 
-            // 1. START SONG.MP3 AT EXACT MOMENT 0:00 (ON USER TAP)
-            bgMusic.play().then(() => {
-                isAudioPlaying = true;
-                musicBtn.classList.add('visible');
-            }).catch(err => {
-                console.log("Audio play error: ", err);
-            });
-
-            // 2. START VID.MP4 AT EXACT MOMENT 0:00 (ON USER TAP)
+            // START VID.MP4 (song.mp3 DOES NOT START YET)
             bgVideo.play().then(() => {
                 bgVideo.style.opacity = '0.85';
             });
@@ -1146,7 +1135,7 @@
             setTimeout(() => { text2.style.opacity = '1'; }, 4200);
             setTimeout(() => { text2.style.opacity = '0'; }, 6000);
 
-            // 0:07 — Video fades to black (Audio continues seamlessly)
+            // 0:07 — Video fades to black
             setTimeout(() => { 
                 bgVideo.style.opacity = '0'; 
                 bgVideo.pause();
@@ -1158,6 +1147,26 @@
                 overlay.style.opacity = '0';
                 overlay.style.visibility = 'hidden';
             }, 8200);
+        }
+
+        // TRIGGERED ONLY WHEN CLICKING "ENTER OUR STORY →"
+        function enterStoryAndSyncAudio(btnElement) {
+            const bgMusic = document.getElementById('bg-music');
+            const musicBtn = document.getElementById('music-toggle-btn');
+
+            // Set audio timestamp directly to 13.7 seconds and play
+            bgMusic.currentTime = 13.7;
+            
+            bgMusic.play().then(() => {
+                isAudioPlaying = true;
+                musicBtn.classList.add('visible');
+                musicBtn.innerHTML = '🎵';
+            }).catch(err => {
+                console.log("Audio play error: ", err);
+            });
+
+            // Continue scrolling to next section
+            scrollToNextSection(btnElement);
         }
 
         function toggleAudio() {
