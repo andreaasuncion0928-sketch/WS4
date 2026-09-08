@@ -77,6 +77,41 @@
             transform: translateY(0);
         }
 
+        /* FLOATING MUSIC TOGGLE BUTTON */
+        .music-control-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            z-index: 999;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            backdrop-filter: blur(6px);
+            transition: var(--transition-smooth);
+            outline: none;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .music-control-btn.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .music-control-btn:hover {
+            background: var(--accent-gold);
+            color: var(--bg-dark);
+            box-shadow: 0 0 15px rgba(194, 166, 117, 0.4);
+        }
+
         /* Section Base Styles */
         section {
             height: 100vh;
@@ -573,7 +608,7 @@
         }
 
         /* -------------------------------------------------------------
-           11 — RSVP (CLEAN QR & DIRECT BUTTON ONLY - DRIVE EMBED REMOVED)
+           11 — RSVP
         ------------------------------------------------------------- */
         .rsvp-card-box {
             background: rgba(0, 0, 0, 0.45);
@@ -626,6 +661,12 @@
     <!-- GUARANTEED FULLSCREEN FIXED BACKGROUND (background.jpg) -->
     <div id="fixed-background"></div>
 
+    <!-- BACKGROUND AUDIO ELEMENT (song.mp3) -->
+    <audio id="bg-music" src="song.mp3" loop preload="auto"></audio>
+
+    <!-- FLOATING MUSIC TOGGLE BUTTON -->
+    <button class="music-control-btn" id="music-toggle-btn" onclick="toggleAudio()" aria-label="Toggle Music">🎵</button>
+
     <!-- =============================================================
          01 — THE OPENING (SCREEN 01 OVERLAY)
     ============================================================= -->
@@ -653,7 +694,7 @@
             <h1 class="serif" style="font-size: 4.2rem; font-weight: 300; margin-bottom: 0.5rem; letter-spacing: 0.05em;">ELENA & ADRIAN</h1>
             <p class="uppercase" style="font-size: 0.9rem; letter-spacing: 0.3em; color: var(--accent-gold); margin-bottom: 1.8rem;">JANUARY 31, 2028</p>
             <p class="body-text italic" style="font-size: 1.25rem; margin-bottom: 25px; color: var(--text-light-secondary);">And we'd love for you to be there.</p>
-            <a href="javascript:void(0)" onclick="scrollToNextSection(this)" class="btn">ENTER OUR STORY &#x2192;</a>
+            <a href="javascript:void(0)" onclick="enterStoryWithAudio(this)" class="btn">ENTER OUR STORY &#x2192;</a>
         </div>
     </section>
 
@@ -1035,9 +1076,11 @@
     </section>
 
     <!-- =============================================================
-         JAVASCRIPT TIMING & CLICK-TO-SCROLL LOGIC
+         JAVASCRIPT TIMING, AUDIO, & CLICK-TO-SCROLL LOGIC
     ============================================================= -->
     <script>
+        let isAudioPlaying = false;
+
         window.addEventListener('DOMContentLoaded', () => {
             runOpeningSequence();
         });
@@ -1046,9 +1089,8 @@
             const bgVideo = document.getElementById('bg-video');
             const text1 = document.getElementById('fb-text-1');
             const text2 = document.getElementById('fb-text-2');
-            const overlay = document.getElementById('cinematic-overlay');
 
-            // 0:00–0:02 — Video only (natural audio plays)
+            // 0:00–0:02 — Video only
             const videoPromise = bgVideo.play();
             if (videoPromise !== undefined) {
                 videoPromise.then(() => {
@@ -1075,9 +1117,44 @@
 
             // Reveal transition
             setTimeout(() => {
+                const overlay = document.getElementById('cinematic-overlay');
                 overlay.style.opacity = '0';
                 overlay.style.visibility = 'hidden';
             }, 8200);
+        }
+
+        // ENTER STORY WITH song.mp3 AUDIO TRIGGER
+        function enterStoryWithAudio(btnElement) {
+            startAudio();
+            scrollToNextSection(btnElement);
+        }
+
+        function startAudio() {
+            const music = document.getElementById('bg-music');
+            const musicBtn = document.getElementById('music-toggle-btn');
+            
+            music.play().then(() => {
+                isAudioPlaying = true;
+                musicBtn.classList.add('visible');
+                musicBtn.innerHTML = '🎵';
+            }).catch(err => {
+                console.log("Audio autoplay prevented: " + err);
+            });
+        }
+
+        function toggleAudio() {
+            const music = document.getElementById('bg-music');
+            const musicBtn = document.getElementById('music-toggle-btn');
+
+            if (isAudioPlaying) {
+                music.pause();
+                isAudioPlaying = false;
+                musicBtn.innerHTML = '🔇';
+            } else {
+                music.play();
+                isAudioPlaying = true;
+                musicBtn.innerHTML = '🎵';
+            }
         }
 
         // SCROLL EXACTLY TO THE NEXT SECTION ON BUTTON CLICK
