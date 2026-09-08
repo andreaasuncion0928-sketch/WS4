@@ -354,7 +354,7 @@
         }
 
         /* -------------------------------------------------------------
-           07, 08 — THE ENTOURAGE & THE VENUES (USING LOCAL church.jpeg & hotel.jpg)
+           07, 08 — THE ENTOURAGE & THE VENUES
         ------------------------------------------------------------- */
         .details-grid {
             display: grid;
@@ -484,59 +484,121 @@
         }
 
         /* -------------------------------------------------------------
-           10 — THE MEMORIES (GALLERY)
+           10 — CINEMATIC 3D INFINITE MARQUEE GALLERY
         ------------------------------------------------------------- */
-        .gallery-grid {
-            columns: 3 200px;
-            column-gap: 12px;
-            width: 100%;
-            max-width: 900px;
+        .cinematic-gallery-wrapper {
+            width: 100vw;
+            max-width: 1200px;
             margin-top: 20px;
-            max-height: 55vh;
-            overflow-y: auto;
-            padding-right: 5px;
-        }
-
-        .gallery-item {
-            margin-bottom: 12px;
-            break-inside: avoid;
+            perspective: 1000px;
             overflow: hidden;
-            border: 1px solid var(--border-dark-card);
-            background-color: rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            padding: 10px 0;
+            mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
         }
 
-        .gallery-item img {
+        .marquee-track-container {
             width: 100%;
-            display: block;
-            filter: grayscale(10%);
-            transition: var(--transition-smooth);
+            overflow: hidden;
+            display: flex;
         }
 
-        .gallery-item:hover img {
-            filter: grayscale(0%);
-            transform: scale(1.03);
+        .marquee-track {
+            display: flex;
+            gap: 20px;
+            width: max-content;
+            transform-style: preserve-3d;
+        }
+
+        .marquee-left {
+            animation: marqueeScrollLeft 32s linear infinite;
+        }
+
+        .marquee-right {
+            animation: marqueeScrollRight 32s linear infinite;
+        }
+
+        .marquee-track-container:hover .marquee-track {
+            animation-play-state: paused;
+        }
+
+        .cinematic-card {
+            width: 240px;
+            height: 165px;
+            flex-shrink: 0;
+            border: 1px solid var(--border-dark-card);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            background: rgba(0, 0, 0, 0.6);
+            transform: rotateY(-6deg) rotateX(4deg);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s ease, box-shadow 0.5s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+        }
+
+        .marquee-right .cinematic-card {
+            transform: rotateY(6deg) rotateX(-4deg);
+        }
+
+        .cinematic-card:hover {
+            transform: scale(1.08) rotateY(0deg) rotateX(0deg) translateZ(20px) !important;
+            border-color: var(--accent-gold);
+            box-shadow: 0 15px 35px rgba(194, 166, 117, 0.35);
+            z-index: 10;
+        }
+
+        .cinematic-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: contrast(110%) saturate(105%) brightness(92%);
+            transition: filter 0.5s ease;
+        }
+
+        .cinematic-card:hover img {
+            filter: contrast(100%) saturate(120%) brightness(105%);
+        }
+
+        @keyframes marqueeScrollLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes marqueeScrollRight {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
         }
 
         /* -------------------------------------------------------------
-           11 — RSVP (WITH LOCAL sampleQR.png)
+           11 — RSVP (CLEAN QR & DIRECT BUTTON ONLY - DRIVE EMBED REMOVED)
         ------------------------------------------------------------- */
-        .rsvp-container-flex {
+        .rsvp-card-box {
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid var(--border-dark-card);
+            padding: 35px 30px;
+            border-radius: 6px;
+            backdrop-filter: blur(8px);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
+            max-width: 460px;
             width: 100%;
-            max-width: 550px;
-            margin-top: 15px;
+            margin-top: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
 
         .qr-frame {
-            width: 130px;
-            height: 130px;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 8px;
-            border: 1px solid var(--border-dark-card);
-            border-radius: 4px;
+            width: 160px;
+            height: 160px;
+            background: rgba(255, 255, 255, 0.96);
+            padding: 10px;
+            border: 1px solid var(--accent-gold);
+            border-radius: 6px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
         }
 
         .qr-frame img {
@@ -545,21 +607,12 @@
             object-fit: contain;
         }
 
-        .google-form-iframe {
-            width: 100%;
-            height: 350px;
-            border: none;
-            background: rgba(0, 0, 0, 0.45);
-            border: 1px solid var(--border-dark-card);
-            backdrop-filter: blur(6px);
-        }
-
         /* Mobile Layout */
         @media (max-width: 768px) {
             .section-title { font-size: 2.2rem; }
             .body-text { font-size: 1.25rem; }
             .details-grid { grid-template-columns: 1fr; gap: 20px; }
-            .gallery-grid { columns: 2 130px; max-height: 50vh; }
+            .cinematic-card { width: 170px; height: 120px; }
             .timeline-item { flex-direction: column; text-align: center; }
             .timeline-photo { width: 100%; height: 110px; }
             .minimalist-countdown { gap: 20px; }
@@ -743,7 +796,7 @@
 
 
     <!-- =============================================================
-         07 — THE PEOPLE WE LOVE (SAME BACKGROUND PALETTE)
+         07 — THE PEOPLE WE LOVE
     ============================================================= -->
     <section id="screen-07" class="theme-dark">
         <div class="fade-in" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
@@ -808,7 +861,7 @@
 
 
     <!-- =============================================================
-         08 — THE DAY (USING LOCAL church.jpeg & hotel.jpg)
+         08 — THE DAY (SAN SEBASTIAN CHURCH & MANILA HOTEL)
     ============================================================= -->
     <section id="screen-08" class="theme-dark">
         <div class="fade-in">
@@ -840,7 +893,7 @@
 
 
     <!-- =============================================================
-         09 — THE DETAILS (UPDATED GUEST INFO CARDS)
+         09 — THE DETAILS (GUEST INFORMATION CARDS)
     ============================================================= -->
     <section id="screen-09" class="theme-dark">
         <div class="fade-in">
@@ -888,20 +941,51 @@
 
 
     <!-- =============================================================
-         10 — THE MEMORIES (THE LITTLE THINGS GALLERY)
+         10 — THE MEMORIES (3D ADVANCED CINEMATIC MARQUEE SLIDER)
     ============================================================= -->
     <section id="screen-10" class="theme-dark">
-        <div class="fade-in">
+        <div class="fade-in" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
             <p class="section-label">A FEW OF OUR FAVORITE MOMENTS</p>
             <h2 class="section-title">THE LITTLE THINGS</h2>
 
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="picture2.jpeg" alt="Memory 1"></div>
-                <div class="gallery-item"><img src="picture3.jpeg" alt="Memory 2"></div>
-                <div class="gallery-item"><img src="picture4.jpeg" alt="Memory 3"></div>
-                <div class="gallery-item"><img src="picture5.jpeg" alt="Memory 4"></div>
-                <div class="gallery-item"><img src="picture6.jpeg" alt="Memory 5"></div>
-                <div class="gallery-item"><img src="picture7.jpeg" alt="Memory 6"></div>
+            <div class="cinematic-gallery-wrapper">
+                <!-- Top Marquee Track (Left Scroll) -->
+                <div class="marquee-track-container">
+                    <div class="marquee-track marquee-left">
+                        <div class="cinematic-card"><img src="picture2.jpeg" alt="Moment 1"></div>
+                        <div class="cinematic-card"><img src="picture3.jpeg" alt="Moment 2"></div>
+                        <div class="cinematic-card"><img src="picture4.jpeg" alt="Moment 3"></div>
+                        <div class="cinematic-card"><img src="picture5.jpeg" alt="Moment 4"></div>
+                        <div class="cinematic-card"><img src="picture6.jpeg" alt="Moment 5"></div>
+                        <div class="cinematic-card"><img src="picture7.jpeg" alt="Moment 6"></div>
+                        <!-- Duplicated set for continuous loop -->
+                        <div class="cinematic-card"><img src="picture2.jpeg" alt="Moment 1"></div>
+                        <div class="cinematic-card"><img src="picture3.jpeg" alt="Moment 2"></div>
+                        <div class="cinematic-card"><img src="picture4.jpeg" alt="Moment 3"></div>
+                        <div class="cinematic-card"><img src="picture5.jpeg" alt="Moment 4"></div>
+                        <div class="cinematic-card"><img src="picture6.jpeg" alt="Moment 5"></div>
+                        <div class="cinematic-card"><img src="picture7.jpeg" alt="Moment 6"></div>
+                    </div>
+                </div>
+
+                <!-- Bottom Marquee Track (Right Scroll) -->
+                <div class="marquee-track-container">
+                    <div class="marquee-track marquee-right">
+                        <div class="cinematic-card"><img src="picture7.jpeg" alt="Moment 6"></div>
+                        <div class="cinematic-card"><img src="picture6.jpeg" alt="Moment 5"></div>
+                        <div class="cinematic-card"><img src="picture5.jpeg" alt="Moment 4"></div>
+                        <div class="cinematic-card"><img src="picture4.jpeg" alt="Moment 3"></div>
+                        <div class="cinematic-card"><img src="picture3.jpeg" alt="Moment 2"></div>
+                        <div class="cinematic-card"><img src="picture2.jpeg" alt="Moment 1"></div>
+                        <!-- Duplicated set for continuous loop -->
+                        <div class="cinematic-card"><img src="picture7.jpeg" alt="Moment 6"></div>
+                        <div class="cinematic-card"><img src="picture6.jpeg" alt="Moment 5"></div>
+                        <div class="cinematic-card"><img src="picture5.jpeg" alt="Moment 4"></div>
+                        <div class="cinematic-card"><img src="picture4.jpeg" alt="Moment 3"></div>
+                        <div class="cinematic-card"><img src="picture3.jpeg" alt="Moment 2"></div>
+                        <div class="cinematic-card"><img src="picture2.jpeg" alt="Moment 1"></div>
+                    </div>
+                </div>
             </div>
         </div>
         <button class="scroll-down-arrow" onclick="scrollToNextSection(this)" aria-label="Scroll Down">&#x2193;</button>
@@ -909,7 +993,7 @@
 
 
     <!-- =============================================================
-         11 — RSVP (WITH LOCAL sampleQR.png)
+         11 — RSVP (CLEAN QR CODE & DIRECT FORM LINK)
     ============================================================= -->
     <section id="screen-11" class="theme-dark">
         <div class="fade-in">
@@ -917,16 +1001,19 @@
             <h2 class="section-title">WILL YOU BE THERE?</h2>
             <p class="body-text" style="font-size: 1.15rem; margin-bottom: 0.5rem;">We'd love to celebrate this next chapter with you.</p>
 
-            <div class="rsvp-container-flex">
-                <!-- QR Code Frame -->
+            <div class="rsvp-card-box">
+                <!-- Scan QR Code -->
                 <div class="qr-frame">
                     <img src="sampleQR.png" alt="Scan to RSVP QR Code">
                 </div>
+                
+                <p style="font-size: 0.85rem; color: var(--text-light-secondary);">Scan the QR code or click below to respond</p>
 
-                <!-- Google Form Embed Frame -->
-                <iframe class="google-form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSc_EXAMPLE/viewform?embedded=true">Loading Google Form…</iframe>
+                <!-- Direct Button Link (Replace URL with your actual Google Form URL) -->
+                <a href="https://forms.google.com" target="_blank" class="btn" style="margin-top: 0;">FILL OUT RSVP FORM &#x2192;</a>
             </div>
-            <p style="font-size: 0.75rem; letter-spacing: 0.15em; color: var(--text-light-muted); margin-top: 10px;" class="uppercase">Kindly respond on or before December 31, 2027</p>
+
+            <p style="font-size: 0.75rem; letter-spacing: 0.15em; color: var(--text-light-muted); margin-top: 15px;" class="uppercase">Kindly respond on or before December 31, 2027</p>
         </div>
         <button class="scroll-down-arrow" onclick="scrollToNextSection(this)" aria-label="Scroll Down">&#x2193;</button>
     </section>
