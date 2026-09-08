@@ -17,9 +17,9 @@
             --text-light-muted: #B3B3B3;
             --text-dark-primary: #171717;
             --text-dark-secondary: #333333;
-            --accent-gold: #E2C792;
+            --accent-gold: #C2A675;
             --accent-purple: #6B3E75;
-            --border-dark-card: rgba(255, 255, 255, 0.2);
+            --border-dark-card: rgba(255, 255, 255, 0.15);
             --border-light-card: rgba(23, 23, 23, 0.15);
             --font-serif: 'Cormorant Garamond', Georgia, serif;
             --font-sans: 'Montserrat', sans-serif;
@@ -46,14 +46,14 @@
             scroll-behavior: smooth;
         }
 
-        /* GUARANTEED FULLSCREEN FIXED BACKGROUND (background.jpg) */
+        /* FULLSCREEN FIXED BACKGROUND (background.jpg) */
         #fixed-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.72)), url('./background.jpg');
+            background-image: linear-gradient(rgba(20, 19, 18, 0.82), rgba(20, 19, 18, 0.82)), url('./background.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -95,7 +95,7 @@
             background: transparent;
         }
 
-        /* Visual Rhythm Theme Styles */
+        /* Theme Styles Matching Screenshot Palette */
         .theme-dark {
             background-color: transparent;
             color: var(--text-light-primary);
@@ -103,23 +103,6 @@
         .theme-dark .section-label { color: var(--accent-gold); }
         .theme-dark .section-title { color: var(--text-light-primary); }
         .theme-dark .body-text { color: var(--text-light-secondary); }
-
-        .theme-warm {
-            background-color: rgba(244, 240, 232, 0.88);
-            color: var(--text-dark-primary);
-            backdrop-filter: blur(5px);
-        }
-        .theme-warm .section-label { color: var(--accent-gold); }
-        .theme-warm .section-title { color: var(--text-dark-primary); }
-        .theme-warm .body-text { color: var(--text-dark-secondary); }
-
-        .theme-charcoal {
-            background-color: rgba(18, 18, 18, 0.85);
-            color: var(--text-light-primary);
-            backdrop-filter: blur(5px);
-        }
-        .theme-charcoal .section-label { color: var(--accent-gold); }
-        .theme-charcoal .section-title { color: var(--text-light-primary); }
 
         .section-label {
             font-size: 0.7rem;
@@ -144,11 +127,13 @@
             max-width: 700px;
         }
 
-        /* Buttons */
+        /* Buttons matching screenshot outline style */
         .btn {
             display: inline-block;
             padding: 16px 38px;
-            background: transparent;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--accent-gold);
+            color: var(--text-light-primary);
             font-family: var(--font-sans);
             font-size: 0.75rem;
             text-transform: uppercase;
@@ -159,25 +144,12 @@
             margin-top: 25px;
         }
 
-        .theme-dark .btn, .theme-charcoal .btn {
-            border: 1px solid var(--accent-gold);
-            color: var(--text-light-primary);
-        }
-        .theme-dark .btn:hover, .theme-charcoal .btn:hover {
+        .btn:hover {
             background: var(--accent-gold);
             color: var(--bg-dark);
         }
 
-        .theme-warm .btn {
-            border: 1px solid var(--text-dark-primary);
-            color: var(--text-dark-primary);
-        }
-        .theme-warm .btn:hover {
-            background: var(--text-dark-primary);
-            color: #FFFFFF;
-        }
-
-        /* STEADY SCROLL DOWN ARROW BUTTON (NO BOUNCE ANIMATION) */
+        /* STEADY SCROLL DOWN ARROW BUTTON */
         .scroll-down-arrow {
             position: absolute;
             bottom: 30px;
@@ -189,15 +161,10 @@
             background: none;
             border: none;
             outline: none;
+            color: var(--accent-gold);
             opacity: 0.85;
             transition: opacity 0.3s ease;
             text-decoration: none;
-        }
-        .theme-dark .scroll-down-arrow, .theme-charcoal .scroll-down-arrow {
-            color: var(--accent-gold);
-        }
-        .theme-warm .scroll-down-arrow {
-            color: var(--text-dark-primary);
         }
         .scroll-down-arrow:hover {
             opacity: 1;
@@ -275,7 +242,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* Rich Vintage Film Filter */
             filter: sepia(25%) contrast(115%) brightness(90%) saturate(110%);
             transition: var(--transition-smooth);
         }
@@ -374,21 +340,21 @@
             font-family: var(--font-serif);
             font-size: 4rem;
             font-weight: 200;
-            color: var(--text-dark-primary);
+            color: var(--text-light-primary);
             line-height: 1;
         }
 
         .countdown-label {
             font-size: 0.65rem;
             letter-spacing: 0.25em;
-            color: var(--text-dark-secondary);
+            color: var(--text-light-muted);
             text-transform: uppercase;
             margin-top: 8px;
             font-weight: 400;
         }
 
         /* -------------------------------------------------------------
-           07, 08 — THE ENTOURAGE & THE VENUES
+           07, 08 — THE ENTOURAGE & THE VENUES (DARK MATCHED BACKINGS)
         ------------------------------------------------------------- */
         .details-grid {
             display: grid;
@@ -400,10 +366,10 @@
         }
 
         .details-box {
-            background: rgba(255, 255, 255, 0.75);
+            background: rgba(0, 0, 0, 0.45);
             padding: 20px;
-            border: 1px solid var(--border-light-card);
-            backdrop-filter: blur(5px);
+            border: 1px solid var(--border-dark-card);
+            backdrop-filter: blur(6px);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -414,7 +380,7 @@
             height: 160px;
             object-fit: cover;
             margin-bottom: 15px;
-            border: 1px solid var(--border-light-card);
+            border: 1px solid var(--border-dark-card);
         }
 
         .details-box h3 {
@@ -422,12 +388,12 @@
             font-size: 1.6rem;
             font-weight: 400;
             margin-bottom: 6px;
-            color: var(--text-dark-primary);
+            color: var(--accent-gold);
         }
 
         .details-box p {
             font-size: 0.88rem;
-            color: var(--text-dark-secondary);
+            color: var(--text-light-secondary);
             margin-bottom: 4px;
         }
 
@@ -445,19 +411,19 @@
         }
 
         .entourage-group {
-            background: rgba(255, 255, 255, 0.75);
+            background: rgba(0, 0, 0, 0.45);
             padding: 20px 15px;
-            border: 1px solid var(--border-light-card);
+            border: 1px solid var(--border-dark-card);
             text-align: center;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(6px);
         }
 
         .entourage-group h4 {
             font-family: var(--font-serif);
             font-size: 1.25rem;
-            color: var(--text-dark-primary);
+            color: var(--accent-gold);
             margin-bottom: 10px;
-            border-bottom: 1px solid var(--border-light-card);
+            border-bottom: 1px solid var(--border-dark-card);
             padding-bottom: 6px;
             letter-spacing: 0.05em;
         }
@@ -465,17 +431,17 @@
         .entourage-group ul { list-style: none; }
         .entourage-group li {
             font-size: 0.82rem;
-            color: var(--text-dark-secondary);
+            color: var(--text-light-secondary);
             margin-bottom: 5px;
             line-height: 1.4;
         }
 
         /* -------------------------------------------------------------
-           09 — THE DETAILS
+           09 — THE DETAILS (UPDATED GUEST INFO)
         ------------------------------------------------------------- */
         .info-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
             width: 100%;
             max-width: 950px;
@@ -483,24 +449,39 @@
         }
 
         .info-card {
-            background: rgba(255, 255, 255, 0.75);
-            border: 1px solid var(--border-light-card);
-            padding: 22px 18px;
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid var(--border-dark-card);
+            padding: 25px 20px;
             text-align: center;
-            backdrop-filter: blur(4px);
+            backdrop-filter: blur(6px);
         }
 
         .info-card h4 {
             font-size: 0.75rem;
             letter-spacing: 0.2em;
             color: var(--accent-gold);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .info-card p {
-            font-size: 0.85rem;
-            color: var(--text-dark-secondary);
-            margin-bottom: 3px;
+            font-size: 0.88rem;
+            color: var(--text-light-secondary);
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+
+        .color-palette-swatches {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .swatch-circle {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
         /* -------------------------------------------------------------
@@ -550,9 +531,9 @@
             width: 100%;
             height: 400px;
             border: none;
-            background: rgba(255, 255, 255, 0.75);
-            border: 1px solid var(--border-light-card);
-            backdrop-filter: blur(4px);
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid var(--border-dark-card);
+            backdrop-filter: blur(6px);
         }
 
         /* Mobile Layout */
@@ -565,6 +546,7 @@
             .timeline-photo { width: 100%; height: 110px; }
             .minimalist-countdown { gap: 20px; }
             .countdown-number { font-size: 2.8rem; }
+            .info-cards { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -592,14 +574,14 @@
 
 
     <!-- =============================================================
-         01 — THE OPENING (REVEAL - WITH background.jpg)
+         01 — THE OPENING (REVEAL - EXACT SCREENSHOT STYLE & BACKGROUND)
     ============================================================= -->
     <section id="screen-01-reveal" class="theme-dark">
         <div class="fade-in">
             <p class="section-label">WE'RE GETTING MARRIED.</p>
-            <h1 class="serif" style="font-size: 4rem; font-weight: 300; margin-bottom: 0.5rem;">ELENA & ADRIAN</h1>
-            <p class="uppercase" style="font-size: 0.9rem; letter-spacing: 0.3em; color: var(--accent-gold); margin-bottom: 1.5rem;">January 31, 2028</p>
-            <p class="body-text italic" style="font-size: 1.2rem; margin-bottom: 10px;">And we'd love for you to be there.</p>
+            <h1 class="serif" style="font-size: 4.2rem; font-weight: 300; margin-bottom: 0.5rem; letter-spacing: 0.05em;">ELENA & ADRIAN</h1>
+            <p class="uppercase" style="font-size: 0.9rem; letter-spacing: 0.3em; color: var(--accent-gold); margin-bottom: 1.8rem;">JANUARY 31, 2028</p>
+            <p class="body-text italic" style="font-size: 1.25rem; margin-bottom: 25px; color: var(--text-light-secondary);">And we'd love for you to be there.</p>
             <a href="javascript:void(0)" onclick="scrollToNextSection(this)" class="btn">ENTER OUR STORY &#x2192;</a>
         </div>
     </section>
@@ -708,16 +690,16 @@
 
 
     <!-- =============================================================
-         06 — NOW (MINIMALIST COUNTDOWN WITH WRITTEN TEXT)
+         06 — NOW (MINIMALIST COUNTDOWN)
     ============================================================= -->
-    <section id="screen-06" class="theme-warm">
+    <section id="screen-06" class="theme-dark">
         <div class="fade-in">
             <p class="section-label">NOW</p>
             <h2 class="section-title">WE'RE GETTING MARRIED.</h2>
             <p class="serif" style="font-size: 2.2rem; color: var(--accent-gold); margin-bottom: 5px;">ELENA & ADRIAN</p>
             <p class="uppercase" style="letter-spacing: 0.25em; font-weight: 500; margin-bottom: 1.5rem;">JANUARY 31, 2028</p>
             
-            <p class="body-text italic" style="font-size: 1.25rem; color: var(--text-dark-secondary); margin-bottom: 10px;">Until the day we say "I do"...</p>
+            <p class="body-text italic" style="font-size: 1.25rem; color: var(--text-light-secondary); margin-bottom: 10px;">Until the day we say "I do"...</p>
 
             <div class="minimalist-countdown">
                 <div class="countdown-item">
@@ -743,9 +725,9 @@
 
 
     <!-- =============================================================
-         07 — THE PEOPLE WE LOVE (WITH background.jpg SHOWING)
+         07 — THE PEOPLE WE LOVE (SAME BACKGROUND PALETTE)
     ============================================================= -->
-    <section id="screen-07" class="theme-warm">
+    <section id="screen-07" class="theme-dark">
         <div class="fade-in" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
             <p class="section-label">THE PEOPLE</p>
             <h2 class="section-title" style="margin-bottom: 5px;">THE PEOPLE WE LOVE</h2>
@@ -808,30 +790,30 @@
 
 
     <!-- =============================================================
-         08 — THE DAY (SAN SEBASTIAN & MANILA HOTEL)
+         08 — THE DAY (SAME BACKGROUND PALETTE)
     ============================================================= -->
-    <section id="screen-08" class="theme-warm">
+    <section id="screen-08" class="theme-dark">
         <div class="fade-in">
             <p class="section-label">THE DAY</p>
             <h2 class="section-title">THE WEDDING DETAILS</h2>
             
             <div class="details-grid">
                 <div class="details-box">
-                    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/San_Sebastian_Church_Manila.jpg" alt="San Sebastian Church" class="venue-photo">
+                    <img src="https://images.unsplash.com/photo-1548625361-18512130e6ef?auto=format&fit=crop&w=800&q=80" alt="San Sebastian Church" class="venue-photo">
                     <h3>THE CEREMONY</h3>
-                    <p style="font-weight: 500; color: var(--text-dark-primary);">SAN SEBASTIAN CHURCH</p>
+                    <p style="font-weight: 500; color: var(--text-light-primary);">SAN SEBASTIAN CHURCH</p>
                     <p style="font-weight: 500; color: var(--accent-gold);">3:30 PM</p>
                     <p>Pasaje del Carmen, Quiapo, Manila</p>
-                    <a href="https://maps.google.com/?q=San+Sebastian+Church+Quiapo+Manila" target="_blank" style="color: var(--text-dark-primary); font-size: 0.75rem; text-decoration: underline; display: inline-block; margin-top: 10px;">VIEW LOCATION →</a>
+                    <a href="https://maps.google.com/?q=San+Sebastian+Church+Quiapo+Manila" target="_blank" style="color: var(--accent-gold); font-size: 0.75rem; text-decoration: underline; display: inline-block; margin-top: 10px;">VIEW LOCATION →</a>
                 </div>
 
                 <div class="details-box">
-                    <img src="https://commons.wikimedia.org/wiki/Special:FilePath/DSC_0743_Manila_Hotel.jpg" alt="Manila Hotel" class="venue-photo">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80" alt="Manila Hotel" class="venue-photo">
                     <h3>THE RECEPTION</h3>
-                    <p style="font-weight: 500; color: var(--text-dark-primary);">MANILA HOTEL</p>
+                    <p style="font-weight: 500; color: var(--text-light-primary);">MANILA HOTEL</p>
                     <p style="font-weight: 500; color: var(--accent-gold);">6:00 PM</p>
                     <p>1 Rizal Park, Ermita, Manila</p>
-                    <a href="https://maps.google.com/?q=Manila+Hotel+Ermita+Manila" target="_blank" style="color: var(--text-dark-primary); font-size: 0.75rem; text-decoration: underline; display: inline-block; margin-top: 10px;">VIEW LOCATION →</a>
+                    <a href="https://maps.google.com/?q=Manila+Hotel+Ermita+Manila" target="_blank" style="color: var(--accent-gold); font-size: 0.75rem; text-decoration: underline; display: inline-block; margin-top: 10px;">VIEW LOCATION →</a>
                 </div>
             </div>
         </div>
@@ -840,37 +822,46 @@
 
 
     <!-- =============================================================
-         09 — THE DETAILS
+         09 — THE DETAILS (UPDATED GUEST INFO CARDS)
     ============================================================= -->
-    <section id="screen-09" class="theme-warm">
+    <section id="screen-09" class="theme-dark">
         <div class="fade-in">
             <p class="section-label">THE DETAILS</p>
             <h2 class="section-title">GUEST INFORMATION</h2>
 
             <div class="info-cards">
+                <!-- Card 1: Attire with Shades of Purple -->
                 <div class="info-card">
                     <h4>WHAT TO WEAR</h4>
-                    <p style="font-weight: 500; color: var(--accent-purple);">PURPLE</p>
-                    <p>Formal Attire</p>
+                    <p style="font-weight: 500; color: var(--text-light-primary);">FORMAL ATTIRE</p>
+                    <p style="color: var(--accent-gold); margin-top: 5px;">Shades of Purple</p>
+                    <div class="color-palette-swatches">
+                        <div class="swatch-circle" style="background-color: #3b1e42;"></div>
+                        <div class="swatch-circle" style="background-color: #5b2c68;"></div>
+                        <div class="swatch-circle" style="background-color: #824ca0;"></div>
+                        <div class="swatch-circle" style="background-color: #a779c4;"></div>
+                    </div>
                 </div>
 
+                <!-- Card 2: Plus One Policy -->
                 <div class="info-card">
-                    <h4>WHEN</h4>
-                    <p style="font-weight: 500;">JANUARY 31, 2028</p>
-                    <p>Ceremony doors open 3:00 PM</p>
+                    <h4>PLUS ONE (+1)</h4>
+                    <p>Due to venue capacity, we can only accommodate guests named on the invitation.</p>
+                    <p class="italic" style="color: var(--text-light-muted); font-size: 0.8rem; margin-top: 6px;">Thank you for understanding!</p>
                 </div>
 
+                <!-- Card 3: Gifts Policy -->
                 <div class="info-card">
-                    <h4>WHERE</h4>
-                    <p>San Sebastian Church — Ceremony</p>
-                    <p>Manila Hotel — Reception</p>
+                    <h4>WEDDING GIFTS</h4>
+                    <p>Your presence is our greatest gift. Should you wish to honor us with a gift, a monetary contribution toward our future home would be deeply appreciated.</p>
                 </div>
 
+                <!-- Card 4: Warm Note -->
                 <div class="info-card">
                     <h4>WHAT TO BRING</h4>
                     <p>Yourself.</p>
                     <p>Your best dance moves.</p>
-                    <p class="italic" style="color: var(--accent-gold);">And maybe a tissue. ;)</p>
+                    <p class="italic" style="color: var(--accent-gold); margin-top: 4px;">And maybe a tissue. ;)</p>
                 </div>
             </div>
         </div>
@@ -881,7 +872,7 @@
     <!-- =============================================================
          10 — THE MEMORIES (THE LITTLE THINGS GALLERY)
     ============================================================= -->
-    <section id="screen-10" class="theme-charcoal">
+    <section id="screen-10" class="theme-dark">
         <div class="fade-in">
             <p class="section-label">A FEW OF OUR FAVORITE MOMENTS</p>
             <h2 class="section-title">THE LITTLE THINGS</h2>
@@ -902,7 +893,7 @@
     <!-- =============================================================
          11 — RSVP
     ============================================================= -->
-    <section id="screen-11" class="theme-warm">
+    <section id="screen-11" class="theme-dark">
         <div class="fade-in">
             <p class="section-label">RSVP</p>
             <h2 class="section-title">WILL YOU BE THERE?</h2>
@@ -912,7 +903,7 @@
                 <!-- Replace src with your Google Form Embed Link -->
                 <iframe class="google-form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSc_EXAMPLE/viewform?embedded=true">Loading Google Form…</iframe>
             </div>
-            <p style="font-size: 0.75rem; letter-spacing: 0.15em; color: var(--text-dark-secondary); margin-top: 10px;" class="uppercase">Kindly respond on or before December 31, 2027</p>
+            <p style="font-size: 0.75rem; letter-spacing: 0.15em; color: var(--text-light-muted); margin-top: 10px;" class="uppercase">Kindly respond on or before December 31, 2027</p>
         </div>
         <button class="scroll-down-arrow" onclick="scrollToNextSection(this)" aria-label="Scroll Down">&#x2193;</button>
     </section>
