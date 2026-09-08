@@ -7,7 +7,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,200;0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -197,7 +197,7 @@
         }
 
         /* -------------------------------------------------------------
-           01 — OLD MOVIE CINEMATIC OPENING OVERLAY
+           01 — MINIMALIST NOSTALGIC CINEMATIC OPENING OVERLAY
         ------------------------------------------------------------- */
         #cinematic-overlay {
             position: fixed;
@@ -205,7 +205,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #0d0c0a;
+            background-color: #0c0b0a;
             z-index: 9999;
             display: flex;
             justify-content: center;
@@ -215,7 +215,7 @@
             overflow: hidden;
         }
 
-        /* FILM GRAIN LAYER */
+        /* Subtle Film Grain Layer */
         #film-grain {
             position: absolute;
             top: -50%;
@@ -224,7 +224,7 @@
             height: 200%;
             pointer-events: none;
             z-index: 5;
-            opacity: 0.28;
+            opacity: 0.22;
             background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
             animation: grainMotion 0.8s steps(6) infinite;
         }
@@ -238,21 +238,21 @@
             90% { transform: translate(-2%, 5%); }
         }
 
-        /* OLD FILM PROJECTOR FLICKER & VIGNETTE */
+        /* Old Film Projector Flicker Overlay */
         #cinematic-overlay::before {
             content: "";
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 40%, rgba(0, 0, 0, 0.85) 100%);
+            background: radial-gradient(circle, transparent 45%, rgba(0, 0, 0, 0.9) 100%);
             z-index: 6;
             pointer-events: none;
             animation: projectorFlicker 0.15s infinite alternate;
         }
 
         @keyframes projectorFlicker {
-            0% { opacity: 0.88; }
-            50% { opacity: 0.96; }
-            100% { opacity: 0.82; }
+            0% { opacity: 0.85; }
+            50% { opacity: 0.95; }
+            100% { opacity: 0.80; }
         }
 
         #bg-video {
@@ -264,7 +264,7 @@
             object-fit: cover;
             opacity: 0;
             transition: opacity 1s ease;
-            filter: sepia(35%) contrast(120%) brightness(0.8);
+            filter: sepia(30%) contrast(115%) brightness(0.8);
         }
 
         .overlay-text-box {
@@ -288,40 +288,41 @@
             position: absolute;
             width: 100%;
             pointer-events: none;
-            text-shadow: 0 0 12px rgba(0,0,0,0.9), 0 0 2px rgba(250,245,232,0.5);
+            text-shadow: 0 0 12px rgba(0,0,0,0.9);
             letter-spacing: 0.05em;
         }
 
-        /* VINTAGE MOVIE TITLE CARD PROMPT ("A PERSONAL INVITATION") */
+        /* MINIMALIST NOSTALGIC TITLE CARD PROMPT */
         #start-prompt {
             position: absolute;
             z-index: 8;
             text-align: center;
-            padding: 24px 38px;
-            border: 1px solid var(--accent-gold);
-            background: rgba(13, 12, 10, 0.75);
+            padding: 22px 42px;
+            border: 0.5px solid rgba(194, 166, 117, 0.45);
+            background: rgba(12, 11, 10, 0.65);
             backdrop-filter: blur(4px);
             transition: opacity 0.8s ease, transform 0.8s ease;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.9), inset 0 0 15px rgba(194, 166, 117, 0.15);
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
         }
 
         #start-prompt h3 {
             font-family: var(--font-serif);
-            font-size: 2.2rem;
-            font-weight: 300;
+            font-size: 1.8rem;
+            font-weight: 200; /* Ultra thin font */
             color: var(--accent-gold);
-            letter-spacing: 0.2em;
+            letter-spacing: 0.25em;
             text-transform: uppercase;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             text-shadow: 0 2px 8px rgba(0,0,0,0.8);
         }
 
         #start-prompt p {
-            font-size: 0.68rem;
-            letter-spacing: 0.35em;
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
             color: var(--text-light-secondary);
             text-transform: uppercase;
-            opacity: 0.85;
+            opacity: 0.8;
+            font-weight: 300;
         }
 
         /* PHOTOGRAPHY & CARDS */
@@ -678,7 +679,7 @@
             .minimalist-countdown { gap: 20px; }
             .countdown-number { font-size: 2.8rem; }
             .info-cards { grid-template-columns: 1fr; }
-            #start-prompt h3 { font-size: 1.8rem; }
+            #start-prompt h3 { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -697,24 +698,20 @@
     ============================================================= -->
     <div id="cinematic-overlay" onclick="startExperience(this)">
         
-        <!-- Animated Film Grain Layer -->
         <div id="film-grain"></div>
 
-        <!-- UPDATED PROMPT: "A PERSONAL INVITATION / Tap to continue →" -->
+        <!-- MINIMALIST NOSTALGIC PROMPT -->
         <div id="start-prompt">
             <h3>A PERSONAL INVITATION</h3>
             <p>Tap to continue →</p>
         </div>
 
-        <!-- 7-Second Video File -->
         <video id="bg-video" muted playsinline>
             <source src="vid.mp4" type="video/mp4">
         </video>
 
         <div class="overlay-text-box">
-            <!-- 0:02–0:04 Line -->
             <div class="overlay-text" id="fb-text-1">We've shared so many little moments...</div>
-            <!-- 0:04–0:06 Line -->
             <div class="overlay-text" id="fb-text-2">and somehow, they led us here.</div>
         </div>
     </div>
@@ -729,7 +726,7 @@
             <h1 class="serif" style="font-size: 4.2rem; font-weight: 300; margin-bottom: 0.5rem; letter-spacing: 0.05em;">ELENA & ADRIAN</h1>
             <p class="uppercase" style="font-size: 0.9rem; letter-spacing: 0.3em; color: var(--accent-gold); margin-bottom: 1.8rem;">JANUARY 31, 2028</p>
             <p class="body-text italic" style="font-size: 1.25rem; margin-bottom: 25px; color: var(--text-light-secondary);">And we'd love for you to be there.</p>
-            <!-- JUMPS song.mp3 TO 13.7 SECONDS ON CLICK -->
+            <!-- JUMPS song.mp3 DIRECTLY TO 13.7 SECONDS ON CLICK -->
             <a href="javascript:void(0)" onclick="enterStoryAndSyncAudio(this)" class="btn">ENTER OUR STORY &#x2192;</a>
         </div>
     </section>
@@ -1102,7 +1099,7 @@
     </section>
 
     <!-- =============================================================
-         JAVASCRIPT TIMING & AUDIO SYNCHRONIZATION LOGIC
+         SYNCHRONIZED AUDIO & VIDEO JAVASCRIPT
     ============================================================= -->
     <script>
         let isAudioPlaying = false;
@@ -1114,15 +1111,25 @@
 
             const prompt = document.getElementById('start-prompt');
             const bgVideo = document.getElementById('bg-video');
+            const bgMusic = document.getElementById('bg-music');
             const text1 = document.getElementById('fb-text-1');
             const text2 = document.getElementById('fb-text-2');
+            const musicBtn = document.getElementById('music-toggle-btn');
 
-            // Hide the VINTAGE TITLE CARD PROMPT
+            // Hide the MINIMALIST PROMPT
             prompt.style.opacity = '0';
             prompt.style.transform = 'scale(0.95)';
             setTimeout(() => prompt.remove(), 800);
 
-            // START VID.MP4 (song.mp3 DOES NOT START YET)
+            // 1. START SONG.MP3 AT 0:00 IMMEDIATELY ON FIRST TAP
+            bgMusic.play().then(() => {
+                isAudioPlaying = true;
+                musicBtn.classList.add('visible');
+            }).catch(err => {
+                console.log("Audio play error: ", err);
+            });
+
+            // 2. START VID.MP4 AT 0:00 IMMEDIATELY ON FIRST TAP
             bgVideo.play().then(() => {
                 bgVideo.style.opacity = '0.85';
             });
@@ -1135,7 +1142,7 @@
             setTimeout(() => { text2.style.opacity = '1'; }, 4200);
             setTimeout(() => { text2.style.opacity = '0'; }, 6000);
 
-            // 0:07 — Video fades to black
+            // 0:07 — Video fades to black (Audio continues playing continuously)
             setTimeout(() => { 
                 bgVideo.style.opacity = '0'; 
                 bgVideo.pause();
@@ -1149,23 +1156,14 @@
             }, 8200);
         }
 
-        // TRIGGERED ONLY WHEN CLICKING "ENTER OUR STORY →"
+        // TRIGGERED WHEN CLICKING "ENTER OUR STORY →" - JUMPS SONG.MP3 TO 13.7 SECONDS
         function enterStoryAndSyncAudio(btnElement) {
             const bgMusic = document.getElementById('bg-music');
-            const musicBtn = document.getElementById('music-toggle-btn');
 
-            // Set audio timestamp directly to 13.7 seconds and play
+            // Jump audio timestamp directly to 13.7 seconds
             bgMusic.currentTime = 13.7;
-            
-            bgMusic.play().then(() => {
-                isAudioPlaying = true;
-                musicBtn.classList.add('visible');
-                musicBtn.innerHTML = '🎵';
-            }).catch(err => {
-                console.log("Audio play error: ", err);
-            });
 
-            // Continue scrolling to next section
+            // Scroll to next section
             scrollToNextSection(btnElement);
         }
 
