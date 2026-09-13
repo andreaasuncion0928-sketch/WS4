@@ -18,6 +18,7 @@
             --text-dark-primary: #171717;
             --text-dark-secondary: #333333;
             --accent-gold: #C2A675;
+            --accent-gold-dark: #8C6D37;
             --accent-purple: #6B3E75;
             --border-dark-card: rgba(255, 255, 255, 0.15);
             --border-light-card: rgba(23, 23, 23, 0.15);
@@ -292,37 +293,37 @@
             letter-spacing: 0.05em;
         }
 
-        /* MINIMALIST NOSTALGIC TITLE CARD PROMPT */
+        /* MINIMALIST NOSTALGIC TITLE CARD PROMPT (UPDATED LIGHT THEME) */
         #start-prompt {
             position: absolute;
             z-index: 8;
             text-align: center;
-            padding: 22px 42px;
-            border: 0.5px solid rgba(194, 166, 117, 0.45);
-            background: rgba(12, 11, 10, 0.65);
-            backdrop-filter: blur(4px);
+            padding: 26px 48px;
+            border: 1px solid var(--accent-gold);
+            background: rgba(250, 246, 238, 0.92);
+            backdrop-filter: blur(8px);
+            border-radius: 4px;
             transition: opacity 0.8s ease, transform 0.8s ease;
-            box-shadow: 0 0 25px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
         }
 
         #start-prompt h3 {
             font-family: var(--font-serif);
             font-size: 1.8rem;
-            font-weight: 200; /* Ultra thin font */
-            color: var(--accent-gold);
+            font-weight: 400;
+            color: var(--accent-gold-dark);
             letter-spacing: 0.25em;
             text-transform: uppercase;
-            margin-bottom: 6px;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+            margin-bottom: 8px;
         }
 
         #start-prompt p {
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             letter-spacing: 0.3em;
-            color: var(--text-light-secondary);
+            color: var(--text-dark-secondary);
             text-transform: uppercase;
-            opacity: 0.8;
-            font-weight: 300;
+            opacity: 0.9;
+            font-weight: 500;
         }
 
         /* PHOTOGRAPHY & CARDS */
@@ -679,7 +680,7 @@
             .minimalist-countdown { gap: 20px; }
             .countdown-number { font-size: 2.8rem; }
             .info-cards { grid-template-columns: 1fr; }
-            #start-prompt h3 { font-size: 1.5rem; }
+            #start-prompt h3 { font-size: 1.4rem; }
         }
     </style>
 </head>
@@ -727,7 +728,7 @@
             <p class="uppercase" style="font-size: 0.9rem; letter-spacing: 0.3em; color: var(--accent-gold); margin-bottom: 1.8rem;">JANUARY 31, 2028</p>
             <p class="body-text italic" style="font-size: 1.25rem; margin-bottom: 25px; color: var(--text-light-secondary);">And we'd love for you to be there.</p>
             <!-- JUMPS song.mp3 DIRECTLY TO 13.7 SECONDS ON CLICK -->
-            <a href="javascript:void(0)" onclick="enterStoryAndSyncAudio(this)" class="btn">ENTER OUR STORY &#x2192;</a>
+            <a href="javascript:void(0)" onclick="enterStoryAndSyncAudio(this)" class="btn">ENTER OUR STORY &#x2193;</a>
         </div>
     </section>
 
