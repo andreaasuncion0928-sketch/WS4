@@ -293,7 +293,7 @@
             letter-spacing: 0.05em;
         }
 
-        /* MINIMALIST NOSTALGIC TITLE CARD PROMPT (UPDATED LIGHT THEME) */
+        /* MINIMALIST NOSTALGIC TITLE CARD PROMPT (LIGHT THEME) */
         #start-prompt {
             position: absolute;
             z-index: 8;
@@ -352,15 +352,60 @@
             transform: scale(1.03);
         }
 
+        /* SCROLLABLE TIMELINE CONTAINER ENHANCEMENTS */
+        .timeline-container-wrapper {
+            position: relative;
+            max-width: 650px;
+            width: 100%;
+        }
+
+        .scroll-hint-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            background: rgba(0, 0, 0, 0.75);
+            border: 1px solid rgba(194, 166, 117, 0.4);
+            padding: 4px 12px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            animation: bounceSoft 2s infinite;
+        }
+
+        @keyframes bounceSoft {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(3px); }
+        }
+
         .timeline-container {
             display: flex;
             flex-direction: column;
             gap: 15px;
             max-width: 650px;
             width: 100%;
-            max-height: 58vh;
+            max-height: 55vh;
             overflow-y: auto;
-            padding-right: 10px;
+            padding-right: 12px;
+            /* Visible scrollbar for Webkit */
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent-gold) rgba(255, 255, 255, 0.08);
+        }
+
+        /* Custom Gold Scrollbar to emphasize scrollability */
+        .timeline-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .timeline-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+        }
+        .timeline-container::-webkit-scrollbar-thumb {
+            background-color: var(--accent-gold);
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(194, 166, 117, 0.5);
         }
 
         .timeline-item {
@@ -372,6 +417,11 @@
             padding: 12px 18px;
             text-align: left;
             backdrop-filter: blur(4px);
+            transition: border-color 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            border-color: rgba(194, 166, 117, 0.6);
         }
 
         .timeline-photo {
@@ -775,44 +825,49 @@
         <div class="fade-in" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
             <p class="section-label">THE LITTLE THINGS</p>
 
-            <div class="timeline-container">
-                <div class="timeline-item">
-                    <img src="picture1.jpeg" alt="2019" class="timeline-photo">
-                    <div class="timeline-content">
-                        <h4>2019</h4>
-                        <p>The beginning</p>
-                    </div>
+            <div class="timeline-container-wrapper">
+                <div style="text-align: center;">
+                    <span class="scroll-hint-pill">Scroll timeline ↓</span>
                 </div>
-
-                <div class="timeline-item">
-                    <img src="picture2.jpeg" alt="2020" class="timeline-photo">
-                    <div class="timeline-content">
-                        <h4>2020</h4>
-                        <p>New memories</p>
+                <div class="timeline-container">
+                    <div class="timeline-item">
+                        <img src="picture1.jpeg" alt="2019" class="timeline-photo">
+                        <div class="timeline-content">
+                            <h4>2019</h4>
+                            <p>The beginning</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="timeline-item">
-                    <img src="picture3.jpeg" alt="2022" class="timeline-photo">
-                    <div class="timeline-content">
-                        <h4>2022</h4>
-                        <p>More places. More stories.</p>
+                    <div class="timeline-item">
+                        <img src="picture2.jpeg" alt="2020" class="timeline-photo">
+                        <div class="timeline-content">
+                            <h4>2020</h4>
+                            <p>New memories</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="timeline-item">
-                    <img src="picture4.jpeg" alt="2025" class="timeline-photo">
-                    <div class="timeline-content">
-                        <h4>2025</h4>
-                        <p>Life started feeling like ours.</p>
+                    <div class="timeline-item">
+                        <img src="picture3.jpeg" alt="2022" class="timeline-photo">
+                        <div class="timeline-content">
+                            <h4>2022</h4>
+                            <p>More places. More stories.</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="timeline-item" style="border-color: var(--accent-gold);">
-                    <img src="picture5.jpeg" alt="2028" class="timeline-photo">
-                    <div class="timeline-content">
-                        <h4 style="color: var(--accent-gold);">2028</h4>
-                        <p style="color: var(--text-light-primary);">And here we are.</p>
+                    <div class="timeline-item">
+                        <img src="picture4.jpeg" alt="2025" class="timeline-photo">
+                        <div class="timeline-content">
+                            <h4>2025</h4>
+                            <p>Life started feeling like ours.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item" style="border-color: var(--accent-gold);">
+                        <img src="picture5.jpeg" alt="2028" class="timeline-photo">
+                        <div class="timeline-content">
+                            <h4 style="color: var(--accent-gold);">2028</h4>
+                            <p style="color: var(--text-light-primary);">And here we are.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1075,7 +1130,7 @@
                 
                 <p style="font-size: 0.85rem; color: var(--text-light-secondary);">Scan the QR code or click below to respond</p>
 
-                <a href="https://forms.google.com" target="_blank" class="btn" style="margin-top: 0;">FILL OUT RSVP FORM &#x2192;</a>
+                <a href="https://forms.google.com" target="_blank" class="btn" style="margin-top: 0;">FILL OUT RSVP FORM &#x2193;</a>
             </div>
 
             <p style="font-size: 0.75rem; letter-spacing: 0.15em; color: var(--text-light-muted); margin-top: 15px;" class="uppercase">Kindly respond on or before December 31, 2027</p>
